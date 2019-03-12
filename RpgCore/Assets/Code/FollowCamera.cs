@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowCamera : MonoBehaviour {
-    [SerializeField] private Transform _target;
+    [SerializeField] private Transform _target = null;
 
-    private void Update() {
+    private void LateUpdate() {
         transform.position = _target.position;
     }
 }
