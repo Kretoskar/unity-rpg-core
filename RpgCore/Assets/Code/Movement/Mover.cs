@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using RPG.Combat;
 
 namespace RPG.Movement {
     /// <summary>
@@ -19,6 +20,15 @@ namespace RPG.Movement {
 
         private void Update() {
             UpdateAnimator();
+        }
+
+        /// <summary>
+        /// Start the action of moving the character
+        /// </summary>
+        /// <param name="destination">destination to move to</param>
+        public void StartMoveAction(Vector3 destination) {
+            GetComponent<Fighter>().Cancel();
+            MoveTo(destination);
         }
 
         /// <summary>
