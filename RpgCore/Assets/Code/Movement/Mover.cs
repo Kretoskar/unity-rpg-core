@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 using RPG.Combat;
+using RPG.Core;
 
 namespace RPG.Movement {
     /// <summary>
@@ -27,6 +28,7 @@ namespace RPG.Movement {
         /// </summary>
         /// <param name="destination">destination to move to</param>
         public void StartMoveAction(Vector3 destination) {
+            GetComponent<ActionScheduler>().StartAction(this);
             GetComponent<Fighter>().Cancel();
             MoveTo(destination);
         }
