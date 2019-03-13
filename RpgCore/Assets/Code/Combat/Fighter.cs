@@ -3,7 +3,10 @@ using RPG.Movement;
 using RPG.Core;
 
 namespace RPG.Combat {
-    public class Fighter : MonoBehaviour {
+    /// <summary>
+    /// Handles fight action
+    /// </summary>
+    public class Fighter : MonoBehaviour, IAction {
 
         [SerializeField] private float _weaponRange = 2f;
 
@@ -22,19 +25,30 @@ namespace RPG.Combat {
                 _mover.MoveTo(_target.position);
             }
             else {
-                _mover.Stop();
+                _mover.Cancel();
             }
         }
 
+        /// <summary>
+        /// Returns true if we crossed the weaponRange
+        /// </summary>
+        /// <returns></returns>
         private bool GetIsInRange() {
             return Vector3.Distance(transform.position, _target.position) < _weaponRange;
         }
 
+        /// <summary>
+        /// Start the attack action
+        /// </summary>
+        /// <param name="combatTarget">Target of the attack</param>
         public void Attack(CombatTarget combatTarget) {
             GetComponent<ActionScheduler>().StartAction(this);
             _target = combatTarget.transform;
         }
 
+        /// <summary>
+        /// Cancel the attack action
+        /// </summary>
         public void Cancel() {
             _target = null;
         }

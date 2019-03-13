@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
-using RPG.Combat;
 using RPG.Core;
 
 namespace RPG.Movement {
     /// <summary>
     /// Move character and update his animator
     /// </summary>
-    public class Mover : MonoBehaviour {
+    public class Mover : MonoBehaviour, IAction {
 
         private const string _animatorBlendValue = "ForwardSpeed";
 
@@ -29,7 +28,6 @@ namespace RPG.Movement {
         /// <param name="destination">destination to move to</param>
         public void StartMoveAction(Vector3 destination) {
             GetComponent<ActionScheduler>().StartAction(this);
-            GetComponent<Fighter>().Cancel();
             MoveTo(destination);
         }
 
@@ -45,7 +43,7 @@ namespace RPG.Movement {
         /// <summary>
         /// Stop the nav mesh agent
         /// </summary>
-        public void Stop() {
+        public void Cancel() {
             _navMeshAgent.isStopped = true;
         }
 

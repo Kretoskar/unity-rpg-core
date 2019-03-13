@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.Core {
+    /// <summary>
+    /// Handles changing between player's actions
+    /// </summary>
     public class ActionScheduler : MonoBehaviour {
 
-        private MonoBehaviour _currentAction;
+        private IAction _currentAction;
 
-        public void StartAction(MonoBehaviour action) {
+        /// <summary>
+        /// Start the given action
+        /// </summary>
+        /// <param name="action">Action to start</param>
+        public void StartAction(IAction action) {
             if (_currentAction == action) return;
-            if(_currentAction !=null)
-                print("Cancelling" + _currentAction);
+            if (_currentAction != null)
+                _currentAction.Cancel();
             _currentAction = action;
         }
     }

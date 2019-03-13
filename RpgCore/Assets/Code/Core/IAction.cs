@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Combat {
+namespace RPG.Core {
     /// <summary>
-    /// Makes object a target for player to attack
+    /// Actions for the Action Scheduler to handle
     /// </summary>
-    public class CombatTarget : MonoBehaviour {
-        
+    public interface IAction {
+        void Cancel();
     }
 }
