@@ -11,7 +11,8 @@ namespace RPG.Control {
         private Mover mover;
 
         private void Update() {
-            InterractWithMovement();
+            if (InteractWithCombat()) return;
+            if (InteractWithMovement()) return;
         }
 
         private void Start() {
@@ -21,17 +22,22 @@ namespace RPG.Control {
         /// <summary>
         /// Check for player input to handle movement
         /// </summary>
-        private void InterractWithMovement() {
-            if (Input.GetMouseButton(0)) {
-                InteractWithCombat();
-                MoveToCursor();
+        private bool InteractWithMovement() {
+            RaycastHit hit;
+            bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
+            if (hasHit) {
+                if (Input.GetMouseButton(0)) {
+                    mover.MoveTo(hit.point);
+                }
+                return true;
             }
+            return false;
         }
 
         /// <summary>
         /// Interact with combat target
         /// </summary>
-        private void InteractWithCombat() {
+        private bool InteractWithCombat() {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
             foreach (RaycastHit hit in hits) {
                 CombatTarget target =  hit.transform.GetComponent<CombatTarget>();
@@ -40,18 +46,9 @@ namespace RPG.Control {
                 if(Input.GetMouseButtonDown(0)) {
                     GetComponent<Fighter>().Attack(target);
                 }
+                return true;
             }
-        }
-
-        /// <summary>
-        /// Move character to raycast hit position
-        /// </summary>
-        private void MoveToCursor() {
-            RaycastHit hit;
-            bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
-            if (hasHit) {
-                mover.MoveTo(hit.point);
-            }
+            return false;
         }
 
         /// <summary>
