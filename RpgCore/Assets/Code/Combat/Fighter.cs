@@ -9,17 +9,20 @@ namespace RPG.Combat {
     public class Fighter : MonoBehaviour, IAction {
 
         [SerializeField] private float _weaponRange = 2f;
+        [SerializeField] private float _timeBetweenAttacks = 0.5f;
 
         private const string triggerName = "attack";
 
         private Mover _mover;
         private Transform _target;
+        private float _timeSinceLastAttack = 0;
 
         private void Start() {
             _mover = GetComponent<Mover>();
         }
 
         private void Update() {
+            _timeSinceLastAttack += Time.deltaTime;
 
             if (_target == null) return;
 
@@ -36,7 +39,10 @@ namespace RPG.Combat {
         /// All of the behaviour for the attack
         /// </summary>
         private void AttackBehaviour() {
-            GetComponent<Animator>().SetTrigger(triggerName);
+            if (_timeSinceLastAttack > _timeBetweenAttacks) {
+                GetComponent<Animator>().SetTrigger(triggerName);
+                _timeSinceLastAttack = 0;
+            }
         }
 
         /// <summary>
