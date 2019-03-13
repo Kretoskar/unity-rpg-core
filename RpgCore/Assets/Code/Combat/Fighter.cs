@@ -10,6 +10,8 @@ namespace RPG.Combat {
 
         [SerializeField] private float _weaponRange = 2f;
 
+        private const string triggerName = "attack";
+
         private Mover _mover;
         private Transform _target;
 
@@ -26,7 +28,15 @@ namespace RPG.Combat {
             }
             else {
                 _mover.Cancel();
+                AttackBehaviour();
             }
+        }
+
+        /// <summary>
+        /// All of the behaviour for the attack
+        /// </summary>
+        private void AttackBehaviour() {
+            GetComponent<Animator>().SetTrigger(triggerName);
         }
 
         /// <summary>
@@ -51,6 +61,13 @@ namespace RPG.Combat {
         /// </summary>
         public void Cancel() {
             _target = null;
+        }
+
+        /// <summary>
+        /// Animation event
+        /// </summary>
+        private void Hit() {
+
         }
     }
 }
