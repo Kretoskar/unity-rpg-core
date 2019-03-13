@@ -6,6 +6,7 @@ namespace RPG.Movement {
     /// Move character and update his animator
     /// </summary>
     public class Mover : MonoBehaviour {
+
         private const string _animatorBlendValue = "ForwardSpeed";
 
         private NavMeshAgent _navMeshAgent;
@@ -26,6 +27,14 @@ namespace RPG.Movement {
         /// <param name="destination">Where to move the character</param>
         public void MoveTo(Vector3 destination) {
             _navMeshAgent.destination = destination;
+            _navMeshAgent.isStopped = false;
+        }
+
+        /// <summary>
+        /// Stop the nav mesh agent
+        /// </summary>
+        public void Stop() {
+            _navMeshAgent.isStopped = true;
         }
 
         /// <summary>
