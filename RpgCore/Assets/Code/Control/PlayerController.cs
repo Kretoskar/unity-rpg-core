@@ -1,42 +1,62 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using RPG.Movement;
+using RPG.Combat;
 
-/// <summary>
-/// Handles player input
-/// </summary>
-public class PlayerController : MonoBehaviour {
+namespace RPG.Control {
+    /// <summary>
+    /// Handles player's character interaction
+    /// </summary>
+    public class PlayerController : MonoBehaviour {
 
-    private Mover mover;
+        private Mover mover;
 
-    private void Update() {
-        if(Input.GetMouseButton(0)) {
-            MoveToCursor();
+        private void Update() {
+            if (InteractWithCombat()) return;
+            if (InteractWithMovement()) return;
+        }
+
+        private void Start() {
+            mover = GetComponent<Mover>();
+        }
+
+        /// <summary>
+        /// Check for player input to handle movement
+        /// </summary>
+        private bool InteractWithMovement() {
+            RaycastHit hit;
+            bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
+            if (hasHit) {
+                if (Input.GetMouseButton(0)) {
+                    mover.StartMoveAction(hit.point);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Interact with combat target
+        /// </summary>
+        private bool InteractWithCombat() {
+            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+            foreach (RaycastHit hit in hits) {
+                CombatTarget target =  hit.transform.GetComponent<CombatTarget>();
+                if (target == null) continue;
+
+                if(Input.GetMouseButtonDown(0)) {
+                    GetComponent<Fighter>().Attack(target);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Calculatre ray of the mouse click
+        /// </summary>
+        /// <returns> Ray of the mouse click </returns>
+        private Ray GetMouseRay() {
+            return Camera.main.ScreenPointToRay(Input.mousePosition);
         }
     }
-
-    private void Start() {
-        mover = GetComponent<Mover>();
-    }
-
-    /// <summary>
-    /// Move character to raycast hit position
-    /// </summary>
-    private void MoveToCursor() {
-        Ray ray = RecalculateRaycast();
-        RaycastHit hit;
-        bool hasHit = Physics.Raycast(ray, out hit);
-        if (hasHit) {
-            mover.MoveTo(hit.point);
-        }
-    }
-
-    /// <summary>
-    /// Calculatre ray of the mouse click
-    /// </summary>
-    /// <returns> Ray of the mouse click </returns>
-    private Ray RecalculateRaycast() {
-        return Camera.main.ScreenPointToRay(Input.mousePosition);
-    }
-
 }
