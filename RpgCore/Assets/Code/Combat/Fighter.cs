@@ -68,6 +68,17 @@ namespace RPG.Combat {
         }
 
         /// <summary>
+        /// Checks if character can attack the given combat target
+        /// </summary>
+        /// <param name="combatTarget">combat target to check</param>
+        /// <returns>posibillity of attacking the combat target</returns>
+        public bool CanAttack(CombatTarget combatTarget) {
+            if (combatTarget == null) return false;
+            Health targetToTest = combatTarget.GetComponent<Health>();
+            return targetToTest != null && !targetToTest.IsDead;
+        }
+
+        /// <summary>
         /// Set the _target for the attack
         /// </summary>
         /// <param name="combatTarget">Target of the attack</param>
