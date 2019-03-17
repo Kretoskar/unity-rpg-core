@@ -8,15 +8,13 @@ namespace RPG.Control {
     /// </summary>
     public class PlayerController : MonoBehaviour {
 
-
         private void Update() {
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
         }
 
-
         /// <summary>
-        /// Interact with combat target
+        /// Check for player input to handle combat
         /// </summary>
         private bool InteractWithCombat() {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());

@@ -8,9 +8,9 @@ namespace RPG.Movement {
     /// </summary>
     public class Mover : MonoBehaviour, IAction {
 
-        private const string _animatorBlendValue = "ForwardSpeed";
-
         private NavMeshAgent _navMeshAgent;
+
+        private const string _animatorBlendValue = "ForwardSpeed";
 
         private void Start() {
             _navMeshAgent = GetComponent<NavMeshAgent>();

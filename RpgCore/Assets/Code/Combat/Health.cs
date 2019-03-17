@@ -9,10 +9,10 @@ namespace RPG.Combat {
     public class Health : MonoBehaviour {
         [SerializeField] private float _healthPoints = 100f;
 
-        private const string dieTrigger = "die";
-
         private bool _isDead = false;
         public bool IsDead { get { return _isDead; } }
+
+        private const string dieTrigger = "die";
 
         /// <summary>
         /// Take damage from a fighter

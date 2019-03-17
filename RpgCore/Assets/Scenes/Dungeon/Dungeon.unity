@@ -393,35 +393,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4783298177632275315, guid: f17a61a4c746213408ebb508b2d6fd88,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4783298177632275315, guid: f17a61a4c746213408ebb508b2d6fd88,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4783298177632275315, guid: f17a61a4c746213408ebb508b2d6fd88,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6134623296867908733, guid: f17a61a4c746213408ebb508b2d6fd88,
-        type: 3}
-      propertyPath: m_Speed
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 5006507974840359094, guid: f17a61a4c746213408ebb508b2d6fd88,
         type: 3}
       propertyPath: _weaponRange
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5006507974840359094, guid: f17a61a4c746213408ebb508b2d6fd88,
-        type: 3}
-      propertyPath: _timeBetweenAttacks
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f17a61a4c746213408ebb508b2d6fd88, type: 3}
@@ -491,26 +466,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4783298177632275315, guid: 72fe60ab20047cf409715214dc7c82ef,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4783298177632275315, guid: 72fe60ab20047cf409715214dc7c82ef,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4783298177632275315, guid: 72fe60ab20047cf409715214dc7c82ef,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5006507974840359094, guid: 72fe60ab20047cf409715214dc7c82ef,
-        type: 3}
-      propertyPath: _weaponRange
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72fe60ab20047cf409715214dc7c82ef, type: 3}
