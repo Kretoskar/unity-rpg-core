@@ -45,10 +45,18 @@ namespace RPG.Combat {
             // If cooldown lets us attack, attack
             if (_timeSinceLastAttack > _timeBetweenAttacks && _target != null) {
                 // This will trigget the Hit() event
-                GetComponent<Animator>().SetTrigger(triggerName);
+                TriggerAttack();
                 // Reset the cooldown timer
                 _timeSinceLastAttack = 0;
             }
+        }
+
+        /// <summary>
+        /// Trigger animator triggers for the attack
+        /// </summary>
+        private void TriggerAttack() {
+            GetComponent<Animator>().ResetTrigger(stopTriggerName);
+            GetComponent<Animator>().SetTrigger(triggerName);
         }
 
         /// <summary>
@@ -91,8 +99,16 @@ namespace RPG.Combat {
         /// Cancel the attack action
         /// </summary>
         public void Cancel() {
-            GetComponent<Animator>().SetTrigger(stopTriggerName);
+            StopAttackTrigger();
             _target = null;
+        }
+
+        /// <summary>
+        /// Set animator triggers to stop the attack
+        /// </summary>
+        private void StopAttackTrigger() {
+            GetComponent<Animator>().ResetTrigger(triggerName);
+            GetComponent<Animator>().SetTrigger(stopTriggerName);
         }
     }
 }
