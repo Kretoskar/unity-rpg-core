@@ -11,11 +11,9 @@ namespace RPG.Movement {
         private const string _animatorBlendValue = "ForwardSpeed";
 
         private NavMeshAgent _navMeshAgent;
-        private Animator _animator;
 
         private void Start() {
             _navMeshAgent = GetComponent<NavMeshAgent>();
-            _animator = GetComponent<Animator>();
         }
 
         private void Update() {
@@ -56,7 +54,7 @@ namespace RPG.Movement {
             // Transfer from global to local
             Vector3 localVelocity = transform.InverseTransformDirection(velocity);
             float speed = localVelocity.z;
-            _animator.SetFloat(_animatorBlendValue, speed);
+            GetComponent<Animator>().SetFloat(_animatorBlendValue, speed);
         }
     }
 }

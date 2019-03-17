@@ -13,25 +13,23 @@ namespace RPG.Combat {
         [SerializeField] private float _weaponDamage = 5f;
 
         private const string triggerName = "attack";
+        private const string stopTriggerName = "stopAttack";
 
-        private Mover _mover;
-        private Transform _target;
+        private Health _target;
         private float _timeSinceLastAttack = 0;
-
-        private void Start() {
-            _mover = GetComponent<Mover>();
-        }
 
         private void Update() {
             _timeSinceLastAttack += Time.deltaTime;
 
             if (_target == null) return;
+            if (_target.IsDead) return;
 
+            //If enemy is not in range, move to him
             if (!GetIsInRange()) {
-                _mover.MoveTo(_target.position);
+                GetComponent<Mover>().MoveTo(_target.transform.position);
             }
             else {
-                _mover.Cancel();
+                GetComponent<Mover>().Cancel();
                 AttackBehaviour();
             }
         }
@@ -40,7 +38,7 @@ namespace RPG.Combat {
         /// All of the behaviour for the attack
         /// </summary>
         private void AttackBehaviour() {
-            if (_timeSinceLastAttack > _timeBetweenAttacks) {
+            if (_timeSinceLastAttack > _timeBetweenAttacks && _target != null) {
                 //This will trigget the Hit() event
                 GetComponent<Animator>().SetTrigger(triggerName);
                 _timeSinceLastAttack = 0;
@@ -50,9 +48,9 @@ namespace RPG.Combat {
         /// <summary>
         /// Animation event
         /// </summary>
-        private void Hit() {
-            Health healthComponent = _target.GetComponent<Health>();
-            healthComponent.TakeDamage(_weaponDamage);
+        private void Hit() { 
+            if(_target != null)
+                _target.TakeDamage(_weaponDamage);
         }
 
         /// <summary>
@@ -60,22 +58,24 @@ namespace RPG.Combat {
         /// </summary>
         /// <returns></returns>
         private bool GetIsInRange() {
-            return Vector3.Distance(transform.position, _target.position) < _weaponRange;
+            return Vector3.Distance(transform.position, _target.transform.position) < _weaponRange;
         }
 
         /// <summary>
-        /// Start the attack action
+        /// Set the _target 
         /// </summary>
         /// <param name="combatTarget">Target of the attack</param>
         public void Attack(CombatTarget combatTarget) {
             GetComponent<ActionScheduler>().StartAction(this);
-            _target = combatTarget.transform;
+            _target = combatTarget.GetComponent<Health>();
         }
 
         /// <summary>
         /// Cancel the attack action
         /// </summary>
         public void Cancel() {
+            print("Stopped attacking");
+            GetComponent<Animator>().SetTrigger(stopTriggerName);
             _target = null;
         }
     }

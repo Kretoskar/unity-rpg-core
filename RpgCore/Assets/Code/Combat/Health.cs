@@ -9,7 +9,10 @@ namespace RPG.Combat {
     public class Health : MonoBehaviour {
         [SerializeField] private float _healthPoints = 100f;
 
+        private const string dieTrigger = "die";
+
         private bool _isDead = false;
+        public bool IsDead { get { return _isDead; } }
 
         /// <summary>
         /// Take damage from a fighter
@@ -17,7 +20,6 @@ namespace RPG.Combat {
         /// <param name="damage">Damage to take</param>
         public void TakeDamage(float damage) {
             _healthPoints = Mathf.Max(_healthPoints - damage, 0);
-            print(_healthPoints);
             if (_healthPoints == 0) {
                 Die();
             }
@@ -26,7 +28,7 @@ namespace RPG.Combat {
         private void Die() {
             if (_isDead) return;
             _isDead = true;
-            GetComponent<Animator>().SetTrigger("die");
+            GetComponent<Animator>().SetTrigger(dieTrigger);
         }
     }
 }
