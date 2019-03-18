@@ -20,5 +20,12 @@ namespace RPG.Core {
                 _currentAction.Cancel();
             _currentAction = action;
         }
+
+        /// <summary>
+        /// Set the action to be null
+        /// </summary>
+        public void CancelCurrentAction() {
+            StartAction(null);
+        }
     }
 }

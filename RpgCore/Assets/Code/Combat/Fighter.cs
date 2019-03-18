@@ -12,7 +12,7 @@ namespace RPG.Combat {
         [SerializeField] private float _timeBetweenAttacks = 0.5f;
         [SerializeField] private float _weaponDamage = 5f;
 
-        private float _timeSinceLastAttack = 0;
+        private float _timeSinceLastAttack = Mathf.Infinity;
 
         private Health _target;
         private Mover _mover;
@@ -90,7 +90,7 @@ namespace RPG.Combat {
         /// </summary>
         /// <param name="combatTarget">combat target to check</param>
         /// <returns>posibillity of attacking the combat target</returns>
-        public bool CanAttack(CombatTarget combatTarget) {
+        public bool CanAttack(GameObject combatTarget) {
             if (combatTarget == null) return false;
             Health targetToTest = combatTarget.GetComponent<Health>();
             return targetToTest != null && !targetToTest.IsDead;
@@ -100,7 +100,7 @@ namespace RPG.Combat {
         /// Set the _target for the attack
         /// </summary>
         /// <param name="combatTarget">Target of the attack</param>
-        public void Attack(CombatTarget combatTarget) {
+        public void Attack(GameObject combatTarget) {
             _actionScheduler.StartAction(this);
             _target = combatTarget.GetComponent<Health>();
         }

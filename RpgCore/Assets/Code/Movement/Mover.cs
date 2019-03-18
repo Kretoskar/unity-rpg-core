@@ -10,15 +10,18 @@ namespace RPG.Movement {
 
         private NavMeshAgent _navMeshAgent;
         private ActionScheduler _actionScheduler;
+        private Health _health;
 
         private const string _animatorBlendValue = "ForwardSpeed";
 
         private void Start() {
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _actionScheduler = GetComponent<ActionScheduler>();
+            _health = GetComponent<Health>();
         }
 
         private void Update() {
+            _navMeshAgent.enabled = !_health.IsDead;
             UpdateAnimator();
         }
 
