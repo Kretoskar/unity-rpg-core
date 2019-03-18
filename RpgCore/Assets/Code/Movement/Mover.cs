@@ -9,11 +9,13 @@ namespace RPG.Movement {
     public class Mover : MonoBehaviour, IAction {
 
         private NavMeshAgent _navMeshAgent;
+        private ActionScheduler _actionScheduler;
 
         private const string _animatorBlendValue = "ForwardSpeed";
 
         private void Start() {
             _navMeshAgent = GetComponent<NavMeshAgent>();
+            _actionScheduler = GetComponent<ActionScheduler>();
         }
 
         private void Update() {
@@ -25,7 +27,7 @@ namespace RPG.Movement {
         /// </summary>
         /// <param name="destination">destination to move to</param>
         public void StartMoveAction(Vector3 destination) {
-            GetComponent<ActionScheduler>().StartAction(this);
+            _actionScheduler.StartAction(this);
             MoveTo(destination);
         }
 
