@@ -12,12 +12,12 @@ namespace RPG.Combat {
         [SerializeField] private float _timeBetweenAttacks = 0.5f;
         [SerializeField] private float _weaponDamage = 5f;
 
-        private float _timeSinceLastAttack = Mathf.Infinity;
-
         private Health _target;
         private Mover _mover;
         private Animator _animator;
         private ActionScheduler _actionScheduler;
+
+        private float _timeSinceLastAttack = Mathf.Infinity;
 
         private const string triggerName = "attack";
         private const string stopTriggerName = "stopAttack";
