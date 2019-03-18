@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace RPG.Core {
     /// <summary>
-    /// Handles changing between player's actions
+    /// Handles changing between player's actions: attacking and moving
     /// </summary>
     public class ActionScheduler : MonoBehaviour {
 
         private IAction _currentAction;
 
         /// <summary>
-        /// Start the given action
+        /// Change the current action to be the new action
         /// </summary>
         /// <param name="action">Action to start</param>
         public void StartAction(IAction action) {
