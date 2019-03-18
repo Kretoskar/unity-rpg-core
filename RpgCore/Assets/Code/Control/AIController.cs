@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Combat;
 using RPG.Core;
+using RPG.Movement;
 
 namespace RPG.Control {
     public class AIController : MonoBehaviour {
@@ -10,12 +11,18 @@ namespace RPG.Control {
 
         private GameObject _player;
         private Fighter _fighter;
+        private Mover _mover;
         private Health _health;
+
+        private Vector3 _guardPosition;
 
         private void Start() {
             _player = GameObject.FindWithTag("Player");
             _fighter = GetComponent<Fighter>();
             _health = GetComponent<Health>();
+            _mover = GetComponent<Mover>();
+
+            _guardPosition = transform.position;
         }
 
         private void Update() {
@@ -23,7 +30,7 @@ namespace RPG.Control {
             if(InAttackRangeOfPlayer() && _fighter.CanAttack(_player)) {
                 _fighter.Attack(_player);
             } else {
-                _fighter.Cancel();
+                _mover.StartMoveAction(_guardPosition);
             }
         }
         /// <summary>
