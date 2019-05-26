@@ -13,10 +13,20 @@ namespace RPG.Combat {
         [SerializeField] private float _weaponDamage = 5f;
 
         private Health _target;
-        private float _timeSinceLastAttack = 0;
+        private Mover _mover;
+        private Animator _animator;
+        private ActionScheduler _actionScheduler;
+
+        private float _timeSinceLastAttack = Mathf.Infinity;
 
         private const string triggerName = "attack";
         private const string stopTriggerName = "stopAttack";
+
+        private void Start() {
+            _mover = GetComponent<Mover>();
+            _actionScheduler = GetComponent<ActionScheduler>();
+            _animator = GetComponent<Animator>();
+        }
 
         private void Update() {
             // Start the attack cooldown timer
@@ -27,11 +37,11 @@ namespace RPG.Combat {
 
             // If enemy is not in range, move to him
             if (!GetIsInRange()) {
-                GetComponent<Mover>().MoveTo(_target.transform.position);
+                _mover.MoveTo(_target.transform.position);
             }
             // If enemy is in range, attack him
             else {
-                GetComponent<Mover>().Cancel();
+                _mover.Cancel();
                 AttackBehaviour();
             }
         }
@@ -55,8 +65,8 @@ namespace RPG.Combat {
         /// Trigger animator triggers for the attack
         /// </summary>
         private void TriggerAttack() {
-            GetComponent<Animator>().ResetTrigger(stopTriggerName);
-            GetComponent<Animator>().SetTrigger(triggerName);
+            _animator.ResetTrigger(stopTriggerName);
+            _animator.SetTrigger(triggerName);
         }
 
         /// <summary>
@@ -80,7 +90,7 @@ namespace RPG.Combat {
         /// </summary>
         /// <param name="combatTarget">combat target to check</param>
         /// <returns>posibillity of attacking the combat target</returns>
-        public bool CanAttack(CombatTarget combatTarget) {
+        public bool CanAttack(GameObject combatTarget) {
             if (combatTarget == null) return false;
             Health targetToTest = combatTarget.GetComponent<Health>();
             return targetToTest != null && !targetToTest.IsDead;
@@ -90,8 +100,8 @@ namespace RPG.Combat {
         /// Set the _target for the attack
         /// </summary>
         /// <param name="combatTarget">Target of the attack</param>
-        public void Attack(CombatTarget combatTarget) {
-            GetComponent<ActionScheduler>().StartAction(this);
+        public void Attack(GameObject combatTarget) {
+            _actionScheduler.StartAction(this);
             _target = combatTarget.GetComponent<Health>();
         }
 
@@ -107,8 +117,8 @@ namespace RPG.Combat {
         /// Set animator triggers to stop the attack
         /// </summary>
         private void StopAttackTrigger() {
-            GetComponent<Animator>().ResetTrigger(triggerName);
-            GetComponent<Animator>().SetTrigger(stopTriggerName);
+            _animator.ResetTrigger(triggerName);
+            _animator.SetTrigger(stopTriggerName);
         }
     }
 }

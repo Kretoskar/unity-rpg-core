@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Combat {
+namespace RPG.Core {
     /// <summary>
     /// Handles health of characters
     /// </summary>
@@ -29,6 +29,7 @@ namespace RPG.Combat {
             if (_isDead) return;
             _isDead = true;
             GetComponent<Animator>().SetTrigger(dieTrigger);
+            GetComponent<ActionScheduler>().CancelCurrentAction();
         }
     }
 }
