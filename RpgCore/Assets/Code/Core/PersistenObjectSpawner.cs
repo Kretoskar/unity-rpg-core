@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.Core {
+    /// <summary>
+    /// Spawns objects that aren't supposed to be destroyed on load
+    /// </summary>
     public class PersistenObjectSpawner : MonoBehaviour {
         [SerializeField]
         private GameObject _persistentObjectPrefab = null;
@@ -19,6 +22,9 @@ namespace RPG.Core {
             _hasSpawned = true;
         }
 
+        /// <summary>
+        /// Spawn persistent objects
+        /// </summary>
         private void SpawnPersistentObject() {
             GameObject persistentObject = Instantiate(_persistentObjectPrefab);
             DontDestroyOnLoad(persistentObject);

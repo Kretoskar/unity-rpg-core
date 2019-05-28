@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 
 namespace RPG.SceneManagement {
+    /// <summary>
+    /// Portal that teleports player to a portal on another scene
+    /// </summary>
     public class Portal : MonoBehaviour {
 
         enum DestinationIdentifier {
@@ -23,12 +26,21 @@ namespace RPG.SceneManagement {
         [SerializeField]
         private float _fadeWaitTime = .5f;
 
+        /// <summary>
+        /// Teleport to another scene on trigger enter
+        /// </summary>
+        /// <param name="other">collider that came to trigger</param>
         private void OnTriggerEnter(Collider other) {
             if (other.tag == "Player") {
                 StartCoroutine(Transition());
             }
         }
 
+        /// <summary>
+        /// Teleport through portals
+        /// Takes player from one scene to another
+        /// </summary>
+        /// <returns>waiting for transitioning between scenes</returns>
         private IEnumerator Transition() {
 
             // Make sure the scene is loaded
@@ -61,12 +73,20 @@ namespace RPG.SceneManagement {
             Destroy(gameObject);
         }
 
+        /// <summary>
+        /// Set up player's position in a place of other portal's spawn point
+        /// </summary>
+        /// <param name="otherPortal">the portal to teleport to</param>
         private void UpdatePlayer(Portal otherPortal) {
             GameObject player = GameObject.FindWithTag("Player");
             player.transform.position = otherPortal._spawnPoint.position;
             player.transform.rotation = otherPortal._spawnPoint.rotation;
         }
 
+        /// <summary>
+        /// Find the portal to teleport to
+        /// </summary>
+        /// <returns>the portal to teleport to</returns>
         private Portal GetOtherPortal() {
             foreach (Portal portal in FindObjectsOfType<Portal>()) {
                 if (portal == this)
