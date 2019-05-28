@@ -12,11 +12,6 @@ namespace RPG.SceneManagement {
             _canvasGroup.alpha = 0;
         }
 
-        private IEnumerator FadeOutIn() {
-            yield return FadeOut(1f);
-            yield return FadeIn(1f);
-        }
-
         public IEnumerator FadeOut(float time) {
             while(_canvasGroup.alpha < 1) {
                 _canvasGroup.alpha += Time.deltaTime / time;
