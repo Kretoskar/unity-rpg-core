@@ -276,7 +276,7 @@ PrefabInstance:
     - target: {fileID: 5006507974840359094, guid: 72fe60ab20047cf409715214dc7c82ef,
         type: 3}
       propertyPath: _weaponRange
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72fe60ab20047cf409715214dc7c82ef, type: 3}
@@ -729,6 +729,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3860234384642472603, guid: 13588447ca828804c87d1d14d013e0a9,
         type: 3}
+    - target: {fileID: 8062980735631711210, guid: c9e0757e4acf92b4185dcceac9d84ff7,
+        type: 3}
+      propertyPath: _weaponRange
+      value: 2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9e0757e4acf92b4185dcceac9d84ff7, type: 3}
 --- !u!1 &3090482379245003768
