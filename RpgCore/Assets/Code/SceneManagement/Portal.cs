@@ -1,7 +1,9 @@
-﻿using System;
+﻿using RPG.Saving;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 
@@ -52,12 +54,19 @@ namespace RPG.SceneManagement {
             // Set up
             DontDestroyOnLoad(gameObject);
             Fader fader = FindObjectOfType<Fader>();
+            SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
 
             // Fade out
             yield return fader.FadeOut(_fadeInOutTime);
 
+            //Save the game before transitioning
+            savingWrapper.Save();
+
             // Load Scene
             yield return SceneManager.LoadSceneAsync(_indexOfSceneToLoad);
+
+            //Load the game after transitioning
+            savingWrapper.Load();
 
             // Spawn player
             Portal otherPortal = GetOtherPortal();
@@ -79,8 +88,10 @@ namespace RPG.SceneManagement {
         /// <param name="otherPortal">the portal to teleport to</param>
         private void UpdatePlayer(Portal otherPortal) {
             GameObject player = GameObject.FindWithTag("Player");
+            player.GetComponent<NavMeshAgent>().enabled = false;
             player.transform.position = otherPortal._spawnPoint.position;
             player.transform.rotation = otherPortal._spawnPoint.rotation;
+            player.GetComponent<NavMeshAgent>().enabled = true;
         }
 
         /// <summary>
