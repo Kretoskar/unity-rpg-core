@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using RPG.Core;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace RPG.Saving {
     [ExecuteAlways]
@@ -10,16 +10,20 @@ namespace RPG.Saving {
         private string uniqueIdentifier = "";
 
         public string GetUniqueIdentifier() {
-            return "";
+            return uniqueIdentifier;
         }
 
         public object CaptureState() {
-            print("capturing state for " + GetUniqueIdentifier());
-            return null;
+            print(transform.position);
+            return new SerializableVector3 (transform.position);
         }
 
         public void RestoreState(object state) {
-            print("restoring state for " + GetUniqueIdentifier());
+            SerializableVector3 position = (SerializableVector3)state;
+            GetComponent<NavMeshAgent>().enabled = false;
+            transform.position = position.ToVector();
+            GetComponent<NavMeshAgent>().enabled = true;
+            GetComponent<ActionScheduler>().CancelCurrentAction();
         }
 
         private void Update() { //run in edit time also bcs of ExecuteAlways

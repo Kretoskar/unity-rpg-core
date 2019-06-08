@@ -34,6 +34,7 @@ namespace RPG.Saving {
         private object CaptureState() {
             Dictionary<string, object> state = new Dictionary<string, object>();
             foreach(SaveableEntity saveable in FindObjectsOfType<SaveableEntity>()) {
+                print(saveable.GetUniqueIdentifier());
                 state[saveable.GetUniqueIdentifier()] = saveable.CaptureState();
             }
             return state;
