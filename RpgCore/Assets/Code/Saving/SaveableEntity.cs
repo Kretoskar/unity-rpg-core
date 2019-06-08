@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace RPG.Saving {
     [ExecuteAlways]
     public class SaveableEntity : MonoBehaviour {
         [SerializeField]
-        private string uniqueIdentifier = "unset";
+        private string uniqueIdentifier = "";
 
         public string GetUniqueIdentifier() {
             return "";
@@ -24,7 +25,17 @@ namespace RPG.Saving {
         private void Update() { //run in edit time also bcs of ExecuteAlways
             if (Application.IsPlaying(gameObject))
                 return;
-            print("xd");
+            if (string.IsNullOrEmpty(gameObject.scene.path))
+                return;
+            
+            SerializedObject serializedObject = new SerializedObject(this);
+            SerializedProperty serializedProperty = serializedObject.FindProperty("uniqueIdentifier");
+
+            if(string.IsNullOrEmpty(serializedProperty.stringValue)) {
+                serializedProperty.stringValue = System.Guid.NewGuid().ToString();
+                serializedObject.ApplyModifiedProperties();
+            }
+
         }
     }
 }

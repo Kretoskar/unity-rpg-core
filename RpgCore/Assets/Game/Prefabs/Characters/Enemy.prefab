@@ -39,6 +39,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chaseDistance: 5
+  _suspicionTime: 3
+  _patrolPath: {fileID: 0}
+  _waypointTolerance: 1
+  _waypointDwellTime: 3
 --- !u!1001 &3752646503986327670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -675,6 +679,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324147984200893757, guid: 00e41c253f1c3b54c956aacc15467a4a,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 154951192929930519, guid: 00e41c253f1c3b54c956aacc15467a4a,
         type: 3}

@@ -278,6 +278,11 @@ PrefabInstance:
       propertyPath: _weaponRange
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3808250120656228508, guid: 72fe60ab20047cf409715214dc7c82ef,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: 52472037-c33a-464a-92b7-5ae763321e12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72fe60ab20047cf409715214dc7c82ef, type: 3}
 --- !u!1001 &1436605946
@@ -352,6 +357,11 @@ PrefabInstance:
       propertyPath: _patrolPath
       value: 
       objectReference: {fileID: 771041561724899148}
+    - target: {fileID: 3808250120656228508, guid: 72fe60ab20047cf409715214dc7c82ef,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: 20336d3b-3b14-45cc-a0a7-59cf7b5b2b89
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72fe60ab20047cf409715214dc7c82ef, type: 3}
 --- !u!1 &1643843265
@@ -473,6 +483,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _weaponRange
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3808250120656228508, guid: 72fe60ab20047cf409715214dc7c82ef,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: 25727474-d33c-435d-b0fa-dda70c3da936
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72fe60ab20047cf409715214dc7c82ef, type: 3}
@@ -733,6 +748,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _weaponRange
       value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181529435099747264, guid: c9e0757e4acf92b4185dcceac9d84ff7,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: eb3a4f53-e656-4cf9-974a-560cd749caa5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9e0757e4acf92b4185dcceac9d84ff7, type: 3}

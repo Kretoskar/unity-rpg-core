@@ -867,6 +867,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8324147984200893757, guid: 00e41c253f1c3b54c956aacc15467a4a,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 154951192929930519, guid: 00e41c253f1c3b54c956aacc15467a4a,
         type: 3}
       propertyPath: _weaponRange
