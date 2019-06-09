@@ -5,9 +5,24 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RPG.Saving {
     public class SavingSystem : MonoBehaviour {
+
+        public IEnumerator LoadLastScene(string saveFile) {
+            // Load file
+            Dictionary<string, object> state = LoadFile(saveFile);
+            // make sure the key already exists in dictionary
+            if(state.ContainsKey("lastSceneBuildIndex")) {
+                //load scene
+                int buildIndex = (int)state["lastSceneBuildIndex"];
+                if (buildIndex != SceneManager.GetActiveScene().buildIndex)
+                    yield return SceneManager.LoadSceneAsync(buildIndex);
+            }
+            //restore state
+            RestoreState(state);
+        }
 
         public void Save(string saveFile) {
             Dictionary<string, object>  state = LoadFile(saveFile);
@@ -18,7 +33,6 @@ namespace RPG.Saving {
 
         public void Load(string saveFile) { 
             RestoreState(LoadFile(saveFile));
-
         }
 
         private Dictionary<string, object> LoadFile(string saveFile) {
@@ -49,6 +63,7 @@ namespace RPG.Saving {
             foreach(SaveableEntity saveable in FindObjectsOfType<SaveableEntity>()) {
                 state[saveable.GetUniqueIdentifier()] = saveable.CaptureState();
             }
+            state["lastSceneBuildIndex"] = SceneManager.GetActiveScene().buildIndex;
         }
 
         private void RestoreState(Dictionary<string, object> state) {
@@ -57,7 +72,6 @@ namespace RPG.Saving {
                 if(state.ContainsKey(id))
                     saveable.RestoreState(state[id]);
             }
-
         }
 
         private string GetPathFromSaveFile(string saveFile) {

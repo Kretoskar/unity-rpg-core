@@ -6,8 +6,8 @@ namespace RPG.Saving {
     public class SavingWrapper : MonoBehaviour {
         const string defaultSaveFile = "save";
 
-        private void Start() {
-            Load();
+        private IEnumerator Start() {
+            yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
         }
 
         private void Update() {

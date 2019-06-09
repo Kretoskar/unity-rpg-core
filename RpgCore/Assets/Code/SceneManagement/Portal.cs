@@ -72,6 +72,9 @@ namespace RPG.SceneManagement {
             Portal otherPortal = GetOtherPortal();
             UpdatePlayer(otherPortal);
 
+            //Save after teleporting
+            savingWrapper.Save();
+
             // Wait between fadings to stabilize cam and stuff
             yield return new WaitForSeconds(_fadeWaitTime);
 
