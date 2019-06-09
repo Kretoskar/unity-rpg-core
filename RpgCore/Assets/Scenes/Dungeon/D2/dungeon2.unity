@@ -401,7 +401,8 @@ PrefabInstance:
         type: 3}
       propertyPath: _persistentObjectPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3860234384642472603, guid: 13588447ca828804c87d1d14d013e0a9,
+        type: 3}
     - target: {fileID: 2181529435099747264, guid: c9e0757e4acf92b4185dcceac9d84ff7,
         type: 3}
       propertyPath: uniqueIdentifier

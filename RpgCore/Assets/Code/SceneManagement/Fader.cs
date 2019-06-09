@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.SceneManagement {
@@ -13,6 +12,10 @@ namespace RPG.SceneManagement {
         private void Awake() {
             _canvasGroup = GetComponent<CanvasGroup>();
             _canvasGroup.alpha = 0;
+        }
+
+        public void FadeOutImmediately() {
+            _canvasGroup.alpha = 1;
         }
 
         /// <summary>
