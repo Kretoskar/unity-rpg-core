@@ -35,6 +35,7 @@ namespace RPG.Saving {
             }
         }
 
+#if UNITY_EDITOR
         private void Update() { //run in edit time also bcs of ExecuteAlways
             if (Application.IsPlaying(gameObject))
                 return;
@@ -48,10 +49,9 @@ namespace RPG.Saving {
                 serializedProperty.stringValue = System.Guid.NewGuid().ToString();
                 serializedObject.ApplyModifiedProperties();
             }
-
             _globalLookup[serializedProperty.stringValue] = this;
-
         }
+#endif
 
         private bool IsUnique(string candidate) {
             if (!_globalLookup.ContainsKey(candidate))
