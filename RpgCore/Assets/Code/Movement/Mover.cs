@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 using RPG.Core;
+using RPG.Saving;
 
 namespace RPG.Movement {
     /// <summary>
     /// Move character and update his animator
     /// </summary>
-    public class Mover : MonoBehaviour, IAction {
+    public class Mover : MonoBehaviour, IAction, ISaveable {
 
         private NavMeshAgent _navMeshAgent;
         private ActionScheduler _actionScheduler;
@@ -60,6 +61,18 @@ namespace RPG.Movement {
             Vector3 localVelocity = transform.InverseTransformDirection(velocity);
             float speed = localVelocity.z;
             GetComponent<Animator>().SetFloat(_animatorBlendValue, speed);
+        }
+
+        public object CaptureState() {
+            return new SerializableVector3 (transform.position);
+        }
+
+        public void RestoreState(object state) {
+            SerializableVector3 position = (SerializableVector3)state;
+            GetComponent<NavMeshAgent>().enabled = false;
+            transform.position = position.ToVector();
+            GetComponent<NavMeshAgent>().enabled = true;
+            GetComponent<ActionScheduler>().CancelCurrentAction();
         }
     }
 }
