@@ -1,4 +1,5 @@
 ﻿using RPG.Core;
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -8,10 +9,12 @@ namespace RPG.Saving {
     [ExecuteAlways]
     public class SaveableEntity : MonoBehaviour {
         [SerializeField]
-        private string uniqueIdentifier = "";
+        private string _uniqueIdentifier = "";
+
+        static Dictionary<string, SaveableEntity> _globalLookup = new Dictionary<string, SaveableEntity>();
 
         public string GetUniqueIdentifier() {
-            return uniqueIdentifier;
+            return _uniqueIdentifier;
         }
 
         public object CaptureState() {
@@ -39,13 +42,32 @@ namespace RPG.Saving {
                 return;
             
             SerializedObject serializedObject = new SerializedObject(this);
-            SerializedProperty serializedProperty = serializedObject.FindProperty("uniqueIdentifier");
+            SerializedProperty serializedProperty = serializedObject.FindProperty("_uniqueIdentifier");
 
-            if(string.IsNullOrEmpty(serializedProperty.stringValue)) {
+            if(string.IsNullOrEmpty(serializedProperty.stringValue) || !IsUnique(serializedProperty.stringValue)) {
                 serializedProperty.stringValue = System.Guid.NewGuid().ToString();
                 serializedObject.ApplyModifiedProperties();
             }
 
+            _globalLookup[serializedProperty.stringValue] = this;
+
+        }
+
+        private bool IsUnique(string candidate) {
+            if (!_globalLookup.ContainsKey(candidate))
+                return true;
+            if (_globalLookup[candidate] == this)
+                return true;
+            if (_globalLookup[candidate] == null) {
+                _globalLookup.Remove(candidate);
+                return true;
+            }
+            //if it's not pointing to the right value
+            if(_globalLookup[candidate].GetUniqueIdentifier() != candidate) {
+                _globalLookup.Remove(candidate);
+                return true;
+            }
+            return false;
         }
     }
 }
