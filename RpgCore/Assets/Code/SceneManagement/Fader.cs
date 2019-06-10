@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.SceneManagement {
@@ -10,9 +9,19 @@ namespace RPG.SceneManagement {
 
         private CanvasGroup _canvasGroup;
 
+        /// <summary>
+        /// Set up the canvas group
+        /// </summary>
         private void Awake() {
             _canvasGroup = GetComponent<CanvasGroup>();
             _canvasGroup.alpha = 0;
+        }
+
+        /// <summary>
+        /// Darken the screen immediately
+        /// </summary>
+        public void FadeOutImmediately() {
+            _canvasGroup.alpha = 1;
         }
 
         /// <summary>

@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71038cdabb1be8b499521155be5ac7e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistentObjectPrefab: {fileID: 0}
+  _persistentObjectPrefab: {fileID: 3860234384642472603, guid: 13588447ca828804c87d1d14d013e0a9,
+    type: 3}
 --- !u!1001 &3071391415400201681
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -113,11 +114,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5212784049643208066, guid: ea715702f4bd5d34080c3b88e3646e5c,
-        type: 3}
-      propertyPath: _target
-      value: 
-      objectReference: {fileID: 7565614583871424559}
     - target: {fileID: 534669905, guid: ea715702f4bd5d34080c3b88e3646e5c, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0.117824756
@@ -146,6 +142,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 5.363249
       objectReference: {fileID: 0}
+    - target: {fileID: 5212784049643208066, guid: ea715702f4bd5d34080c3b88e3646e5c,
+        type: 3}
+      propertyPath: _target
+      value: 
+      objectReference: {fileID: 7565614583871424559}
     - target: {fileID: 534669904, guid: ea715702f4bd5d34080c3b88e3646e5c, type: 3}
       propertyPath: m_ClearFlags
       value: 2
