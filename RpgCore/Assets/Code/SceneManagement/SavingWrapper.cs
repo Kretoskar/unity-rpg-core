@@ -3,11 +3,18 @@ using System.Collections;
 using UnityEngine;
 
 namespace RPG.SceneManagement {
+    /// <summary>
+    /// In game logic of saving
+    /// </summary>
     public class SavingWrapper : MonoBehaviour {
         const string _defaultSaveFile = "save";
         [SerializeField]
         private float _fadeInTime = .5f;
 
+        /// <summary>
+        /// Load game on start
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator Start() {
             Fader fader = FindObjectOfType<Fader>();
 
@@ -16,6 +23,9 @@ namespace RPG.SceneManagement {
             yield return fader.FadeIn(_fadeInTime);
         }
 
+        /// <summary>
+        /// Check for player input
+        /// </summary>
         private void Update() {
             if (Input.GetKeyDown(KeyCode.S))
                 Save();
@@ -23,10 +33,16 @@ namespace RPG.SceneManagement {
                 Load();
         }
 
+        /// <summary>
+        /// Load saved game
+        /// </summary>
         public void Load() {
             GetComponent<SavingSystem>().Load(_defaultSaveFile);
         }
 
+        /// <summary>
+        /// Save the game
+        /// </summary>
         public void Save() {
             GetComponent<SavingSystem>().Save(_defaultSaveFile);
         }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.Saving {
+    /// <summary>
+    /// Vector3 object that can be serializable
+    /// </summary>
     [System.Serializable]
     public class SerializableVector3 {
         float x, y, z;

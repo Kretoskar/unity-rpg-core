@@ -8,8 +8,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace RPG.Saving {
+    /// <summary>
+    /// Logic of saving
+    /// </summary>
     public class SavingSystem : MonoBehaviour {
-
+        /// <summary>
+        /// Load the scene that a player wast last in
+        /// </summary>
+        /// <param name="saveFile"></param>
+        /// <returns></returns>
         public IEnumerator LoadLastScene(string saveFile) {
             // Load file
             Dictionary<string, object> state = LoadFile(saveFile);
@@ -24,6 +31,10 @@ namespace RPG.Saving {
             RestoreState(state);
         }
 
+        /// <summary>
+        /// Save the game
+        /// </summary>
+        /// <param name="saveFile">save file path</param>
         public void Save(string saveFile) {
             Dictionary<string, object>  state = LoadFile(saveFile);
             CaptureState(state);
@@ -31,10 +42,19 @@ namespace RPG.Saving {
 
         }
 
+        /// <summary>
+        /// Load the game
+        /// </summary>
+        /// <param name="saveFile">save file path</param>
         public void Load(string saveFile) { 
             RestoreState(LoadFile(saveFile));
         }
 
+        /// <summary>
+        /// Load the file
+        /// </summary>
+        /// <param name="saveFile">save file path</param>
+        /// <returns>file to be loaded</returns>
         private Dictionary<string, object> LoadFile(string saveFile) {
             string path = GetPathFromSaveFile(saveFile);
             if (!File.Exists(path)) {
@@ -46,6 +66,11 @@ namespace RPG.Saving {
             }
         }
 
+        /// <summary>
+        /// Save file to the path
+        /// </summary>
+        /// <param name="saveFile">save file path</param>
+        /// <param name="state">state to be saved</param>
         private void SaveFile(string saveFile, object state) {
             string path = GetPathFromSaveFile(saveFile);
             print("Saving to " + path);
@@ -66,6 +91,10 @@ namespace RPG.Saving {
             state["lastSceneBuildIndex"] = SceneManager.GetActiveScene().buildIndex;
         }
 
+        /// <summary>
+        /// Restore the last state to be loaded
+        /// </summary>
+        /// <param name="state">state to be restored</param>
         private void RestoreState(Dictionary<string, object> state) {
             foreach (SaveableEntity saveable in FindObjectsOfType<SaveableEntity>()) {
                 string id = saveable.GetUniqueIdentifier();
@@ -74,6 +103,11 @@ namespace RPG.Saving {
             }
         }
 
+        /// <summary>
+        /// Get save file location
+        /// </summary>
+        /// <param name="saveFile">save file path</param>
+        /// <returns>save file location</returns>
         private string GetPathFromSaveFile(string saveFile) {
             return Path.Combine(Application.persistentDataPath + ".sav");
         }

@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.AI;
 
 namespace RPG.Saving {
+    /// <summary>
+    /// Represents an object that can be saved
+    /// </summary>
     [ExecuteAlways]
     public class SaveableEntity : MonoBehaviour {
         [SerializeField]
@@ -13,10 +16,18 @@ namespace RPG.Saving {
 
         static Dictionary<string, SaveableEntity> _globalLookup = new Dictionary<string, SaveableEntity>();
 
+        /// <summary>
+        /// Gets the unique identifier
+        /// </summary>
+        /// <returns>unique identifier</returns>
         public string GetUniqueIdentifier() {
             return _uniqueIdentifier;
         }
 
+        /// <summary>
+        /// Capture the object's state to be saved
+        /// </summary>
+        /// <returns>object's state</returns>
         public object CaptureState() {
             Dictionary<string, object> state = new Dictionary<string, object>();
             foreach(ISaveable saveable in GetComponents<ISaveable>()) {
@@ -25,6 +36,10 @@ namespace RPG.Saving {
             return state;
         }
 
+        /// <summary>
+        /// Restore the object to the state that was saved 
+        /// </summary>
+        /// <param name="state">what state to restore</param>
         public void RestoreState(object state) {
             Dictionary<string, object> stateDict = (Dictionary<string, object>)state;
             foreach (ISaveable saveable in GetComponents<ISaveable>()) {
@@ -36,6 +51,9 @@ namespace RPG.Saving {
         }
 
 #if UNITY_EDITOR
+        /// <summary>
+        /// Run in edit mode only, updates/creates the UUIDs
+        /// </summary>
         private void Update() { //run in edit time also bcs of ExecuteAlways
             if (Application.IsPlaying(gameObject))
                 return;
@@ -53,6 +71,11 @@ namespace RPG.Saving {
         }
 #endif
 
+        /// <summary>
+        /// Checks wheter the UUID is actually unique
+        /// </summary>
+        /// <param name="candidate">UUID to check</param>
+        /// <returns>is the UUID unique</returns>
         private bool IsUnique(string candidate) {
             if (!_globalLookup.ContainsKey(candidate))
                 return true;
