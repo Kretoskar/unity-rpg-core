@@ -605,7 +605,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2936513858436701994}
-        m_MethodName: Load
+        m_MethodName: Erase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
