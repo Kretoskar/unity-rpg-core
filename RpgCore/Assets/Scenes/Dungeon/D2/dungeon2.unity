@@ -397,17 +397,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3600505775338855620, guid: c9e0757e4acf92b4185dcceac9d84ff7,
-        type: 3}
-      propertyPath: _persistentObjectPrefab
-      value: 
-      objectReference: {fileID: 3860234384642472603, guid: 13588447ca828804c87d1d14d013e0a9,
-        type: 3}
-    - target: {fileID: 2181529435099747264, guid: c9e0757e4acf92b4185dcceac9d84ff7,
-        type: 3}
-      propertyPath: uniqueIdentifier
-      value: 5c4256aa-74e5-433d-9bd6-432a22082012
-      objectReference: {fileID: 0}
     - target: {fileID: 7565614583871424559, guid: c9e0757e4acf92b4185dcceac9d84ff7,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -482,6 +471,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3600505775338855620, guid: c9e0757e4acf92b4185dcceac9d84ff7,
+        type: 3}
+      propertyPath: _persistentObjectPrefab
+      value: 
+      objectReference: {fileID: 3860234384642472603, guid: 13588447ca828804c87d1d14d013e0a9,
+        type: 3}
+    - target: {fileID: 2181529435099747264, guid: c9e0757e4acf92b4185dcceac9d84ff7,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: 5c4256aa-74e5-433d-9bd6-432a22082012
       objectReference: {fileID: 0}
     - target: {fileID: 3071391415064563008, guid: c9e0757e4acf92b4185dcceac9d84ff7,
         type: 3}
@@ -560,7 +560,7 @@ PrefabInstance:
     - target: {fileID: 8779859636857003124, guid: ac3d9a727e72d0c42842fbc40a59b343,
         type: 3}
       propertyPath: _indexOfSceneToLoad
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac3d9a727e72d0c42842fbc40a59b343, type: 3}
