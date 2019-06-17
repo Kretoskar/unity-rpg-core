@@ -887,6 +887,17 @@ PrefabInstance:
       propertyPath: _timeBetweenAttacks
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 154951192929930519, guid: 00e41c253f1c3b54c956aacc15467a4a,
+        type: 3}
+      propertyPath: _weaponPrefab
+      value: 
+      objectReference: {fileID: 5706703169054607184, guid: 438739920e64df344bbbeac3fd1de3a3,
+        type: 3}
+    - target: {fileID: 154951192929930519, guid: 00e41c253f1c3b54c956aacc15467a4a,
+        type: 3}
+      propertyPath: _handTransform
+      value: 
+      objectReference: {fileID: 4775571097365259883}
     - target: {fileID: 1332573256539711964, guid: 00e41c253f1c3b54c956aacc15467a4a,
         type: 3}
       propertyPath: m_Speed
