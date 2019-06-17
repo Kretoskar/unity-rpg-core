@@ -31,6 +31,8 @@ namespace RPG.SceneManagement {
                 Save();
             if (Input.GetKeyDown(KeyCode.L))
                 Load();
+            if (Input.GetKeyDown(KeyCode.E))
+                Erase();
         }
 
         /// <summary>
@@ -45,6 +47,13 @@ namespace RPG.SceneManagement {
         /// </summary>
         public void Save() {
             GetComponent<SavingSystem>().Save(_defaultSaveFile);
+        }
+        
+        /// <summary>
+        /// Erase saved game
+        /// </summary>
+        public void Erase() {
+            GetComponent<SavingSystem>().Erase(_defaultSaveFile);
         }
     }
 }

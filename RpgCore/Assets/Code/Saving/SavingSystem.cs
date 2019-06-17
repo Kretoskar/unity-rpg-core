@@ -49,6 +49,14 @@ namespace RPG.Saving {
         public void Load(string saveFile) { 
             RestoreState(LoadFile(saveFile));
         }
+        
+        /// <summary>
+        /// Erase save file
+        /// </summary>
+        /// <param name="saveFile">save file path</param>
+        public void Erase(string saveFile) {
+            File.Delete(GetPathFromSaveFile(saveFile));
+        }
 
         /// <summary>
         /// Load the file
