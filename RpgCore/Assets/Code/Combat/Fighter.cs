@@ -10,13 +10,14 @@ namespace RPG.Combat {
     public class Fighter : MonoBehaviour, IAction {
         [SerializeField] private float _timeBetweenAttacks = 0.5f;
         [SerializeField] private Transform _handTransform = null;
-        [SerializeField] private Weapon _weapon = null;
+        [SerializeField] private Weapon _defaultWeapon = null;
 
 
         private Health _target;
         private Mover _mover;
         private Animator _animator;
         private ActionScheduler _actionScheduler;
+        private Weapon _currentWeapon;
 
         private float _timeSinceLastAttack = Mathf.Infinity;
 
@@ -28,7 +29,7 @@ namespace RPG.Combat {
             _actionScheduler = GetComponent<ActionScheduler>();
             _animator = GetComponent<Animator>();
 
-            SpawnWeapon();
+            EquipWeapon(_defaultWeapon);
 
         }
 
@@ -51,11 +52,11 @@ namespace RPG.Combat {
         }
 
         /// <summary>
-        /// Spawn Player's weapon
+        /// Equip player's weapon
         /// </summary>
-        private void SpawnWeapon() {
-            if (_weapon == null) return;
-            _weapon.Spawn(_handTransform, _animator);
+        public void EquipWeapon(Weapon weapon) {
+            _currentWeapon = weapon;
+            weapon.Spawn(_handTransform, _animator);
         }
 
         /// <summary>
@@ -86,7 +87,7 @@ namespace RPG.Combat {
         /// </summary>
         private void Hit() { 
             if(_target != null)
-                _target.TakeDamage(_weapon.GetDamage());
+                _target.TakeDamage(_currentWeapon.GetDamage());
         }
 
         /// <summary>
@@ -94,7 +95,7 @@ namespace RPG.Combat {
         /// </summary>
         /// <returns></returns>
         private bool GetIsInRange() {
-            return Vector3.Distance(transform.position, _target.transform.position) < _weapon.GetRange();
+            return Vector3.Distance(transform.position, _target.transform.position) < _currentWeapon.GetRange();
         }
 
         /// <summary>
