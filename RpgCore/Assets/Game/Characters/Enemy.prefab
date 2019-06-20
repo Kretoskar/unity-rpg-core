@@ -610,11 +610,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 8324147984200893757, guid: 00e41c253f1c3b54c956aacc15467a4a,
-        type: 3}
-      propertyPath: uniqueIdentifier
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 377598040184331986, guid: 00e41c253f1c3b54c956aacc15467a4a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -685,6 +680,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8324147984200893757, guid: 00e41c253f1c3b54c956aacc15467a4a,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 154951192929930519, guid: 00e41c253f1c3b54c956aacc15467a4a,
         type: 3}
       propertyPath: _weaponRange
@@ -707,6 +707,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 283f2522d63f6fd44ba4cd4bdf3d5c89,
         type: 2}
+    - target: {fileID: 154951192929930519, guid: 00e41c253f1c3b54c956aacc15467a4a,
+        type: 3}
+      propertyPath: _rightHandTransform
+      value: 
+      objectReference: {fileID: 3752646503985907576}
+    - target: {fileID: 154951192929930519, guid: 00e41c253f1c3b54c956aacc15467a4a,
+        type: 3}
+      propertyPath: _leftHandTransform
+      value: 
+      objectReference: {fileID: 3752646503985850234}
     - target: {fileID: 1265718833074104300, guid: 00e41c253f1c3b54c956aacc15467a4a,
         type: 3}
       propertyPath: _healthPoints

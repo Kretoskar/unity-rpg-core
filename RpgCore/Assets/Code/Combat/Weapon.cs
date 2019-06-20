@@ -7,15 +7,24 @@ namespace RPG.Combat {
         [SerializeField] private AnimatorOverrideController _animatorOverride = null;
         [SerializeField] private float _weaponDamage = 5f;
         [SerializeField] private float _weaponRange = 4f;
+        [SerializeField] private bool _isRightHanded = true;
 
         /// <summary>
         /// Spawn the weapon
         /// </summary>
-        /// <param name="handTransform">transform of player's hand</param>
+        /// <param name="rightHandTransform">transform of player's hand</param>
         /// <param name="animator">player's animator</param>
-        public void Spawn(Transform handTransform, Animator animator) {
-            if (_equippedPrefab != null)
+        public void Spawn(Transform rightHand, Transform leftHand, Animator animator) {
+            if (_equippedPrefab != null) { 
+
+                Transform handTransform;
+                if (_isRightHanded)
+                    handTransform = rightHand;
+                else
+                    handTransform = leftHand;
+
                 Instantiate(_equippedPrefab, handTransform);
+            }
             
             if(_animatorOverride != null)
                 animator.runtimeAnimatorController = _animatorOverride;
