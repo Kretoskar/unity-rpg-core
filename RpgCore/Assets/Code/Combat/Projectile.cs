@@ -11,13 +11,15 @@ namespace RPG.Combat {
         [SerializeField] private float _howHighToAim = 1.1f;
 
         private Health _target = null;
+        private float _damage = 0;
 
         private void Update() {
             Shoot();
         }
 
-        public void SetTarget(Health target) {
+        public void SetTarget(Health target, float damage) {
             _target = target;
+            _damage = damage;
         }
 
         private void Shoot() {
@@ -32,6 +34,14 @@ namespace RPG.Combat {
             if (target == null)
                 return target.transform.position;
             return target.transform.position + Vector3.up * target.height / _howHighToAim;
+        }
+
+        private void OnTriggerEnter(Collider other) {
+            if (other.GetComponent<Health>() != _target) {
+                return;
+            }
+            _target.TakeDamage(_damage);
+            Destroy(gameObject);
         }
     }
 }
