@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPG.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,12 +7,17 @@ using UnityEngine;
 namespace RPG.Combat {
     public class Projectile : MonoBehaviour {
 
-        [SerializeField] private Transform _target = null;
         [SerializeField] private float _speed = 1;
         [SerializeField] private float _howHighToAim = 1.1f;
 
+        private Health _target = null;
+
         private void Update() {
             Shoot();
+        }
+
+        public void SetTarget(Health target) {
+            _target = target;
         }
 
         private void Shoot() {
