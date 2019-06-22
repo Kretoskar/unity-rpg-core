@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72700e879b62ea7479ef488b57372b59, type: 3}
-  m_Name: Bow
+  m_Name: IceBow
   m_EditorClassIdentifier: 
-  _equippedPrefab: {fileID: 5303140430599807767, guid: cc57431856795e1449beb8528de3e7d6,
+  _equippedPrefab: {fileID: 5303140430599807767, guid: 2cad08d7d191ca44898f2e7dba93abc0,
     type: 3}
-  _animatorOverride: {fileID: 22100000, guid: b044718f2e569214c890c78aaca8cf2d, type: 2}
+  _animatorOverride: {fileID: 22100000, guid: e38dbe1f461cb304193c137045726fc9, type: 2}
   _weaponDamage: 8
   _weaponRange: 20
   _isRightHanded: 0
-  _projectile: {fileID: 6585510454346823918, guid: 192614cdde7dd5148a9411d7183ef3a1,
+  _projectile: {fileID: 6585510454346823918, guid: aacccf48c49a0be44ad106df610c43a3,
     type: 3}
