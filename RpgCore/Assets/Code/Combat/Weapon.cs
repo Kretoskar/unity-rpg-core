@@ -1,4 +1,5 @@
-﻿using RPG.Core;
+﻿using System;
+using RPG.Core;
 using UnityEngine;
 
 namespace RPG.Combat {
@@ -11,20 +12,41 @@ namespace RPG.Combat {
         [SerializeField] private bool _isRightHanded = true;
         [SerializeField] private Projectile _projectile = null;
 
+        private const string _weaponName = "Weapon";
+
         /// <summary>
         /// Spawn the weapon
         /// </summary>
         /// <param name="rightHandTransform">transform of player's hand</param>
         /// <param name="animator">player's animator</param>
         public void Spawn(Transform rightHand, Transform leftHand, Animator animator) {
+            DestroyOldWeapon(rightHand, leftHand);
+
             if (_equippedPrefab != null) {
                 Transform handTransform = GetTransform(rightHand, leftHand);
 
-                Instantiate(_equippedPrefab, handTransform);
+                GameObject weapon = Instantiate(_equippedPrefab, handTransform);
+                weapon.name = _weaponName;
             }
 
             if (_animatorOverride != null)
                 animator.runtimeAnimatorController = _animatorOverride;
+        }
+
+        /// <summary>
+        /// Destroys the old weapon
+        /// </summary>
+        /// <param name="rightHand">player's right hand transform</param>
+        /// <param name="leftHand">player's left hand transform</param>
+        private void DestroyOldWeapon(Transform rightHand, Transform leftHand) {
+            Transform weaponToDestroy = rightHand.Find(_weaponName);
+            if(weaponToDestroy == null) {
+                weaponToDestroy = leftHand.Find(_weaponName);
+            }
+            if (weaponToDestroy == null) return;
+
+            weaponToDestroy.name = "DESTROYING";
+            Destroy(weaponToDestroy.gameObject);
         }
 
         private Transform GetTransform(Transform rightHand, Transform leftHand) {
