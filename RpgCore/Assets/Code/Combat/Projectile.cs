@@ -9,9 +9,14 @@ namespace RPG.Combat {
 
         [SerializeField] private float _speed = 1;
         [SerializeField] private float _howHighToAim = 1.1f;
+        [SerializeField] private bool _isHoming = false;
 
         private Health _target = null;
         private float _damage = 0;
+
+        private void Start() {
+            transform.LookAt(GetAimLocation());
+        }
 
         private void Update() {
             Shoot();
@@ -25,7 +30,8 @@ namespace RPG.Combat {
         private void Shoot() {
             if (_target == null)
                 return;
-            transform.LookAt(GetAimLocation());
+            if(_isHoming && !_target.IsDead)
+                transform.LookAt(GetAimLocation());
             transform.Translate(Vector3.forward * _speed * Time.deltaTime);
         }
 
@@ -40,6 +46,7 @@ namespace RPG.Combat {
             if (other.GetComponent<Health>() != _target) {
                 return;
             }
+            if (_target.IsDead) return;
             _target.TakeDamage(_damage);
             Destroy(gameObject);
         }
