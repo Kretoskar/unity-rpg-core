@@ -10,6 +10,7 @@ namespace RPG.Combat {
         [SerializeField] private float _speed = 1;
         [SerializeField] private float _howHighToAim = 1.1f;
         [SerializeField] private bool _isHoming = false;
+        [SerializeField] private GameObject _hitEffect = null;
 
         private Health _target = null;
         private float _damage = 0;
@@ -48,6 +49,12 @@ namespace RPG.Combat {
             }
             if (_target.IsDead) return;
             _target.TakeDamage(_damage);
+
+            if(_hitEffect != null) {
+                 GameObject impact = Instantiate(_hitEffect, GetAimLocation(), Quaternion.identity);
+                Destroy(impact, 5);
+            }
+
             Destroy(gameObject);
         }
     }

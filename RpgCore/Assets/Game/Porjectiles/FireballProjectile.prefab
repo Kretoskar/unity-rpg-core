@@ -49,6 +49,8 @@ MonoBehaviour:
   _speed: 10
   _howHighToAim: 1.12
   _isHoming: 0
+  _hitEffect: {fileID: 9078977959833679544, guid: 46948375a4cb9fc41a1ebff398d6d622,
+    type: 3}
 --- !u!65 &741666174588165717
 BoxCollider:
   m_ObjectHideFlags: 0

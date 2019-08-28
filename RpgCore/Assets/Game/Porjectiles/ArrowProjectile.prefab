@@ -48,6 +48,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 10
   _howHighToAim: 1.12
+  _isHoming: 0
+  _hitEffect: {fileID: 2970895870464981460, guid: 5ea2a92d27b70cb48a539af763ddb6cf,
+    type: 3}
 --- !u!65 &741666174588165717
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -212,10 +215,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1562317991760795981}
     m_Modifications:
-    - target: {fileID: 1659504181823486, guid: c7f49c6920d49ba468b083941d79f2c0, type: 3}
-      propertyPath: m_Name
-      value: Simple Arrow
-      objectReference: {fileID: 0}
     - target: {fileID: 4750687242688692, guid: c7f49c6920d49ba468b083941d79f2c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -259,6 +258,10 @@ PrefabInstance:
     - target: {fileID: 4750687242688692, guid: c7f49c6920d49ba468b083941d79f2c0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1659504181823486, guid: c7f49c6920d49ba468b083941d79f2c0, type: 3}
+      propertyPath: m_Name
+      value: Simple Arrow
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f49c6920d49ba468b083941d79f2c0, type: 3}
