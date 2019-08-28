@@ -10,6 +10,7 @@ namespace RPG.Combat {
         [SerializeField] private float _speed = 1;
         [SerializeField] private float _howHighToAim = 1.1f;
         [SerializeField] private bool _isHoming = false;
+        [SerializeField] private float _maxLifeTime = 5;
         [SerializeField] private GameObject _hitEffect = null;
 
         private Health _target = null;
@@ -23,11 +24,21 @@ namespace RPG.Combat {
             Shoot();
         }
 
+        /// <summary>
+        /// Set projectile' target
+        /// </summary>
+        /// <param name="target">Target to shoot at</param>
+        /// <param name="damage">Damage for the target to take</param>
         public void SetTarget(Health target, float damage) {
             _target = target;
             _damage = damage;
+
+            Destroy(gameObject, _maxLifeTime);
         }
 
+        /// <summary>
+        /// Shoot the projectile
+        /// </summary>
         private void Shoot() {
             if (_target == null)
                 return;
@@ -36,6 +47,10 @@ namespace RPG.Combat {
             transform.Translate(Vector3.forward * _speed * Time.deltaTime);
         }
 
+        /// <summary>
+        /// How high should the projectile hit
+        /// </summary>
+        /// <returns></returns>
         private Vector3 GetAimLocation() {
             CapsuleCollider target = _target.GetComponent<CapsuleCollider>();
             if (target == null)
@@ -51,8 +66,7 @@ namespace RPG.Combat {
             _target.TakeDamage(_damage);
 
             if(_hitEffect != null) {
-                 GameObject impact = Instantiate(_hitEffect, GetAimLocation(), Quaternion.identity);
-                Destroy(impact, 5);
+                 Instantiate(_hitEffect, GetAimLocation(), Quaternion.identity);
             }
 
             Destroy(gameObject);
