@@ -2,12 +2,13 @@
 using RPG.Movement;
 using RPG.Core;
 using System;
+using RPG.Saving;
 
 namespace RPG.Combat {
     /// <summary>
     /// Handles fight action
     /// </summary>
-    public class Fighter : MonoBehaviour, IAction {
+    public class Fighter : MonoBehaviour, IAction, ISaveable {
         [SerializeField] private float _timeBetweenAttacks = 0.5f;
         [SerializeField] private Transform _rightHandTransform = null;
         [SerializeField] private Transform _leftHandTransform = null;
@@ -25,13 +26,14 @@ namespace RPG.Combat {
         private const string triggerName = "attack";
         private const string stopTriggerName = "stopAttack";
 
-        private void Start() {
+        private void Awake() {
             _mover = GetComponent<Mover>();
             _actionScheduler = GetComponent<ActionScheduler>();
             _animator = GetComponent<Animator>();
 
-            EquipWeapon(_defaultWeapon);
-
+            if (_currentWeapon == null) {
+                EquipWeapon(_defaultWeapon);
+            }
         }
 
         private void Update() {
@@ -148,6 +150,16 @@ namespace RPG.Combat {
         private void StopAttackTrigger() {
             _animator.ResetTrigger(triggerName);
             _animator.SetTrigger(stopTriggerName);
+        }
+
+        public object CaptureState() {
+            return _currentWeapon.name;
+        }
+
+        public void RestoreState(object state) {
+            string weaponName = (string)state;
+            Weapon weapon = Resources.Load<Weapon>(weaponName);
+            EquipWeapon(weapon);
         }
     }
 }
