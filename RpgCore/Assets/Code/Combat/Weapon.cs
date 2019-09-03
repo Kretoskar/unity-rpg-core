@@ -55,6 +55,13 @@ namespace RPG.Combat {
             Destroy(weaponToDestroy.gameObject);
         }
 
+        /// <summary>
+        /// Get transform of correct hand
+        /// </summary>
+        /// <param name="rightHand">right hand transform</param>
+        /// <param name="leftHand">left hand transform</param>
+        /// <returns>Left hand transform if weapon is left handed, 
+        /// right hand transform if weapon is right handed</returns>
         private Transform GetTransform(Transform rightHand, Transform leftHand) {
             Transform handTransform;
             if (_isRightHanded)
@@ -68,6 +75,13 @@ namespace RPG.Combat {
             return _projectile != null;
         }
 
+        /// <summary>
+        /// Launch projectile to a choosen target
+        /// trigged by NPCs
+        /// </summary>
+        /// <param name="rightHand">right hand transform</param>
+        /// <param name="leftHand">left hand transform</param>
+        /// <param name="target">target to shoot projectile at</param>
         public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target) {
             Projectile projectileInstance = 
                 Instantiate(_projectile,
@@ -77,10 +91,33 @@ namespace RPG.Combat {
 
         }
 
+        /// <summary>
+        /// Launch projectile to a choosen target
+        /// trigged by Player
+        /// </summary>
+        /// <param name="rightHand">right hand transform</param>
+        /// <param name="leftHand">left hand transform</param>
+        /// <param name="forward">target to shoot projectile a</param>
+        public void LaunchProjectile(Transform rightHand, Transform leftHand, Vector3 forward) {
+            Projectile projectileInstance = 
+                Instantiate(_projectile,
+                            GetTransform(rightHand, leftHand).position,
+                            Quaternion.identity);
+            projectileInstance.SetTarget(_weaponDamage, forward);
+        }
+
+        /// <summary>
+        /// Get weapon range
+        /// </summary>
+        /// <returns>weapon range</returns>
         public float GetRange() {
             return _weaponRange;
         }
 
+        /// <summary>
+        /// Get weapon damage
+        /// </summary>
+        /// <returns>weapon damage</returns>
         public float GetDamage() {
             return _weaponDamage;
         }
