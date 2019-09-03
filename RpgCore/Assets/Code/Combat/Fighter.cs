@@ -53,6 +53,40 @@ namespace RPG.Combat {
                 AttackBehaviour();
             }
         }
+        /// <summary>
+        /// Checks if character can attack the given combat target
+        /// </summary>
+        /// <param name="combatTarget">combat target to check</param>
+        /// <returns>posibillity of attacking the combat target</returns>
+        public bool CanAttack(GameObject combatTarget) {
+            if (combatTarget == null) return false;
+            Health targetToTest = combatTarget.GetComponent<Health>();
+            return targetToTest != null && !targetToTest.IsDead;
+        }
+
+        /// <summary>
+        /// Set the _target for the attack
+        /// </summary>
+        /// <param name="combatTarget">Target of the attack</param>
+        public void Attack(GameObject combatTarget) {
+            _actionScheduler.StartAction(this);
+            _target = combatTarget.GetComponent<Health>();
+        }
+
+        /// <summary>
+        /// Cancel the attack action
+        /// </summary>
+        public void Cancel() {
+            StopAttackTrigger();
+            _target = null;
+        }
+
+        public void PlayerAttack() {
+            if(_timeSinceLastAttack > _timeBetweenAttacks) {
+                TriggerAttack();
+                _timeSinceLastAttack = 0;
+            }
+        }
 
         /// <summary>
         /// Equip player's weapon
@@ -114,34 +148,6 @@ namespace RPG.Combat {
         /// <returns></returns>
         private bool GetIsInRange() {
             return Vector3.Distance(transform.position, _target.transform.position) < _currentWeapon.GetRange();
-        }
-
-        /// <summary>
-        /// Checks if character can attack the given combat target
-        /// </summary>
-        /// <param name="combatTarget">combat target to check</param>
-        /// <returns>posibillity of attacking the combat target</returns>
-        public bool CanAttack(GameObject combatTarget) {
-            if (combatTarget == null) return false;
-            Health targetToTest = combatTarget.GetComponent<Health>();
-            return targetToTest != null && !targetToTest.IsDead;
-        }
-
-        /// <summary>
-        /// Set the _target for the attack
-        /// </summary>
-        /// <param name="combatTarget">Target of the attack</param>
-        public void Attack(GameObject combatTarget) {
-            _actionScheduler.StartAction(this);
-            _target = combatTarget.GetComponent<Health>();
-        }
-
-        /// <summary>
-        /// Cancel the attack action
-        /// </summary>
-        public void Cancel() {
-            StopAttackTrigger();
-            _target = null;
         }
 
         /// <summary>

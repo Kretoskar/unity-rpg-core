@@ -23,28 +23,15 @@ namespace RPG.Control {
 
         private void Update() {
             if (_health.IsDead) return;
-            if (InteractWithCombat()) return;
+            //if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
         }
 
         /// <summary>
         /// Check for player input to handle combat
         /// </summary>
-        private bool InteractWithCombat() {
-            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
-            foreach (RaycastHit hit in hits) {
-                CombatTarget target = hit.transform.GetComponent<CombatTarget>();
-
-                if (target == null) continue;
-
-                if (!_fighter.CanAttack(target.gameObject)) continue;
-
-                if (Input.GetMouseButton(0)) {
-                    _fighter.Attack(target.gameObject);
-                }
-                return true;
-            }
-            return false;
+        public void InteractWithCombat() {
+            _fighter.PlayerAttack();
         }
 
         /// <summary>
