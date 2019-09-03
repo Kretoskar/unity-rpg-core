@@ -87,14 +87,43 @@ namespace RPG.Combat {
         }
 
         private void OnTriggerEnter(Collider other) {
+            Health hitHealth = other.GetComponent<Health>();
+            if(hitHealth == null) {
+                HitWall();
+                return;
+            }
+            if (_isShotByPlayer) {
+                PlayerDamageDeal(hitHealth);
+            } else {
+                NPCDamageDeal(hitHealth);
+            }
+            
+        }
+
+        private void HitWall() {
+            Destroy(gameObject);
+        }
+
+        private void PlayerDamageDeal(Health other) {
+            if (other.IsDead) return;
+            other.TakeDamage(_damage);
+
+            if (_hitEffect != null) {
+                Instantiate(_hitEffect, transform.position, Quaternion.identity);
+            }
+
+            Destroy(gameObject);
+        }
+
+        private void NPCDamageDeal(Health other) {
             if (other.GetComponent<Health>() != _target) {
                 return;
             }
             if (_target.IsDead) return;
             _target.TakeDamage(_damage);
 
-            if(_hitEffect != null) {
-                 Instantiate(_hitEffect, GetAimLocation(), Quaternion.identity);
+            if (_hitEffect != null) {
+                Instantiate(_hitEffect, GetAimLocation(), Quaternion.identity);
             }
 
             Destroy(gameObject);

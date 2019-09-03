@@ -411,6 +411,11 @@ PrefabInstance:
       propertyPath: _defaultWeaponName
       value: Sword
       objectReference: {fileID: 0}
+    - target: {fileID: 8958703752921919761, guid: c9e0757e4acf92b4185dcceac9d84ff7,
+        type: 3}
+      propertyPath: _healthPoints
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 4769591270443818833, guid: c9e0757e4acf92b4185dcceac9d84ff7,
         type: 3}
       propertyPath: m_LocalPosition.z
