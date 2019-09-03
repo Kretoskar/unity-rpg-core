@@ -117,6 +117,7 @@ namespace RPG.Saving {
         /// <param name="saveFile">save file path</param>
         /// <returns>save file location</returns>
         private string GetPathFromSaveFile(string saveFile) {
+            print(Application.persistentDataPath);
             return Path.Combine(Application.persistentDataPath + ".sav");
         }
     }

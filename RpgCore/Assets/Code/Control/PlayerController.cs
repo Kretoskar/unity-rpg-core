@@ -12,11 +12,13 @@ namespace RPG.Control {
         private Fighter _fighter;
         private Mover _mover;
         private Health _health;
+        private Joystick _joystick;
 
         private void Start() {
             _fighter = GetComponent<Fighter>();
             _mover = GetComponent<Mover>();
             _health = GetComponent<Health>();
+            _joystick = FindObjectOfType<Joystick>();
         }
 
         private void Update() {
@@ -49,15 +51,15 @@ namespace RPG.Control {
         /// Check for player input to handle movement
         /// </summary>
         private bool InteractWithMovement() {
-            RaycastHit hit;
-            bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
-            if (hasHit) {
-                if (Input.GetMouseButton(0)) {
-                    _mover.StartMoveAction(hit.point);
-                }
+            float horizontal = _joystick.Horizontal;
+            float vertical = _joystick.Vertical;
+            if(Mathf.Abs(horizontal) < Mathf.Epsilon && Mathf.Abs(vertical) < Mathf.Epsilon) {
+                _mover.StopPlayer();
+                return false;
+            } else {
+                _mover.MovePlayer(horizontal, vertical);
                 return true;
             }
-            return false;
         }
 
         /// <summary>

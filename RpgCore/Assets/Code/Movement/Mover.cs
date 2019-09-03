@@ -9,13 +9,17 @@ namespace RPG.Movement {
     /// </summary>
     public class Mover : MonoBehaviour, IAction, ISaveable {
 
+        private const string _animatorBlendValue = "ForwardSpeed";
+
         private NavMeshAgent _navMeshAgent;
         private ActionScheduler _actionScheduler;
         private Health _health;
+        private PlayerMover _playerMover;
 
-        private const string _animatorBlendValue = "ForwardSpeed";
+        private bool _isPlayer = false;
 
         private void Start() {
+            _playerMover = GetComponent<PlayerMover>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _actionScheduler = GetComponent<ActionScheduler>();
             _health = GetComponent<Health>();
@@ -52,10 +56,28 @@ namespace RPG.Movement {
         }
 
         /// <summary>
+        /// Move player according to joystick input
+        /// </summary>
+        /// <param name="horizontal">horizontal joystick input</param>
+        /// <param name="vertical">vertical joystick input</param>
+        public void MovePlayer(float horizontal, float vertical) {
+            _isPlayer = true;
+            _playerMover.Move(horizontal, vertical);
+        }
+
+        /// <summary>
+        /// Stop the player movement
+        /// </summary>
+        public void StopPlayer() {
+            _playerMover.Move(0, 0);
+        }
+
+        /// <summary>
         /// Update animator that uses blend tree
         /// depending on playerNavMeshAgent velocity z value
         /// </summary>
         private void UpdateAnimator() {
+            if (_isPlayer) return;
             Vector3 velocity = _navMeshAgent.velocity;
             // Transfer from global to local
             Vector3 localVelocity = transform.InverseTransformDirection(velocity);
