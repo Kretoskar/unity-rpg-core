@@ -27,7 +27,19 @@ namespace RPG.Combat {
         private float _timeSinceLastAttack = Mathf.Infinity;
         private bool _isPlayer = false;
 
+        public bool IsAttacking { get; private set; }
+        public float TimeSinceLastAttack { get { return _timeSinceLastAttack; } }
+
+        public float Damage {
+            get {
+                Weapon currentWeapon = _currentWeapon;
+                if (currentWeapon == null)
+                    return 0;
+                return _currentWeapon.GetDamage();
+            } }
+
         private void Awake() {
+            IsAttacking = false;
             _mover = GetComponent<Mover>();
             _actionScheduler = GetComponent<ActionScheduler>();
             _animator = GetComponent<Animator>();
@@ -85,6 +97,7 @@ namespace RPG.Combat {
         public void PlayerAttack() {
             _isPlayer = true;
             if(_timeSinceLastAttack > _timeBetweenAttacks) {
+                IsAttacking = true;
                 TriggerAttack();
                 _timeSinceLastAttack = 0;
             }
@@ -141,7 +154,7 @@ namespace RPG.Combat {
                 _currentWeapon.LaunchProjectile(_rightHandTransform, _leftHandTransform, _forwardProjectileTarget.position);
             }
             else {
-                _target.TakeDamage(_currentWeapon.GetDamage());
+                IsAttacking = false;
             }
         }
 

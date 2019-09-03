@@ -36,7 +36,7 @@ namespace RPG.Movement {
         private void Start() {
             _mainCam = Camera.main.transform;
             SetupRelativeToCameraTransform();
-
+            _navMeshAgent.enabled = true;
             _joystick = FindObjectOfType<Joystick>();
         }
 
