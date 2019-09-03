@@ -14,14 +14,24 @@ namespace RPG.Combat {
         [SerializeField] private GameObject _hitEffect = null;
 
         private Health _target = null;
+        private Vector3 _playerForward;
         private float _damage = 0;
+        private bool _isShotByPlayer = true;
 
         private void Start() {
             transform.LookAt(GetAimLocation());
         }
 
         private void Update() {
-            Shoot();
+            if (!_isShotByPlayer) {
+                Shoot();
+            } else {
+                ShootByPlayer();
+            }
+        }
+
+        private void ShootByPlayer() {
+            transform.Translate(Vector3.forward * _speed * Time.deltaTime);
         }
 
         /// <summary>
@@ -30,7 +40,20 @@ namespace RPG.Combat {
         /// <param name="target">Target to shoot at</param>
         /// <param name="damage">Damage for the target to take</param>
         public void SetTarget(Health target, float damage) {
+            _isShotByPlayer = false;
             _target = target;
+            _damage = damage;
+
+            Destroy(gameObject, _maxLifeTime);
+        }
+
+        /// <summary>
+        /// Shoot projectile by player
+        /// </summary>
+        /// <param name="damage"></param>
+        public void SetTarget(float damage, Vector3 forward) {
+            _playerForward = forward;
+            _isShotByPlayer = true;
             _damage = damage;
 
             Destroy(gameObject, _maxLifeTime);
@@ -48,10 +71,15 @@ namespace RPG.Combat {
         }
 
         /// <summary>
-        /// How high should the projectile hit
+        /// Where to shoot the projectile
         /// </summary>
         /// <returns></returns>
         private Vector3 GetAimLocation() {
+            if(_isShotByPlayer) {
+                print(_playerForward);
+                return _playerForward;
+            }
+
             CapsuleCollider target = _target.GetComponent<CapsuleCollider>();
             if (target == null)
                 return target.transform.position;

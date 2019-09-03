@@ -12,8 +12,11 @@ namespace RPG.Combat {
         [SerializeField] private float _timeBetweenAttacks = 0.5f;
         [SerializeField] private Transform _rightHandTransform = null;
         [SerializeField] private Transform _leftHandTransform = null;
+        [SerializeField] private Transform _forwardProjectileTarget = null;
         [SerializeField] private Weapon _defaultWeapon = null;
 
+        private const string triggerName = "attack";
+        private const string stopTriggerName = "stopAttack";
 
         private Health _target;
         private Mover _mover;
@@ -22,9 +25,7 @@ namespace RPG.Combat {
         private Weapon _currentWeapon;
 
         private float _timeSinceLastAttack = Mathf.Infinity;
-
-        private const string triggerName = "attack";
-        private const string stopTriggerName = "stopAttack";
+        private bool _isPlayer = false;
 
         private void Awake() {
             _mover = GetComponent<Mover>();
@@ -82,6 +83,7 @@ namespace RPG.Combat {
         }
 
         public void PlayerAttack() {
+            _isPlayer = true;
             if(_timeSinceLastAttack > _timeBetweenAttacks) {
                 TriggerAttack();
                 _timeSinceLastAttack = 0;
@@ -123,7 +125,32 @@ namespace RPG.Combat {
         /// Animation event triggered on hit
         /// </summary>
         private void Hit() {
-            if (_target == null)
+            if (_isPlayer) {
+                PlayerHit();
+            } else {
+                NPCHit();
+            }
+        }
+
+        /// <summary>
+        /// Player's behaviour on animation hit event
+        /// shoots projectile, or deals damage
+        /// </summary>
+        private void PlayerHit() {
+            if (_currentWeapon.HasProjectile()) {
+                _currentWeapon.LaunchProjectile(_rightHandTransform, _leftHandTransform, _forwardProjectileTarget.position);
+            }
+            else {
+                _target.TakeDamage(_currentWeapon.GetDamage());
+            }
+        }
+
+        /// <summary>
+        /// NPC behaviour on animation hit event
+        /// shoots projectile, or deals damage
+        /// </summary>
+        private void NPCHit() {
+            if (_target == null && _isPlayer == false)
                 return;
 
             if (_currentWeapon.HasProjectile()) {
@@ -132,7 +159,6 @@ namespace RPG.Combat {
             else {
                 _target.TakeDamage(_currentWeapon.GetDamage());
             }
-
         }
 
         /// <summary>
