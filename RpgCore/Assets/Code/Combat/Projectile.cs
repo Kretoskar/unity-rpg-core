@@ -101,6 +101,9 @@ namespace RPG.Combat {
         }
 
         private void HitWall() {
+            if (_hitEffect != null) {
+                Instantiate(_hitEffect, transform.position, Quaternion.identity);
+            }
             Destroy(gameObject);
         }
 
