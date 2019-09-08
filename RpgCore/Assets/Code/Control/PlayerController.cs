@@ -17,9 +17,26 @@ namespace RPG.Control {
         private Health _health;
         private Joystick _joystick;
 
+        #region Singleton
+
+        private static PlayerController _instance;
+        public static PlayerController Instance { get => _instance; set => _instance = value; }
+
+        private void SetupSingleton() {
+            if (_instance != null && _instance != this) {
+                Destroy(gameObject);
+            }
+            else {
+                _instance = this;
+            }
+        }
+
+        #endregion
+
         #region MonoBehaviour Methods
 
         private void Awake() {
+            SetupSingleton();
             _fighter = GetComponent<Fighter>();
             _mover = GetComponent<Mover>();
             _health = GetComponent<Health>();

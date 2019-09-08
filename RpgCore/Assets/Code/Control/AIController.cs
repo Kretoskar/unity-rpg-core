@@ -10,6 +10,9 @@ namespace RPG.Control {
     /// <summary>
     /// Handles NPC behaviour
     /// </summary>
+    [RequireComponent(typeof(Fighter))]
+    [RequireComponent(typeof(Health))]
+    [RequireComponent(typeof(Mover))]
     public class AIController : MonoBehaviour {
         [SerializeField]
         [Range(0,100)]
