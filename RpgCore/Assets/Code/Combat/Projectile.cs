@@ -5,18 +5,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.Combat {
+    /// <summary>
+    /// Projectile shot by a weapon
+    /// </summary>
     public class Projectile : MonoBehaviour {
 
-        [SerializeField] private float _speed = 1;
-        [SerializeField] private float _howHighToAim = 1.1f;
-        [SerializeField] private bool _isHoming = false;
-        [SerializeField] private float _maxLifeTime = 5;
-        [SerializeField] private GameObject _hitEffect = null;
+        [SerializeField]
+        [Range(0,10)]
+        private float _speed = 1;
+        [SerializeField]
+        [Tooltip("How high to hit the target")]
+        private float _howHighToAim = 1.1f;
+        [SerializeField]
+        private bool _isHoming = false;
+        [SerializeField]
+        [Range(0,10)]
+        private float _maxLifeTime = 5;
+        [SerializeField]
+        private GameObject _hitEffect = null;
 
         private Health _target = null;
         private Vector3 _playerForward;
         private float _damage = 0;
         private bool _isShotByPlayer = true;
+
+        #region MonoBehaviour methods
 
         private void Start() {
             transform.LookAt(GetAimLocation());
@@ -30,9 +43,9 @@ namespace RPG.Combat {
             }
         }
 
-        private void ShootByPlayer() {
-            transform.Translate(Vector3.forward * _speed * Time.deltaTime);
-        }
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Set projectile' target
@@ -57,6 +70,17 @@ namespace RPG.Combat {
             _damage = damage;
 
             Destroy(gameObject, _maxLifeTime);
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Shoot the projectile by player
+        /// </summary>
+        private void ShootByPlayer() {
+            transform.Translate(Vector3.forward * _speed * Time.deltaTime);
         }
 
         /// <summary>
@@ -86,6 +110,12 @@ namespace RPG.Combat {
             return target.transform.position + Vector3.up * target.height / _howHighToAim;
         }
 
+        /// <summary>
+        /// Deal damage to npc, or player.
+        /// If other object is not a player or npc, 
+        /// destroy projectile
+        /// </summary>
+        /// <param name="other"></param>
         private void OnTriggerEnter(Collider other) {
             Health hitHealth = other.GetComponent<Health>();
             if(hitHealth == null) {
@@ -100,6 +130,9 @@ namespace RPG.Combat {
             
         }
 
+        /// <summary>
+        /// Destroy the projectile and instantiate the hit effect
+        /// </summary>
         private void HitWall() {
             if (_hitEffect != null) {
                 Instantiate(_hitEffect, transform.position, Quaternion.identity);
@@ -107,6 +140,10 @@ namespace RPG.Combat {
             Destroy(gameObject);
         }
 
+        /// <summary>
+        /// Deal damage from player to the hit target
+        /// </summary>
+        /// <param name="other"></param>
         private void PlayerDamageDeal(Health other) {
             if (other.IsDead) return;
             other.TakeDamage(_damage);
@@ -118,6 +155,10 @@ namespace RPG.Combat {
             Destroy(gameObject);
         }
 
+        /// <summary>
+        /// Deal damage from npc to the player
+        /// </summary>
+        /// <param name="other"></param>
         private void NPCDamageDeal(Health other) {
             if (other.GetComponent<Health>() != _target) {
                 return;
@@ -131,5 +172,8 @@ namespace RPG.Combat {
 
             Destroy(gameObject);
         }
+
+        #endregion
+
     }
 }
