@@ -8,7 +8,9 @@ namespace RPG.Core {
     /// Handles health of characters
     /// </summary>
     public class Health : MonoBehaviour, ISaveable {
-        [SerializeField] private float _healthPoints = 100f;
+        [SerializeField]
+        [Range(0,9999)]
+        private float _healthPoints = 100f;
 
         private bool _isDead = false;
         public bool IsDead { get { return _isDead; } }
@@ -26,22 +28,33 @@ namespace RPG.Core {
             }
         }
 
+        /// <summary>
+        /// Capture state to save
+        /// </summary>
+        /// <returns>State to save</returns>
+        public object CaptureState() {
+            return _healthPoints;
+        }
+
+        /// <summary>
+        /// Restore state to load
+        /// </summary>
+        /// <param name="state">State to load</param>
+        public void RestoreState(object state) {
+            _healthPoints = (float)state;
+            if (_healthPoints <= 0) {
+                Die();
+            }
+        }
+
+        /// <summary>
+        /// Behaviour on death
+        /// </summary>
         private void Die() {
             if (_isDead) return;
             _isDead = true;
             GetComponent<Animator>().SetTrigger(dieTrigger);
             GetComponent<ActionScheduler>().CancelCurrentAction();
-        }
-
-        public object CaptureState() {
-            return _healthPoints;
-        }
-
-        public void RestoreState(object state) {
-            _healthPoints = (float)state;
-            if(_healthPoints <= 0) {
-                Die();
-            }
         }
     }
 }
