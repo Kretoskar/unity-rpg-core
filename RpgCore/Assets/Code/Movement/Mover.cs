@@ -7,6 +7,10 @@ namespace RPG.Movement {
     /// <summary>
     /// Move character and update his animator
     /// </summary>
+    [RequireComponent(typeof(PlayerMover))]
+    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(ActionScheduler))]
+    [RequireComponent(typeof(Health))]
     public class Mover : MonoBehaviour, IAction, ISaveable {
 
         private const string _animatorBlendValue = "ForwardSpeed";
@@ -18,7 +22,9 @@ namespace RPG.Movement {
 
         private bool _isPlayer = false;
 
-        private void Start() {
+        #region MonoBehaviour Methods
+
+        private void Awake() {
             _playerMover = GetComponent<PlayerMover>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _actionScheduler = GetComponent<ActionScheduler>();
@@ -29,6 +35,10 @@ namespace RPG.Movement {
             _navMeshAgent.enabled = !_health.IsDead;
             UpdateAnimator();
         }
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Start the action of moving the character
@@ -73,6 +83,30 @@ namespace RPG.Movement {
         }
 
         /// <summary>
+        /// Capture state for saving
+        /// </summary>
+        /// <returns>State for saving</returns>
+        public object CaptureState() {
+            return new SerializableVector3(transform.position);
+        }
+
+        /// <summary>
+        /// Restore state to load
+        /// </summary>
+        /// <param name="state">State to load</param>
+        public void RestoreState(object state) {
+            SerializableVector3 position = (SerializableVector3)state;
+            GetComponent<NavMeshAgent>().enabled = false;
+            transform.position = position.ToVector();
+            GetComponent<NavMeshAgent>().enabled = true;
+            GetComponent<ActionScheduler>().CancelCurrentAction();
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
         /// Update animator that uses blend tree
         /// depending on playerNavMeshAgent velocity z value
         /// </summary>
@@ -85,16 +119,7 @@ namespace RPG.Movement {
             GetComponent<Animator>().SetFloat(_animatorBlendValue, speed);
         }
 
-        public object CaptureState() {
-            return new SerializableVector3 (transform.position);
-        }
+        #endregion
 
-        public void RestoreState(object state) {
-            SerializableVector3 position = (SerializableVector3)state;
-            GetComponent<NavMeshAgent>().enabled = false;
-            transform.position = position.ToVector();
-            GetComponent<NavMeshAgent>().enabled = true;
-            GetComponent<ActionScheduler>().CancelCurrentAction();
-        }
     }
 }

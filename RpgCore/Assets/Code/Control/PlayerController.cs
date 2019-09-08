@@ -7,6 +7,9 @@ namespace RPG.Control {
     /// <summary>
     /// Handles player's character interaction
     /// </summary>
+    [RequireComponent(typeof(Fighter))]
+    [RequireComponent(typeof(Mover))]
+    [RequireComponent(typeof(Health))]
     public class PlayerController : MonoBehaviour {
 
         private Fighter _fighter;
@@ -16,10 +19,13 @@ namespace RPG.Control {
 
         #region MonoBehaviour Methods
 
-        private void Start() {
+        private void Awake() {
             _fighter = GetComponent<Fighter>();
             _mover = GetComponent<Mover>();
             _health = GetComponent<Health>();
+        }
+
+        private void Start() {
             _joystick = FindObjectOfType<Joystick>();
         }
 
