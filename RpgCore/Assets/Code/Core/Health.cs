@@ -1,5 +1,6 @@
 ﻿using RPG.Control;
 using RPG.Saving;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,19 +11,24 @@ namespace RPG.Core {
     /// </summary>
     public class Health : MonoBehaviour, ISaveable {
         [SerializeField]
-        [Range(0,9999)]
-        private float _healthPoints = 100f;
+        [Range(0, 9999)]
+        private float _maxHealthPoints = 100f;
         [SerializeField]
         private bool _isEnemy = true;
 
+        private const string dieTrigger = "die";
+
         private AIController _aiController;
+
+        private float _currentHealthPoints;
+
+        public event Action<float> OnHealthPctChanged = delegate {};
 
         private bool _isDead = false;
         public bool IsDead { get { return _isDead; } }
 
-        private const string dieTrigger = "die";
-
         private void Awake() {
+            _currentHealthPoints = _maxHealthPoints;
             _aiController = GetComponent<AIController>();
             if(_aiController == null) {
                 _isEnemy = false;
@@ -30,15 +36,19 @@ namespace RPG.Core {
         }
 
         /// <summary>
-        /// Take damage from a fighter
+        /// Take damage from a fighter, and update health bar UI
         /// </summary>
         /// <param name="damage">Damage to take</param>
         public void TakeDamage(float damage) {
             if(_isEnemy) {
                 _aiController.MoveToPlayer();
             }
-            _healthPoints = Mathf.Max(_healthPoints - damage, 0);
-            if (_healthPoints <= 0) {
+            _currentHealthPoints = Mathf.Max(_currentHealthPoints - damage, 0);
+
+            float healthPct = _currentHealthPoints / _maxHealthPoints;
+            OnHealthPctChanged(healthPct);
+
+            if (_currentHealthPoints <= 0) {
                 Die();
             }
         }
@@ -48,7 +58,7 @@ namespace RPG.Core {
         /// </summary>
         /// <returns>State to save</returns>
         public object CaptureState() {
-            return _healthPoints;
+            return _currentHealthPoints;
         }
 
         /// <summary>
@@ -56,8 +66,8 @@ namespace RPG.Core {
         /// </summary>
         /// <param name="state">State to load</param>
         public void RestoreState(object state) {
-            _healthPoints = (float)state;
-            if (_healthPoints <= 0) {
+            _currentHealthPoints = (float)state;
+            if (_currentHealthPoints <= 0) {
                 Die();
             }
         }

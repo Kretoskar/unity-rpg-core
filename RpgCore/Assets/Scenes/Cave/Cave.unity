@@ -650,6 +650,26 @@ PrefabInstance:
       propertyPath: _uniqueIdentifier
       value: e942e5eb-1e5c-478e-b7e1-307d45a2afa9
       objectReference: {fileID: 0}
+    - target: {fileID: 604585140375769614, guid: bc18a6f124c58b246afb530f837a4b7b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 401676004292831037, guid: bc18a6f124c58b246afb530f837a4b7b,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6836975569544413125, guid: bc18a6f124c58b246afb530f837a4b7b,
+        type: 3}
+      propertyPath: _maxHealthPoints
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 436124456941971498, guid: bc18a6f124c58b246afb530f837a4b7b,
+        type: 3}
+      propertyPath: _updateSpeedSeconds
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc18a6f124c58b246afb530f837a4b7b, type: 3}
 --- !u!4 &162466529 stripped
@@ -5899,6 +5919,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8062980735631711210, guid: c9e0757e4acf92b4185dcceac9d84ff7,
+        type: 3}
+      propertyPath: _defaultWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 0fe71eb7e7b40344f832c91d0600d666,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9e0757e4acf92b4185dcceac9d84ff7, type: 3}
 --- !u!4 &2067169846 stripped
