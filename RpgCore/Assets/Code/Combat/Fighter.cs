@@ -8,12 +8,26 @@ namespace RPG.Combat {
     /// <summary>
     /// Handles fight action
     /// </summary>
+    [RequireComponent(typeof(Mover))]
+    [RequireComponent(typeof(ActionScheduler))]
+    [RequireComponent(typeof(Animator))]
     public class Fighter : MonoBehaviour, IAction, ISaveable {
-        [SerializeField] private float _timeBetweenAttacks = 0.5f;
-        [SerializeField] private Transform _rightHandTransform = null;
-        [SerializeField] private Transform _leftHandTransform = null;
-        [SerializeField] private Transform _forwardProjectileTarget = null;
-        [SerializeField] private Weapon _defaultWeapon = null;
+        [SerializeField]
+        [Range(0,10)]
+        private float _timeBetweenAttacks = 0.5f;
+
+        [SerializeField]
+        private Transform _rightHandTransform = null;
+
+        [SerializeField]
+        private Transform _leftHandTransform = null;
+
+        [SerializeField]
+        [Tooltip("Transform of a gameobject that is directly in front of the player")]
+        private Transform _forwardProjectileTarget = null;
+
+        [SerializeField]
+        private Weapon _defaultWeapon = null;
 
         private const string triggerName = "attack";
         private const string stopTriggerName = "stopAttack";
@@ -30,13 +44,7 @@ namespace RPG.Combat {
         public bool IsAttacking { get; private set; }
         public float TimeSinceLastAttack { get { return _timeSinceLastAttack; } }
 
-        public float Damage {
-            get {
-                Weapon currentWeapon = _currentWeapon;
-                if (currentWeapon == null)
-                    return 0;
-                return _currentWeapon.GetDamage();
-            } }
+        #region MonoBehaviour Methods
 
         private void Awake() {
             IsAttacking = false;
@@ -66,6 +74,22 @@ namespace RPG.Combat {
                 AttackBehaviour();
             }
         }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Damage that this fighter deals
+        /// </summary>
+        public float Damage {
+            get {
+                Weapon currentWeapon = _currentWeapon;
+                if (currentWeapon == null)
+                    return 0;
+                return _currentWeapon.GetDamage();
+            } }
+
         /// <summary>
         /// Checks if character can attack the given combat target
         /// </summary>
@@ -110,6 +134,28 @@ namespace RPG.Combat {
             _currentWeapon = weapon;
             weapon.Spawn(_rightHandTransform,_leftHandTransform, _animator);
         }
+
+        /// <summary>
+        /// Capture state to be saved
+        /// </summary>
+        /// <returns>Name of current weapon</returns>
+        public object CaptureState() {
+            return _currentWeapon.name;
+        }
+
+        /// <summary>
+        /// Restore state on loading
+        /// </summary>
+        /// <param name="state">Object to restore state from</param>
+        public void RestoreState(object state) {
+            string weaponName = (string)state;
+            Weapon weapon = Resources.Load<Weapon>(weaponName);
+            EquipWeapon(weapon);
+        }
+
+        #endregion
+
+        #region Private Methods
 
         /// <summary>
         /// What to do when the character attack
@@ -196,15 +242,6 @@ namespace RPG.Combat {
             _animator.ResetTrigger(triggerName);
             _animator.SetTrigger(stopTriggerName);
         }
-
-        public object CaptureState() {
-            return _currentWeapon.name;
-        }
-
-        public void RestoreState(object state) {
-            string weaponName = (string)state;
-            Weapon weapon = Resources.Load<Weapon>(weaponName);
-            EquipWeapon(weapon);
-        }
+        #endregion
     }
 }

@@ -3,16 +3,34 @@ using RPG.Core;
 using UnityEngine;
 
 namespace RPG.Combat {
+    /// <summary>
+    /// Scriptable object of a weapon
+    /// </summary>
     [CreateAssetMenu(fileName = "Weapon", menuName = "Weapons/Make new weapon", order = 0)]
     public class Weapon : ScriptableObject {
-        [SerializeField] private GameObject _equippedPrefab = null;
-        [SerializeField] private AnimatorOverrideController _animatorOverride = null;
-        [SerializeField] private float _weaponDamage = 5f;
-        [SerializeField] private float _weaponRange = 4f;
-        [SerializeField] private bool _isRightHanded = true;
-        [SerializeField] private Projectile _projectile = null;
+        [SerializeField]
+        private GameObject _equippedPrefab = null;
+
+        [SerializeField]
+        private AnimatorOverrideController _animatorOverride = null;
+
+        [SerializeField]
+        private Projectile _projectile = null;
+
+        [SerializeField]
+        [Range(0,9999)]
+        private float _weaponDamage = 5f;
+
+        [SerializeField]
+        [Range(0,100)]
+        private float _weaponRange = 4f;
+
+        [SerializeField]
+        private bool _isRightHanded = true;
 
         private const string _weaponName = "Weapon";
+
+        #region Public Methods
 
         /// <summary>
         /// Spawn the weapon
@@ -38,6 +56,66 @@ namespace RPG.Combat {
                 animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;
             }
         }
+
+        /// <summary>
+        /// Check if weapon has a projectile.
+        /// Ranged weapons have projectiles
+        /// </summary>
+        /// <returns>True if weapon has a projectile</returns>
+        public bool HasProjectile() {
+            return _projectile != null;
+        }
+
+        /// <summary>
+        /// Launch projectile to a choosen target
+        /// trigged by NPCs
+        /// </summary>
+        /// <param name="rightHand">right hand transform</param>
+        /// <param name="leftHand">left hand transform</param>
+        /// <param name="target">target to shoot projectile at</param>
+        public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target) {
+            Projectile projectileInstance =
+                Instantiate(_projectile,
+                            GetTransform(rightHand, leftHand).position,
+                            Quaternion.identity);
+            projectileInstance.SetTarget(target, _weaponDamage);
+
+        }
+
+        /// <summary>
+        /// Launch projectile to a choosen target
+        /// trigged by Player
+        /// </summary>
+        /// <param name="rightHand">right hand transform</param>
+        /// <param name="leftHand">left hand transform</param>
+        /// <param name="forward">target to shoot projectile a</param>
+        public void LaunchProjectile(Transform rightHand, Transform leftHand, Vector3 forward) {
+            Projectile projectileInstance =
+                Instantiate(_projectile,
+                            GetTransform(rightHand, leftHand).position,
+                            Quaternion.identity);
+            projectileInstance.SetTarget(_weaponDamage, forward);
+        }
+
+        /// <summary>
+        /// Get weapon range
+        /// </summary>
+        /// <returns>weapon range</returns>
+        public float GetRange() {
+            return _weaponRange;
+        }
+
+        /// <summary>
+        /// Get weapon damage
+        /// </summary>
+        /// <returns>weapon damage</returns>
+        public float GetDamage() {
+            return _weaponDamage;
+        }
+
+        #endregion
+
+        #region Private Methods
 
         /// <summary>
         /// Destroys the old weapon
@@ -71,55 +149,7 @@ namespace RPG.Combat {
             return handTransform;
         }
 
-        public bool HasProjectile() {
-            return _projectile != null;
-        }
+        #endregion
 
-        /// <summary>
-        /// Launch projectile to a choosen target
-        /// trigged by NPCs
-        /// </summary>
-        /// <param name="rightHand">right hand transform</param>
-        /// <param name="leftHand">left hand transform</param>
-        /// <param name="target">target to shoot projectile at</param>
-        public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target) {
-            Projectile projectileInstance = 
-                Instantiate(_projectile,
-                            GetTransform(rightHand, leftHand).position,
-                            Quaternion.identity);
-            projectileInstance.SetTarget(target, _weaponDamage);
-
-        }
-
-        /// <summary>
-        /// Launch projectile to a choosen target
-        /// trigged by Player
-        /// </summary>
-        /// <param name="rightHand">right hand transform</param>
-        /// <param name="leftHand">left hand transform</param>
-        /// <param name="forward">target to shoot projectile a</param>
-        public void LaunchProjectile(Transform rightHand, Transform leftHand, Vector3 forward) {
-            Projectile projectileInstance = 
-                Instantiate(_projectile,
-                            GetTransform(rightHand, leftHand).position,
-                            Quaternion.identity);
-            projectileInstance.SetTarget(_weaponDamage, forward);
-        }
-
-        /// <summary>
-        /// Get weapon range
-        /// </summary>
-        /// <returns>weapon range</returns>
-        public float GetRange() {
-            return _weaponRange;
-        }
-
-        /// <summary>
-        /// Get weapon damage
-        /// </summary>
-        /// <returns>weapon damage</returns>
-        public float GetDamage() {
-            return _weaponDamage;
-        }
     }
 }

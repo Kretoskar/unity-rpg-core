@@ -7,9 +7,10 @@ namespace RPG.SceneManagement {
     /// In game logic of saving
     /// </summary>
     public class SavingWrapper : MonoBehaviour {
-        const string _defaultSaveFile = "save";
         [SerializeField]
         private float _fadeInTime = .5f;
+
+        const string _defaultSaveFile = "save";
 
         /// <summary>
         /// Load game on start

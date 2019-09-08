@@ -7,6 +7,9 @@ namespace RPG.Control {
     /// <summary>
     /// Handles player's character interaction
     /// </summary>
+    [RequireComponent(typeof(Fighter))]
+    [RequireComponent(typeof(Mover))]
+    [RequireComponent(typeof(Health))]
     public class PlayerController : MonoBehaviour {
 
         private Fighter _fighter;
@@ -14,10 +17,15 @@ namespace RPG.Control {
         private Health _health;
         private Joystick _joystick;
 
-        private void Start() {
+        #region MonoBehaviour Methods
+
+        private void Awake() {
             _fighter = GetComponent<Fighter>();
             _mover = GetComponent<Mover>();
             _health = GetComponent<Health>();
+        }
+
+        private void Start() {
             _joystick = FindObjectOfType<Joystick>();
         }
 
@@ -27,12 +35,20 @@ namespace RPG.Control {
             if (InteractWithMovement()) return;
         }
 
+        #endregion
+
+        #region Public Methods
+
         /// <summary>
         /// Check for player input to handle combat
         /// </summary>
         public void InteractWithCombat() {
             _fighter.PlayerAttack();
         }
+
+        #endregion
+
+        #region Private Methods
 
         /// <summary>
         /// Check for player input to handle movement
@@ -56,5 +72,7 @@ namespace RPG.Control {
         private Ray GetMouseRay() {
             return Camera.main.ScreenPointToRay(Input.mousePosition);
         }
+
+        #endregion
     }
 }

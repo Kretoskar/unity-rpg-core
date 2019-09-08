@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.Core {
+    /// <summary>
+    /// Destroy particle gameobject after ending the particle effect
+    /// </summary>
     public class DestroyAfterEffect : MonoBehaviour {
 
         private ParticleSystem _particle;
