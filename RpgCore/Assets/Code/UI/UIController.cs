@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using RPG.Control;
 
 namespace RPG.UI {
+    /// <summary>
+    /// Set attack button fill amount
+    /// </summary>
     public class UIController : MonoBehaviour {
         [SerializeField]
         private Button _attackButton = null;

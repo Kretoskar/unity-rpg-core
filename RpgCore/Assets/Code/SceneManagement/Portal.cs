@@ -18,8 +18,6 @@ namespace RPG.SceneManagement {
         }
 
         [SerializeField]
-        private int _indexOfSceneToLoad = -1;
-        [SerializeField]
         private Transform _spawnPoint = null;
         [SerializeField]
         private DestinationIdentifier _destination;
@@ -27,6 +25,8 @@ namespace RPG.SceneManagement {
         private float _fadeInOutTime = 1f;
         [SerializeField]
         private float _fadeWaitTime = .5f;
+        [SerializeField]
+        private int _indexOfSceneToLoad = -1;
 
         /// <summary>
         /// Teleport to another scene on trigger enter
