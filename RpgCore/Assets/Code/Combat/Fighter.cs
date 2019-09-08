@@ -118,6 +118,9 @@ namespace RPG.Combat {
             _target = null;
         }
 
+        /// <summary>
+        /// Trigger player attack
+        /// </summary>
         public void PlayerAttack() {
             _isPlayer = true;
             if(_timeSinceLastAttack > _timeBetweenAttacks) {

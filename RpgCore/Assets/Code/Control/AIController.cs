@@ -56,7 +56,7 @@ namespace RPG.Control {
         }
 
         private void Start() {
-            _player = GameObject.FindWithTag("Player");
+            _player = PlayerController.Instance.gameObject;
 
             _guardPosition = transform.position;
         }
@@ -76,6 +76,18 @@ namespace RPG.Control {
                 PatrolBehaviour();
             }
             UpdateTimers();
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Move to player
+        /// </summary>
+        public void MoveToPlayer() {
+            _chaseDistance = Mathf.Infinity;
+            _mover.MoveTo(_player.transform.position);
         }
 
         #endregion
