@@ -13,7 +13,7 @@ namespace RPG.Combat {
         private GameObject _hitEffect = null;
 
         [SerializeField]
-        [Range(0,10)]
+        [Range(0,20)]
         private float _speed = 1;
 
         [SerializeField]
@@ -124,7 +124,6 @@ namespace RPG.Combat {
         /// <returns></returns>
         private Vector3 GetAimLocation() {
             if(_isShotByPlayer) {
-                print(_playerForward);
                 return _playerForward;
             }
 
