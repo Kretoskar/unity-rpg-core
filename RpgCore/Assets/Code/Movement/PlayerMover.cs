@@ -21,6 +21,7 @@ namespace RPG.Movement {
 
         private Vector3 _camForward;
         private Vector3 _camRight;
+        private Vector3 _prevPosition;
 
         private Joystick _joystick;
         private NavMeshAgent _navMeshAgent;
@@ -40,13 +41,17 @@ namespace RPG.Movement {
             _joystick = FindObjectOfType<Joystick>();
         }
 
+        private void Update() {
+            UpdateAnimator();
+        }
+
         /// <summary>
         /// Move the player character acording to user's input
         /// </summary>
         public void Move(float horizontal, float vertical) {
 
             Vector3 velocity = (_camForward * vertical * _speed + _camRight * horizontal * _speed);
-            UpdateAnimator(velocity);
+            //UpdateAnimator(velocity);
             _navMeshAgent.Move(velocity * Time.deltaTime);
 
             if (velocity != Vector3.zero) {
@@ -71,11 +76,12 @@ namespace RPG.Movement {
         /// Update animator that uses blend tree
         /// depending on playerNavMeshAgent velocity z value
         /// </summary>
-        private void UpdateAnimator(Vector3 velocity) {
+        private void UpdateAnimator() {
             // Transfer from global to local
-            Vector3 localVelocity = transform.InverseTransformDirection(velocity);
-            float speed = localVelocity.z;
+            Vector3 curMove = transform.position - _prevPosition;
+            float speed = curMove.magnitude / Time.deltaTime;
             GetComponent<Animator>().SetFloat(_animatorBlendValue, speed);
+            _prevPosition = transform.position;
         }
     }
 }

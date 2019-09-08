@@ -15,7 +15,7 @@ namespace RPG.UI {
         private PlayerController _playerController;
 
         private void Start() {
-            _playerController = FindObjectOfType<PlayerController>();
+            _playerController = PlayerController.Instance;
             _attackButton.onClick.AddListener(_playerController.InteractWithCombat);
         }
 

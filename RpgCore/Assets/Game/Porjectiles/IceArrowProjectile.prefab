@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1562317991760795981}
   - component: {fileID: 6585510454346823918}
   - component: {fileID: 741666174588165717}
+  - component: {fileID: 7033633613298710592}
   m_Layer: 0
   m_Name: IceArrowProjectile
   m_TagString: Untagged
@@ -46,11 +47,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4424198abf323d749b1ffb98acedce61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
-  _howHighToAim: 1.12
-  _isHoming: 0
   _hitEffect: {fileID: 4327263284028166514, guid: ba009661a0faaf04d9c9e5ae5010d275,
     type: 3}
+  _speed: 10
+  _howHighToAim: 1.12
+  _maxLifeTime: 5
+  _isHoming: 0
 --- !u!65 &741666174588165717
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -64,6 +66,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.049014237, y: 0.10589242, z: 0.48148346}
   m_Center: {x: -0.0009523202, y: 0.019609809, z: 0.16068971}
+--- !u!54 &7033633613298710592
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008058523004697100}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8694405576853422668
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,6 +233,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1562317991760795981}
     m_Modifications:
+    - target: {fileID: 1659504181823486, guid: c7f49c6920d49ba468b083941d79f2c0, type: 3}
+      propertyPath: m_Name
+      value: Simple Arrow
+      objectReference: {fileID: 0}
     - target: {fileID: 4750687242688692, guid: c7f49c6920d49ba468b083941d79f2c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -258,10 +280,6 @@ PrefabInstance:
     - target: {fileID: 4750687242688692, guid: c7f49c6920d49ba468b083941d79f2c0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1659504181823486, guid: c7f49c6920d49ba468b083941d79f2c0, type: 3}
-      propertyPath: m_Name
-      value: Simple Arrow
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f49c6920d49ba468b083941d79f2c0, type: 3}
