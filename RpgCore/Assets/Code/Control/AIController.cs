@@ -7,29 +7,53 @@ using RPG.Movement;
 using System;
 
 namespace RPG.Control {
+    /// <summary>
+    /// Handles NPC behaviour
+    /// </summary>
     public class AIController : MonoBehaviour {
-        [SerializeField] private float _chaseDistance = 5f;
-        [SerializeField] private float _suspicionTime = 3f;
-        [SerializeField] private PatrolPath _patrolPath = null;
-        [SerializeField] private float _waypointTolerance = 1f;
-        [SerializeField] private float _waypointDwellTime = 3f;
+        [SerializeField]
+        [Range(0,100)]
+        [Tooltip("How far from the player to start chasing")]
+        private float _chaseDistance = 5f;
+
+        [SerializeField]
+        [Range(0,10)]
+        [Tooltip("Time to stay in one place after losing sight of the player")]
+        private float _suspicionTime = 3f;
+
+        [SerializeField]
+        private PatrolPath _patrolPath = null;
+
+        [SerializeField]
+        [Range(0,10)]
+        [Tooltip("How close to a waypoint should start turning")]
+        private float _waypointTolerance = 1f;
+
+        [SerializeField]
+        [Range(0,10)]
+        [Tooltip("Time to stay at each waypoint")]
+        private float _waypointDwellTime = 3f;
 
         private GameObject _player;
         private Fighter _fighter;
         private Mover _mover;
         private Health _health;
-
         private Vector3 _guardPosition;
+
         private float _timeSincePlayerLastSaw = Mathf.Infinity;
         private float _timeSinceArrivedAtWaypoint = Mathf.Infinity;
         private int _currentWaypointIndex = 0;
 
-        private void Start() {
-            _player = GameObject.FindWithTag("Player");
+        #region MonoBehaviour Methods
 
+        private void Awake() {
             _fighter = GetComponent<Fighter>();
             _health = GetComponent<Health>();
             _mover = GetComponent<Mover>();
+        }
+
+        private void Start() {
+            _player = GameObject.FindWithTag("Player");
 
             _guardPosition = transform.position;
         }
@@ -50,6 +74,10 @@ namespace RPG.Control {
             }
             UpdateTimers();
         }
+
+        #endregion
+
+        #region Private Methods
 
         /// <summary>
         /// Update timers for the time since last saw player
@@ -131,5 +159,8 @@ namespace RPG.Control {
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, _chaseDistance);
         }
+
+        #endregion
+
     }
 }

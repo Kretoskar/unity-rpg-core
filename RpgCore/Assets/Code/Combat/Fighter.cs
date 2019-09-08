@@ -15,13 +15,17 @@ namespace RPG.Combat {
         [SerializeField]
         [Range(0,10)]
         private float _timeBetweenAttacks = 0.5f;
+
         [SerializeField]
         private Transform _rightHandTransform = null;
+
         [SerializeField]
         private Transform _leftHandTransform = null;
+
         [SerializeField]
         [Tooltip("Transform of a gameobject that is directly in front of the player")]
         private Transform _forwardProjectileTarget = null;
+
         [SerializeField]
         private Weapon _defaultWeapon = null;
 

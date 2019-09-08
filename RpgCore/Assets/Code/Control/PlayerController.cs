@@ -14,6 +14,8 @@ namespace RPG.Control {
         private Health _health;
         private Joystick _joystick;
 
+        #region MonoBehaviour Methods
+
         private void Start() {
             _fighter = GetComponent<Fighter>();
             _mover = GetComponent<Mover>();
@@ -27,12 +29,20 @@ namespace RPG.Control {
             if (InteractWithMovement()) return;
         }
 
+        #endregion
+
+        #region Public Methods
+
         /// <summary>
         /// Check for player input to handle combat
         /// </summary>
         public void InteractWithCombat() {
             _fighter.PlayerAttack();
         }
+
+        #endregion
+
+        #region Private Methods
 
         /// <summary>
         /// Check for player input to handle movement
@@ -56,5 +66,7 @@ namespace RPG.Control {
         private Ray GetMouseRay() {
             return Camera.main.ScreenPointToRay(Input.mousePosition);
         }
+
+        #endregion
     }
 }

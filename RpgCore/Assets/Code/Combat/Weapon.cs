@@ -10,18 +10,23 @@ namespace RPG.Combat {
     public class Weapon : ScriptableObject {
         [SerializeField]
         private GameObject _equippedPrefab = null;
+
         [SerializeField]
         private AnimatorOverrideController _animatorOverride = null;
+
+        [SerializeField]
+        private Projectile _projectile = null;
+
         [SerializeField]
         [Range(0,9999)]
         private float _weaponDamage = 5f;
+
         [SerializeField]
         [Range(0,100)]
         private float _weaponRange = 4f;
+
         [SerializeField]
         private bool _isRightHanded = true;
-        [SerializeField]
-        private Projectile _projectile = null;
 
         private const string _weaponName = "Weapon";
 

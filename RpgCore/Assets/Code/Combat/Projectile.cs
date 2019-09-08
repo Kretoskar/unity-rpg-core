@@ -9,20 +9,23 @@ namespace RPG.Combat {
     /// Projectile shot by a weapon
     /// </summary>
     public class Projectile : MonoBehaviour {
+        [SerializeField]
+        private GameObject _hitEffect = null;
 
         [SerializeField]
         [Range(0,10)]
         private float _speed = 1;
+
         [SerializeField]
         [Tooltip("How high to hit the target")]
         private float _howHighToAim = 1.1f;
+
+        [SerializeField]
+        [Range(0, 10)]
+        private float _maxLifeTime = 5;
+
         [SerializeField]
         private bool _isHoming = false;
-        [SerializeField]
-        [Range(0,10)]
-        private float _maxLifeTime = 5;
-        [SerializeField]
-        private GameObject _hitEffect = null;
 
         private Health _target = null;
         private Vector3 _playerForward;
@@ -41,6 +44,27 @@ namespace RPG.Combat {
             } else {
                 ShootByPlayer();
             }
+        }
+
+        /// <summary>
+        /// Deal damage to npc, or player.
+        /// If other object is not a player or npc, 
+        /// destroy projectile
+        /// </summary>
+        /// <param name="other"></param>
+        private void OnTriggerEnter(Collider other) {
+            Health hitHealth = other.GetComponent<Health>();
+            if (hitHealth == null) {
+                HitWall();
+                return;
+            }
+            if (_isShotByPlayer) {
+                PlayerDamageDeal(hitHealth);
+            }
+            else {
+                NPCDamageDeal(hitHealth);
+            }
+
         }
 
         #endregion
@@ -108,26 +132,6 @@ namespace RPG.Combat {
             if (target == null)
                 return target.transform.position;
             return target.transform.position + Vector3.up * target.height / _howHighToAim;
-        }
-
-        /// <summary>
-        /// Deal damage to npc, or player.
-        /// If other object is not a player or npc, 
-        /// destroy projectile
-        /// </summary>
-        /// <param name="other"></param>
-        private void OnTriggerEnter(Collider other) {
-            Health hitHealth = other.GetComponent<Health>();
-            if(hitHealth == null) {
-                HitWall();
-                return;
-            }
-            if (_isShotByPlayer) {
-                PlayerDamageDeal(hitHealth);
-            } else {
-                NPCDamageDeal(hitHealth);
-            }
-            
         }
 
         /// <summary>

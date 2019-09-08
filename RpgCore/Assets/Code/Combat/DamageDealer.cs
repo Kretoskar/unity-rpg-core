@@ -11,6 +11,7 @@ namespace RPG.Combat {
     public class DamageDealer : MonoBehaviour {
         [SerializeField]
         private string _playerTag = "Player";
+
         [SerializeField]
         [Range(0,10)]
         [Tooltip("For how long to be able to deal damage after starting the attack")]

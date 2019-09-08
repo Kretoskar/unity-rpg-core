@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.Control {
+    /// <summary>
+    /// NPC path to move at
+    /// </summary>
     public class PatrolPath : MonoBehaviour {
 
         const float waypointGizmoRadius = 0.3f;
+
+        #region MonoBehaviour Methods
 
         private void OnDrawGizmos() {
             int length = transform.childCount;
@@ -15,6 +20,10 @@ namespace RPG.Control {
                 Gizmos.DrawLine(GetWaypoint(i), GetWaypoint(nextIndex));
             }
         }
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Get the index of the next child
@@ -35,5 +44,8 @@ namespace RPG.Control {
         public Vector3 GetWaypoint(int i) {
             return transform.GetChild(i).transform.position;
         }
+
+        #endregion
+
     }
 }
