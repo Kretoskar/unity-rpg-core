@@ -23,6 +23,7 @@ namespace RPG.Core {
         private float _currentHealthPoints;
 
         public event Action<float> OnHealthPctChanged = delegate {};
+        public event Action DeathEvent;
 
         private bool _isDead = false;
         public bool IsDead { get { return _isDead; } }
@@ -78,6 +79,9 @@ namespace RPG.Core {
         private void Die() {
             if (_isDead) return;
             _isDead = true;
+            if(DeathEvent != null) {
+                DeathEvent();
+            }
             GetComponent<Animator>().SetTrigger(dieTrigger);
             GetComponent<ActionScheduler>().CancelCurrentAction();
         }

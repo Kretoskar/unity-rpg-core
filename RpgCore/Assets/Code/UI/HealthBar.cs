@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace RPG.UI {
+    /// <summary>
+    /// Displays health bar and handles changing it's fill amount
+    /// </summary>
     public class HealthBar : MonoBehaviour {
         [SerializeField]
         private Image _foregroundImage = null;
@@ -16,13 +19,28 @@ namespace RPG.UI {
 
         private void Awake() {
             _mainCamera = Camera.main;
-            GetComponentInParent<Health>().OnHealthPctChanged += HandleHealthChanged;
+            Health health = GetComponentInParent<Health>();
+            health.OnHealthPctChanged += HandleHealthChanged;
+            health.DeathEvent += Death;
         }
 
+        private void LateUpdate() {
+            transform.LookAt(_mainCamera.transform);
+            //transform.Rotate(0, 180, 0);
+        }
+
+        /// <summary>
+        /// Start changing healthbar fill amount when health changes
+        /// </summary>
+        /// <param name="pct"></param>
         private void HandleHealthChanged(float pct) {
             StartCoroutine(ChangeToPct(pct));
         }
 
+        /// <summary>
+        /// Change healthbar fillamount
+        /// </summary>
+        /// <param name="pct">pct of health</param>
         private IEnumerator ChangeToPct(float pct) {
             float preChangePct = _foregroundImage.fillAmount;
             float elapsed = 0f;
@@ -36,9 +54,11 @@ namespace RPG.UI {
             _foregroundImage.fillAmount = pct;
         }
 
-        private void LateUpdate() {
-            transform.LookAt(_mainCamera.transform);
-            //transform.Rotate(0, 180, 0);
+        /// <summary>
+        /// Destroy health bar on death
+        /// </summary>
+        private void Death() {
+            Destroy(gameObject);
         }
     }
 }
