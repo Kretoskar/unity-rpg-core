@@ -42,7 +42,8 @@ namespace RPG.Combat {
         private bool _isPlayer = false;
 
         public bool IsAttacking { get; private set; }
-        public float TimeSinceLastAttack { get { return _timeSinceLastAttack; } }
+        public float TimeSinceLastAttack { get => _timeSinceLastAttack; }
+        public float TimeBetweenAttacks { get => _timeBetweenAttacks; }
 
         #region MonoBehaviour Methods
 
