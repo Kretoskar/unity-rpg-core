@@ -13,6 +13,9 @@ namespace RPG.UI {
         [SerializeField]
         private Button _attackButton = null;
 
+        [SerializeField]
+        private GameObject _statsUI = null;
+
         private Image _attackButtonImage;
         private PlayerController _playerController;
 
@@ -20,10 +23,18 @@ namespace RPG.UI {
             _attackButtonImage = _attackButton.GetComponent<Image>();
             _playerController = PlayerController.Instance;
             _attackButton.onClick.AddListener(_playerController.InteractWithCombat);
+            _statsUI.SetActive(false);
         }
 
         private void Update() {
             _attackButtonImage.fillAmount = _playerController.GetAttackButtonFillAmount();
+        }
+
+        /// <summary>
+        /// Show or hide stats UI
+        /// </summary>
+        public void HideOrShowStatsUI() {
+            _statsUI.SetActive(!_statsUI.activeSelf);
         }
 
     }

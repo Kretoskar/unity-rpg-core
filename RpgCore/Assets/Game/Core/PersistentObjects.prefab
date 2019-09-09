@@ -1283,6 +1283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackButton: {fileID: 4067283341709856263}
+  _statsUI: {fileID: 7730888512480614641}
 --- !u!1 &1946091745713596520
 GameObject:
   m_ObjectHideFlags: 0
@@ -1958,8 +1959,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2936513858436701994}
-        m_MethodName: Save
+      - m_Target: {fileID: 3547456776146269647}
+        m_MethodName: HideOrShowStatsUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3542,13 +3543,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6102886999109673914}
+  - component: {fileID: 1640273050171762529}
   m_Layer: 0
   m_Name: PlayerStats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6102886999109673914
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3571,6 +3573,23 @@ RectTransform:
   m_AnchoredPosition: {x: -50, y: 49.8}
   m_SizeDelta: {x: 397.3, y: 498.7}
   m_Pivot: {x: 1, y: 0.5}
+--- !u!114 &1640273050171762529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7730888512480614641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3cf408739ef4e749a5d64b2e3b08392, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _expText: {fileID: 1471866130557805984}
+  _levelText: {fileID: 6050370740223730171}
+  _strengthText: {fileID: 895800884891828547}
+  _durabilityText: {fileID: 3793042940084826298}
+  _powerText: {fileID: 1888570726656429180}
 --- !u!1 &7999625998045501154
 GameObject:
   m_ObjectHideFlags: 0
@@ -4152,6 +4171,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9173215650095573538}
     m_Modifications:
+    - target: {fileID: 2283212772018518654, guid: ea316b8d0ab50b5478e0a51000024ebb,
+        type: 3}
+      propertyPath: m_Name
+      value: Fader
+      objectReference: {fileID: 0}
     - target: {fileID: 2283212772018518645, guid: ea316b8d0ab50b5478e0a51000024ebb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4257,11 +4281,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2283212772018518654, guid: ea316b8d0ab50b5478e0a51000024ebb,
-        type: 3}
-      propertyPath: m_Name
-      value: Fader
-      objectReference: {fileID: 0}
     - target: {fileID: 2283212772018518649, guid: ea316b8d0ab50b5478e0a51000024ebb,
         type: 3}
       propertyPath: m_BlocksRaycasts
@@ -4282,6 +4301,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3591356011227110404}
     m_Modifications:
+    - target: {fileID: 8135886326569738825, guid: 56fae09712773584fb63896d473a98ee,
+        type: 3}
+      propertyPath: m_Name
+      value: Dynamic Joystick
+      objectReference: {fileID: 0}
     - target: {fileID: 8135886326569738822, guid: 56fae09712773584fb63896d473a98ee,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4387,11 +4411,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8135886326569738825, guid: 56fae09712773584fb63896d473a98ee,
-        type: 3}
-      propertyPath: m_Name
-      value: Dynamic Joystick
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56fae09712773584fb63896d473a98ee, type: 3}
 --- !u!224 &1636670426116350478 stripped
@@ -4407,6 +4426,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9173215650095573538}
     m_Modifications:
+    - target: {fileID: 7890462805900083494, guid: 4415114cb238df243af5a97ed6c2ab4e,
+        type: 3}
+      propertyPath: m_Name
+      value: SavingSystem
+      objectReference: {fileID: 0}
     - target: {fileID: 8658182055278443264, guid: 4415114cb238df243af5a97ed6c2ab4e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4461,11 +4485,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7890462805900083494, guid: 4415114cb238df243af5a97ed6c2ab4e,
-        type: 3}
-      propertyPath: m_Name
-      value: SavingSystem
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4415114cb238df243af5a97ed6c2ab4e, type: 3}
