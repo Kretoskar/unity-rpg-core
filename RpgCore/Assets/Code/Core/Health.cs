@@ -79,9 +79,7 @@ namespace RPG.Core {
         private void Die() {
             if (_isDead) return;
             _isDead = true;
-            if(DeathEvent != null) {
-                DeathEvent();
-            }
+            DeathEvent?.Invoke();
             GetComponent<Animator>().SetTrigger(dieTrigger);
             GetComponent<ActionScheduler>().CancelCurrentAction();
         }

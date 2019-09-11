@@ -36,6 +36,5 @@ namespace RPG.UI {
         public void HideOrShowStatsUI() {
             _statsUI.SetActive(!_statsUI.activeSelf);
         }
-
     }
 }
