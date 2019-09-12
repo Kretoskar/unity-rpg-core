@@ -49,7 +49,6 @@ namespace RPG.UI {
 
         private void Awake() {
             SetupSingleton();
-            gameObject.SetActive(false);
         }
 
         private void OnEnable() {
@@ -59,9 +58,9 @@ namespace RPG.UI {
         private void Start() {
             _statPoints = StatPoints.Instance;
             _playerStats = PlayerStats.Instance;
-            _statPoints = StatPoints.Instance;
             _playerStats.LevelChanged += UpdateStats;
             SetupStatsUI();
+            gameObject.SetActive(false);
         }
 
         /// <summary>
