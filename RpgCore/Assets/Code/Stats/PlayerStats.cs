@@ -43,6 +43,9 @@ namespace RPG.Stats {
         private StatsUI _statsUI;
 
         public event Action LevelChanged;
+        public event Action StrengthChanged;
+        public event Action DurabilityChanged;
+        public event Action PowerChanged;
 
         /// <summary>
         /// Variable to multiply exp to next level  by
@@ -86,9 +89,9 @@ namespace RPG.Stats {
             }
         }
 
-        public override int Strength {   get => base.Strength;   set => base.Strength = value;  }
-        public override int Durability { get => base.Durability; set => base.Durability = value; }
-        public override int Power {      get => base.Power;      set => base.Power = value; }
+        public override int Strength {   get => base.Strength;   set { base.Strength = value;   StrengthChanged?.Invoke(); }  }
+        public override int Durability { get => base.Durability; set { base.Durability = value; DurabilityChanged?.Invoke(); } }
+        public override int Power {      get => base.Power;      set { base.Power = value;      PowerChanged?.Invoke(); } }
 
         private void Awake() {
             SetupSingleton();

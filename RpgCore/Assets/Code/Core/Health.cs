@@ -1,5 +1,6 @@
 ﻿using RPG.Control;
 using RPG.Saving;
+using RPG.Stats;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace RPG.Core {
     public class Health : MonoBehaviour, ISaveable {
         [SerializeField]
         [Range(0, 9999)]
-        private float _maxHealthPoints = 100f;
+        private float _startinHealthPoints = 100f;
         [SerializeField]
         private bool _isEnemy = true;
 
@@ -20,6 +21,7 @@ namespace RPG.Core {
 
         private AIController _aiController;
 
+        private float _maxHealthPoints;
         private float _currentHealthPoints;
 
         public event Action<float> OnHealthPctChanged = delegate {};
@@ -29,11 +31,17 @@ namespace RPG.Core {
         public bool IsDead { get { return _isDead; } }
 
         private void Awake() {
-            _currentHealthPoints = _maxHealthPoints;
+            _maxHealthPoints = _startinHealthPoints;
+            _currentHealthPoints = _startinHealthPoints;
             _aiController = GetComponent<AIController>();
             if(_aiController == null) {
                 _isEnemy = false;
             }
+        }
+
+        private void Start() {
+            if(_isEnemy == false)
+                PlayerStats.Instance.DurabilityChanged += UpdateMaxHealthPoints;
         }
 
         /// <summary>
@@ -82,6 +90,12 @@ namespace RPG.Core {
             DeathEvent?.Invoke();
             GetComponent<Animator>().SetTrigger(dieTrigger);
             GetComponent<ActionScheduler>().CancelCurrentAction();
+        }
+
+        private void UpdateMaxHealthPoints() {
+            _maxHealthPoints = PlayerStats.Instance.Durability * 50 + _startinHealthPoints;
+            float healthPct = _currentHealthPoints / _maxHealthPoints;
+            OnHealthPctChanged(healthPct);
         }
     }
 }

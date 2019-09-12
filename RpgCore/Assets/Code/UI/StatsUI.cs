@@ -6,6 +6,9 @@ using UnityEngine.UI;
 using RPG.Control;
 
 namespace RPG.UI {
+    /// <summary>
+    /// Responsible for updating stats UI
+    /// </summary>
     public class StatsUI : MonoBehaviour {
         [SerializeField]
         private Text _expText = null;
@@ -61,29 +64,38 @@ namespace RPG.UI {
             SetupStatsUI();
         }
 
+        /// <summary>
+        /// Update stats UI values and show/hide + buttons
+        /// </summary>
         public void UpdateStats() {
             SetupStatsUI();
             SetupStatButtons();
         }
 
+        //For strenght + button
         public void ChangeStrength(int value) {
             _statPoints.Points -= value;
             _playerStats.Strength += value;
             UpdateStats();
         }
 
+        //For durability + button
         public void ChangeDurability(int value) {
             _statPoints.Points -= value;
             _playerStats.Durability += value;
             UpdateStats();
         }
 
+        //For power + button
         public void ChangePower(int value) {
             _statPoints.Points -= value;
             _playerStats.Power += value;
             UpdateStats();
         }
 
+        /// <summary>
+        /// Setup exp, level, strength, durability and power texts
+        /// </summary>
         private void SetupStatsUI() {
             if (_playerStats == null) return;
             _expText.text = _playerStats.Exp + " / " + _playerStats.StartingExpForNextLevel * _playerStats.LevelModifier * _playerStats.Level;
@@ -93,6 +105,9 @@ namespace RPG.UI {
             _powerText.text = _playerStats.Power.ToString();
         }
 
+        /// <summary>
+        /// Show/hide + buttons
+        /// </summary>
         private void SetupStatButtons() {
             if (_statPoints == null) {
                 foreach (Button button in _plusMinusButtons) {
@@ -100,16 +115,16 @@ namespace RPG.UI {
                 }
                 return;
             }
-            if(_statPoints.Points > 0) {
+            if (_statPoints.Points > 0) {
                 foreach (Button button in _plusMinusButtons) {
                     button.gameObject.SetActive(true);
                 }
-            } else {
+            }
+            else {
                 foreach (Button button in _plusMinusButtons) {
                     button.gameObject.SetActive(false);
                 }
             }
-            print(_statPoints.Points);
         }
     }
 }

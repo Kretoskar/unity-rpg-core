@@ -3,6 +3,7 @@ using RPG.Movement;
 using RPG.Core;
 using System;
 using RPG.Saving;
+using RPG.Stats;
 
 namespace RPG.Combat {
     /// <summary>
@@ -88,7 +89,7 @@ namespace RPG.Combat {
                 Weapon currentWeapon = _currentWeapon;
                 if (currentWeapon == null)
                     return 0;
-                return _currentWeapon.GetDamage();
+                return _currentWeapon.GetDamage() + PlayerStats.Instance.Strength * 10;
             } }
 
         /// <summary>
