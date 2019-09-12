@@ -57,7 +57,7 @@ namespace RPG.UI {
             _statPoints = StatPoints.Instance;
             _playerStats = PlayerStats.Instance;
             _statPoints = StatPoints.Instance;
-            _playerStats.LevelChanged += SetupStatButtons;
+            _playerStats.LevelChanged += UpdateStats;
             SetupStatsUI();
         }
 
@@ -86,7 +86,7 @@ namespace RPG.UI {
 
         private void SetupStatsUI() {
             if (_playerStats == null) return;
-            _expText.text = _playerStats.Exp.ToString() + " / " + _playerStats.Level * 100;
+            _expText.text = _playerStats.Exp + " / " + _playerStats.Level * 100;
             _levelText.text = _playerStats.Level.ToString();
             _strengthText.text = _playerStats.Strength.ToString();
             _durabilityText.text = _playerStats.Durability.ToString();

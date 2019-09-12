@@ -57,7 +57,7 @@ namespace RPG.Stats {
                 _exp = value;
                 if(_statsUI != null)
                     _statsUI.UpdateStats();
-                if(Exp > Level * 100) {
+                if(Exp >= Level * 100) {
                     Level++;
                 }
             }
