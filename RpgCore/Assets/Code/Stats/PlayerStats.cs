@@ -24,6 +24,13 @@ namespace RPG.Stats {
 
         #endregion
 
+        [SerializeField]
+        private int _startingExpForNextLevel = 100;
+        [SerializeField]
+        private float _lvlModifier = 1.1f;
+        [SerializeField]
+        private int _statPointsForLevel = 3;
+
         private int _levelIndex = 0;
         private int _strengthIndex = 1;
         private int _durabilityIndex = 2;
@@ -35,6 +42,9 @@ namespace RPG.Stats {
 
         public event Action LevelChanged;
 
+        public float LevelModifier { get { return _lvlModifier; } }
+        public int StartingExpForNextLevel { get { return _startingExpForNextLevel; } }
+
         private int _level;
         public int Level {
             get {
@@ -42,7 +52,7 @@ namespace RPG.Stats {
             }
             set {
                 if (StatPoints.Instance != null)
-                    StatPoints.Instance.Points += (value - _level) * 3;
+                    StatPoints.Instance.Points += (value - _level) * _statPointsForLevel;
                 _level = value;
                 LevelChanged?.Invoke();
             }
@@ -57,7 +67,7 @@ namespace RPG.Stats {
                 _exp = value;
                 if(_statsUI != null)
                     _statsUI.UpdateStats();
-                if(Exp >= Level * 100) {
+                if(Exp >= _startingExpForNextLevel * _lvlModifier * Level) {
                     Level++;
                 }
             }
@@ -83,7 +93,6 @@ namespace RPG.Stats {
         }
 
         private void Start() {
-            print("start");
             _statsUI = StatsUI.Instance;
         }
 

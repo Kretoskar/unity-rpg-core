@@ -86,7 +86,7 @@ namespace RPG.UI {
 
         private void SetupStatsUI() {
             if (_playerStats == null) return;
-            _expText.text = _playerStats.Exp + " / " + _playerStats.Level * 100;
+            _expText.text = _playerStats.Exp + " / " + _playerStats.StartingExpForNextLevel * _playerStats.LevelModifier * _playerStats.Level;
             _levelText.text = _playerStats.Level.ToString();
             _strengthText.text = _playerStats.Strength.ToString();
             _durabilityText.text = _playerStats.Durability.ToString();
