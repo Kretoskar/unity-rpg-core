@@ -31,21 +31,32 @@ namespace RPG.Stats {
         [SerializeField]
         private int _statPointsForLevel = 3;
 
+        //Indexes for the saveableStatsList to save data
         private int _levelIndex = 0;
         private int _strengthIndex = 1;
         private int _durabilityIndex = 2;
         private int _powerIndex = 3;
+        private int _level;
+        private int _exp;
 
         private List<int> _saveableStatsList;
-
         private StatsUI _statsUI;
 
         public event Action LevelChanged;
 
+        /// <summary>
+        /// Variable to multiply exp to next level  by
+        /// </summary>
         public float LevelModifier { get { return _lvlModifier; } }
+
+        /// <summary>
+        /// How much exp to get to level up first time.
+        /// </summary>
         public int StartingExpForNextLevel { get { return _startingExpForNextLevel; } }
 
-        private int _level;
+        /// <summary>
+        /// Current player level
+        /// </summary>
         public int Level {
             get {
                 return _level;
@@ -58,7 +69,9 @@ namespace RPG.Stats {
             }
         }
 
-        private int _exp;
+        /// <summary>
+        /// Current player exp
+        /// </summary>
         public int Exp {
             get {
                 return _exp;
@@ -72,13 +85,15 @@ namespace RPG.Stats {
                 }
             }
         }
-        public override int Strength { get => base.Strength; set { base.Strength = value; } }
+
+        public override int Strength {   get => base.Strength;   set => base.Strength = value;  }
         public override int Durability { get => base.Durability; set => base.Durability = value; }
-        public override int Power { get => base.Power; set => base.Power = value; }
+        public override int Power {      get => base.Power;      set => base.Power = value; }
 
         private void Awake() {
             SetupSingleton();
 
+            //Fill with dummy data
             Level = 1;
             Exp = 0;
             Strength = 1;
@@ -96,11 +111,11 @@ namespace RPG.Stats {
             _statsUI = StatsUI.Instance;
         }
 
-        public void DummyAddExp() {
-            Exp += 50;
-        }
-
         public object CaptureState() {
+            _saveableStatsList[_levelIndex] = Level;
+            _saveableStatsList[_strengthIndex] = Strength;
+            _saveableStatsList[_durabilityIndex] = Durability;
+            _saveableStatsList[_powerIndex] = Power;
             return _saveableStatsList;
         }
 
@@ -108,17 +123,10 @@ namespace RPG.Stats {
             List<int> stats = (List<int>)state;
             if (stats == null)
                 return;
+            Level = stats[_levelIndex];
             Strength = stats[_strengthIndex];
             Durability = stats[_durabilityIndex];
             Power = stats[_powerIndex];
-        }
-
-        private void SaveStats() {
-            _saveableStatsList[_levelIndex] = Level;
-            _saveableStatsList[_strengthIndex] = Strength;
-            _saveableStatsList[_durabilityIndex] = Durability;
-            _saveableStatsList[_powerIndex] = Power;
-            CaptureState();
         }
     }
 }
