@@ -79,7 +79,7 @@ namespace RPG.Combat {
                 Instantiate(_projectile,
                             GetTransform(rightHand, leftHand).position,
                             Quaternion.identity);
-            projectileInstance.SetTarget(target, PlayerController.Instance.GetComponent<Fighter>().Damage);
+            projectileInstance.SetTarget(target, _weaponDamage);
         }
 
         /// <summary>

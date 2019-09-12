@@ -1,4 +1,5 @@
-﻿using RPG.Core;
+﻿using RPG.Control;
+using RPG.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -91,7 +92,7 @@ namespace RPG.Combat {
         public void SetTarget(float damage, Vector3 forward) {
             _playerForward = forward;
             _isShotByPlayer = true;
-            _damage = damage;
+            _damage = PlayerController.Instance.GetComponent<Fighter>().Damage;
 
             Destroy(gameObject, _maxLifeTime);
         }
