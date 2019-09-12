@@ -63,6 +63,14 @@ namespace RPG.Control {
             _fighter.PlayerAttack();
         }
 
+        /// <summary>
+        /// Get percantage of time left to attack
+        /// </summary>
+        /// <returns></returns>
+        public float GetAttackButtonFillAmount() {
+            return _fighter.TimeSinceLastAttack / _fighter.TimeBetweenAttacks;
+        }
+
         #endregion
 
         #region Private Methods

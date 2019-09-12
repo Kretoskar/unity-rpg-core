@@ -1,0 +1,129 @@
+﻿using RPG.Stats;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using RPG.Control;
+
+namespace RPG.UI {
+    /// <summary>
+    /// Responsible for updating stats UI
+    /// </summary>
+    public class StatsUI : MonoBehaviour {
+        [SerializeField]
+        private Text _expText = null;
+
+        [SerializeField]
+        private Text _levelText = null;
+
+        [SerializeField]
+        private Text _strengthText = null;
+
+        [SerializeField]
+        private Text _durabilityText = null;
+
+        [SerializeField]
+        private Text _powerText = null;
+
+        [SerializeField]
+        private List<Button> _plusMinusButtons = new List<Button>();
+
+        #region Singleton
+
+        private static StatsUI _instance;
+        public static StatsUI Instance { get => _instance; set => _instance = value; }
+
+        private void SetupSingleton() {
+            if (_instance != null && _instance != this) {
+                Destroy(gameObject);
+            }
+            else {
+                _instance = this;
+            }
+        }
+
+        #endregion
+
+        private PlayerStats _playerStats;
+        private StatPoints _statPoints;
+
+        private void Awake() {
+            SetupSingleton();
+        }
+
+        private void OnEnable() {
+            UpdateStats();
+        }
+
+        private void Start() {
+            _statPoints = StatPoints.Instance;
+            _playerStats = PlayerStats.Instance;
+            _playerStats.LevelChanged += UpdateStats;
+            SetupStatsUI();
+            gameObject.SetActive(false);
+        }
+
+        /// <summary>
+        /// Update stats UI values and show/hide + buttons
+        /// </summary>
+        public void UpdateStats() {
+            SetupStatsUI();
+            SetupStatButtons();
+        }
+
+        //For strenght + button
+        public void ChangeStrength(int value) {
+            _statPoints.Points -= value;
+            _playerStats.Strength += value;
+            UpdateStats();
+        }
+
+        //For durability + button
+        public void ChangeDurability(int value) {
+            _statPoints.Points -= value;
+            _playerStats.Durability += value;
+            UpdateStats();
+        }
+
+        //For power + button
+        public void ChangePower(int value) {
+            _statPoints.Points -= value;
+            _playerStats.Power += value;
+            UpdateStats();
+        }
+
+        /// <summary>
+        /// Setup exp, level, strength, durability and power texts
+        /// </summary>
+        private void SetupStatsUI() {
+            if (_playerStats == null) return;
+            _expText.text = _playerStats.Exp + " / " + _playerStats.StartingExpForNextLevel * _playerStats.LevelModifier * _playerStats.Level;
+            _levelText.text = _playerStats.Level.ToString();
+            _strengthText.text = _playerStats.Strength.ToString();
+            _durabilityText.text = _playerStats.Durability.ToString();
+            _powerText.text = _playerStats.Power.ToString();
+        }
+
+        /// <summary>
+        /// Show/hide + buttons
+        /// </summary>
+        private void SetupStatButtons() {
+            if (_statPoints == null) {
+                foreach (Button button in _plusMinusButtons) {
+                    button.gameObject.SetActive(false);
+                }
+                return;
+            }
+            if (_statPoints.Points > 0) {
+                foreach (Button button in _plusMinusButtons) {
+                    button.gameObject.SetActive(true);
+                }
+            }
+            else {
+                foreach (Button button in _plusMinusButtons) {
+                    button.gameObject.SetActive(false);
+                }
+            }
+        }
+    }
+}

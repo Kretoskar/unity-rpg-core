@@ -1,5 +1,7 @@
 ﻿using RPG.Control;
 using RPG.Saving;
+using RPG.Stats;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,35 +12,52 @@ namespace RPG.Core {
     /// </summary>
     public class Health : MonoBehaviour, ISaveable {
         [SerializeField]
-        [Range(0,9999)]
-        private float _healthPoints = 100f;
+        [Range(0, 9999)]
+        private float _startinHealthPoints = 100f;
         [SerializeField]
         private bool _isEnemy = true;
 
+        private const string dieTrigger = "die";
+
         private AIController _aiController;
+
+        private float _maxHealthPoints;
+        private float _currentHealthPoints;
+
+        public event Action<float> OnHealthPctChanged = delegate {};
+        public event Action DeathEvent;
 
         private bool _isDead = false;
         public bool IsDead { get { return _isDead; } }
 
-        private const string dieTrigger = "die";
-
         private void Awake() {
+            _maxHealthPoints = _startinHealthPoints;
+            _currentHealthPoints = _startinHealthPoints;
             _aiController = GetComponent<AIController>();
             if(_aiController == null) {
                 _isEnemy = false;
             }
         }
 
+        private void Start() {
+            if(_isEnemy == false)
+                PlayerStats.Instance.DurabilityChanged += UpdateMaxHealthPoints;
+        }
+
         /// <summary>
-        /// Take damage from a fighter
+        /// Take damage from a fighter, and update health bar UI
         /// </summary>
         /// <param name="damage">Damage to take</param>
         public void TakeDamage(float damage) {
             if(_isEnemy) {
                 _aiController.MoveToPlayer();
             }
-            _healthPoints = Mathf.Max(_healthPoints - damage, 0);
-            if (_healthPoints <= 0) {
+            _currentHealthPoints = Mathf.Max(_currentHealthPoints - damage, 0);
+
+            float healthPct = _currentHealthPoints / _maxHealthPoints;
+            OnHealthPctChanged(healthPct);
+
+            if (_currentHealthPoints <= 0) {
                 Die();
             }
         }
@@ -48,7 +67,7 @@ namespace RPG.Core {
         /// </summary>
         /// <returns>State to save</returns>
         public object CaptureState() {
-            return _healthPoints;
+            return _currentHealthPoints;
         }
 
         /// <summary>
@@ -56,8 +75,8 @@ namespace RPG.Core {
         /// </summary>
         /// <param name="state">State to load</param>
         public void RestoreState(object state) {
-            _healthPoints = (float)state;
-            if (_healthPoints <= 0) {
+            _currentHealthPoints = (float)state;
+            if (_currentHealthPoints <= 0) {
                 Die();
             }
         }
@@ -68,8 +87,15 @@ namespace RPG.Core {
         private void Die() {
             if (_isDead) return;
             _isDead = true;
+            DeathEvent?.Invoke();
             GetComponent<Animator>().SetTrigger(dieTrigger);
             GetComponent<ActionScheduler>().CancelCurrentAction();
+        }
+
+        private void UpdateMaxHealthPoints() {
+            _maxHealthPoints = PlayerStats.Instance.Durability * 50 + _startinHealthPoints;
+            float healthPct = _currentHealthPoints / _maxHealthPoints;
+            OnHealthPctChanged(healthPct);
         }
     }
 }

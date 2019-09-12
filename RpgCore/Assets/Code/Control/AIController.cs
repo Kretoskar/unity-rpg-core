@@ -5,6 +5,7 @@ using RPG.Combat;
 using RPG.Core;
 using RPG.Movement;
 using System;
+using RPG.Stats;
 
 namespace RPG.Control {
     /// <summary>
@@ -37,6 +38,9 @@ namespace RPG.Control {
         [Tooltip("Time to stay at each waypoint")]
         private float _waypointDwellTime = 3f;
 
+        [SerializeField]
+        private int _expToAddOnKill = 50;
+
         private GameObject _player;
         private Fighter _fighter;
         private Mover _mover;
@@ -53,6 +57,7 @@ namespace RPG.Control {
             _fighter = GetComponent<Fighter>();
             _health = GetComponent<Health>();
             _mover = GetComponent<Mover>();
+            _health.DeathEvent += DeathBehaviour;
         }
 
         private void Start() {
@@ -76,6 +81,11 @@ namespace RPG.Control {
                 PatrolBehaviour();
             }
             UpdateTimers();
+        }
+
+        private void OnDrawGizmosSelected() {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, _chaseDistance);
         }
 
         #endregion
@@ -136,6 +146,10 @@ namespace RPG.Control {
             }
         }
 
+        private void DeathBehaviour() {
+            PlayerStats.Instance.Exp += _expToAddOnKill;
+        }
+
         /// <summary>
         /// Get the position of current waypoint
         /// </summary>
@@ -167,12 +181,6 @@ namespace RPG.Control {
         private bool InAttackRangeOfPlayer() {
             float distanceToPlayer = Vector3.Distance(_player.transform.position, transform.position);
             return distanceToPlayer < _chaseDistance;
-        }
-
-        // Called by Unity
-        private void OnDrawGizmosSelected() {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, _chaseDistance);
         }
 
         #endregion

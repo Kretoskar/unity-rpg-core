@@ -1,4 +1,5 @@
 ﻿using System;
+using RPG.Control;
 using RPG.Core;
 using UnityEngine;
 
@@ -79,7 +80,6 @@ namespace RPG.Combat {
                             GetTransform(rightHand, leftHand).position,
                             Quaternion.identity);
             projectileInstance.SetTarget(target, _weaponDamage);
-
         }
 
         /// <summary>

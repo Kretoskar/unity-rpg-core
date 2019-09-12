@@ -3,6 +3,7 @@ using RPG.Movement;
 using RPG.Core;
 using System;
 using RPG.Saving;
+using RPG.Stats;
 
 namespace RPG.Combat {
     /// <summary>
@@ -42,7 +43,8 @@ namespace RPG.Combat {
         private bool _isPlayer = false;
 
         public bool IsAttacking { get; private set; }
-        public float TimeSinceLastAttack { get { return _timeSinceLastAttack; } }
+        public float TimeSinceLastAttack { get => _timeSinceLastAttack; }
+        public float TimeBetweenAttacks { get => _timeBetweenAttacks; }
 
         #region MonoBehaviour Methods
 
@@ -87,7 +89,7 @@ namespace RPG.Combat {
                 Weapon currentWeapon = _currentWeapon;
                 if (currentWeapon == null)
                     return 0;
-                return _currentWeapon.GetDamage();
+                return _currentWeapon.GetDamage() + PlayerStats.Instance.Strength * 10;
             } }
 
         /// <summary>
