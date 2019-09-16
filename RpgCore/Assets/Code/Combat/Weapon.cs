@@ -8,7 +8,7 @@ namespace RPG.Combat {
     /// Scriptable object of a weapon
     /// </summary>
     [CreateAssetMenu(fileName = "Weapon", menuName = "Weapons/Make new weapon", order = 0)]
-    public class Weapon : ScriptableObject {
+    public class Weapon : Item {
         [SerializeField]
         private GameObject _equippedPrefab = null;
 
@@ -19,19 +19,98 @@ namespace RPG.Combat {
         private Projectile _projectile = null;
 
         [SerializeField]
+        private string _name = "Weapon";
+
+        [SerializeField]
+        private string _slug = "weapon";
+
+        [SerializeField]
+        [Multiline]
+        private string _description = "This is a weapon.";
+
+        [SerializeField]
         [Range(0,9999)]
-        private float _weaponDamage = 5f;
+        private float _damage = 5f;
 
         [SerializeField]
         [Range(0,100)]
-        private float _weaponRange = 4f;
+        private float _range = 4f;
+
+        [SerializeField]
+        [Range(0, 9999)]
+        private int _value = 100;
+
+        [SerializeField]
+        private int _rarity = 1;
 
         [SerializeField]
         private bool _isRightHanded = true;
 
+        [SerializeField]
+        private bool _stackable = false;
+
+        [SerializeField]
+        private string _ID = System.Guid.NewGuid().ToString();
+
         private const string _weaponName = "Weapon";
 
         #region Public Methods
+
+        /// <summary>
+        /// Get weapon's Guid
+        /// </summary>
+        /// <returns>Weapon's guid</returns>
+        public override string ID() {
+            return _ID;
+        }
+
+        /// <summary>
+        /// Get weeapon's name
+        /// </summary>
+        /// <returns>Weapon's name</returns>
+        public override string Name() {
+            return _name;
+        }
+
+        /// <summary>
+        /// Get weeapon's value
+        /// </summary>
+        /// <returns>Weapon's value</returns>
+        public override int Value() {
+            return _value;
+        }
+
+        /// <summary>
+        /// Get weeapon's slug
+        /// </summary>
+        /// <returns>Weapon's slug</returns>
+        public override string Slug() {
+            return _slug;
+        }
+
+        /// <summary>
+        /// Get weeapon's description
+        /// </summary>
+        /// <returns>Weapon's description</returns>
+        public override string Description() {
+            return _description;
+        }
+
+        /// <summary>
+        /// Get weapon's rarity
+        /// </summary>
+        /// <returns>Weapon's rarity</returns>
+        public override int Rarity() {
+            return _rarity;
+        }
+
+        /// <summary>
+        /// Get weapon's stackability
+        /// </summary>
+        /// <returns>True if the weapon is stackable</returns>
+        public override bool Stackable() {
+            return _stackable;
+        }
 
         /// <summary>
         /// Spawn the weapon
@@ -79,7 +158,7 @@ namespace RPG.Combat {
                 Instantiate(_projectile,
                             GetTransform(rightHand, leftHand).position,
                             Quaternion.identity);
-            projectileInstance.SetTarget(target, _weaponDamage);
+            projectileInstance.SetTarget(target, _damage);
         }
 
         /// <summary>
@@ -94,7 +173,7 @@ namespace RPG.Combat {
                 Instantiate(_projectile,
                             GetTransform(rightHand, leftHand).position,
                             Quaternion.identity);
-            projectileInstance.SetTarget(_weaponDamage, forward);
+            projectileInstance.SetTarget(_damage, forward);
         }
 
         /// <summary>
@@ -102,7 +181,7 @@ namespace RPG.Combat {
         /// </summary>
         /// <returns>weapon range</returns>
         public float GetRange() {
-            return _weaponRange;
+            return _range;
         }
 
         /// <summary>
@@ -110,7 +189,7 @@ namespace RPG.Combat {
         /// </summary>
         /// <returns>weapon damage</returns>
         public float GetDamage() {
-            return _weaponDamage;
+            return _damage;
         }
 
         #endregion

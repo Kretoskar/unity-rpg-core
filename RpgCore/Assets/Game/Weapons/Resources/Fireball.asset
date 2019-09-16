@@ -14,8 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _equippedPrefab: {fileID: 0}
   _animatorOverride: {fileID: 22100000, guid: 9411f73fa1e190144aefa283e1d6e266, type: 2}
-  _weaponDamage: 5
-  _weaponRange: 20
-  _isRightHanded: 0
   _projectile: {fileID: 6585510454346823918, guid: 0d4f8b873b5ab8243a96c22342c71986,
     type: 3}
+  _name: Weapon
+  _slug: weapon
+  _description: 'Fireball
+
+    Damage: 5
+
+    Range: 4'
+  _damage: 5
+  _range: 4
+  _value: 100
+  _rarity: 1
+  _isRightHanded: 0
+  _stackable: 0
+  _ID: 23942cbb-593f-4d1a-bcce-445c947b49f3
