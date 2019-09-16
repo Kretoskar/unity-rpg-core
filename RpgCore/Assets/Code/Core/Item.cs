@@ -4,12 +4,13 @@ using UnityEngine;
 
 namespace RPG.Core {
     public abstract class Item : ScriptableObject {
-        public abstract string ID();
-        public abstract string Name();
-        public abstract string Slug();
-        public abstract string Description();
-        public abstract int Value();
-        public abstract int Rarity();
-        public abstract bool Stackable();
+        public abstract string ID { get;}
+        public abstract string Name { get; }
+        public abstract string Slug { get; }
+        public abstract string Description { get; }
+        public abstract int Value { get; }
+        public abstract int Rarity { get; }
+        public abstract bool Stackable { get; }
+        public abstract Sprite Icon { get; }
     }
 }

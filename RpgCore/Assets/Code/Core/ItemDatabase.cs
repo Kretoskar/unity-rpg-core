@@ -31,11 +31,15 @@ namespace RPG.Core {
 
         public Item FetchItemByID(string id) {
             foreach (Item item in Database) {
-                if (item.ID() == id) {
+                if (item.ID == id) {
                     return item;
                 }
             }
             Debug.LogWarning("Can't find an item with id: " + id);
+            return null;
+        }
+
+        public Item EmptyItem() {
             return null;
         }
     }

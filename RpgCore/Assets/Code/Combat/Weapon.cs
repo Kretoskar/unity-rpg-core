@@ -52,6 +52,9 @@ namespace RPG.Combat {
         [SerializeField]
         private string _ID = System.Guid.NewGuid().ToString();
 
+        [SerializeField]
+        private Sprite _icon = null;
+
         private const string _weaponName = "Weapon";
 
         #region Public Methods
@@ -60,56 +63,80 @@ namespace RPG.Combat {
         /// Get weapon's Guid
         /// </summary>
         /// <returns>Weapon's guid</returns>
-        public override string ID() {
-            return _ID;
+        public override string ID {
+            get {
+                return _ID;
+            }
         }
 
         /// <summary>
         /// Get weeapon's name
         /// </summary>
         /// <returns>Weapon's name</returns>
-        public override string Name() {
-            return _name;
+        public override string Name {
+            get {
+                return _name;
+            }
         }
 
         /// <summary>
         /// Get weeapon's value
         /// </summary>
         /// <returns>Weapon's value</returns>
-        public override int Value() {
-            return _value;
+        public override int Value {
+            get {
+                return _value;
+            }
         }
 
         /// <summary>
         /// Get weeapon's slug
         /// </summary>
         /// <returns>Weapon's slug</returns>
-        public override string Slug() {
-            return _slug;
+        public override string Slug {
+            get {
+                return _slug;
+            }
         }
 
         /// <summary>
         /// Get weeapon's description
         /// </summary>
         /// <returns>Weapon's description</returns>
-        public override string Description() {
-            return _description;
+        public override string Description {
+            get {
+                return _description;
+            }
         }
 
         /// <summary>
         /// Get weapon's rarity
         /// </summary>
         /// <returns>Weapon's rarity</returns>
-        public override int Rarity() {
-            return _rarity;
+        public override int Rarity {
+            get {
+                return _rarity;
+            }
         }
 
         /// <summary>
         /// Get weapon's stackability
         /// </summary>
         /// <returns>True if the weapon is stackable</returns>
-        public override bool Stackable() {
-            return _stackable;
+        public override bool Stackable {
+            get {
+                return _stackable;
+            }
+        }
+
+        /// <summary>
+        /// Get weapon's item
+        /// </summary>
+        /// <returns>Weapon's icon</returns>
+        public override Sprite Icon {
+            get {
+                return _icon;
+            }
         }
 
         /// <summary>
