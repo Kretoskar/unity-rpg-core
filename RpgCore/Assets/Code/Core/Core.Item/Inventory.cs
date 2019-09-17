@@ -21,6 +21,7 @@ namespace RPG.Core.Item {
         [SerializeField]
         private int _slotAmount = 24;
 
+        private int _currentlyCheckedItemIndex;
         private ItemDatabase _itemDatabase;
         public List<Item> _items = new List<Item>();
         public List<GameObject> _slots = new List<GameObject>();
@@ -42,14 +43,9 @@ namespace RPG.Core.Item {
         public void AddItem(string id) {
             Item itemToAdd = _itemDatabase.FetchItemByID(id);
             if(itemToAdd.Stackable && IsInInventory(itemToAdd)) {
-                for(int i = 0; i < _items.Count; i++) {
-                    if(_items[i].ID == id) {
-                        ItemData data = _slots[i].transform.GetChild(0).GetComponent<ItemData>();
-                        data.Amount++;
-                        data.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = data.Amount.ToString();
-                        break;
-                    }
-                }
+                ItemData data = _slots[_currentlyCheckedItemIndex].transform.GetChild(0).GetComponent<ItemData>();
+                data.Amount++;
+                data.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = data.Amount.ToString();
             } else {
                 for (int i = 0; i < _items.Count; i++) {
                     if (_items[i] == null) {
@@ -83,6 +79,7 @@ namespace RPG.Core.Item {
                 if (_items[i] == null)
                     continue;
                 if(_items[i].ID == item.ID) {
+                    _currentlyCheckedItemIndex = i;
                     return true;
                 }
             }

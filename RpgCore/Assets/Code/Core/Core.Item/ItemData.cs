@@ -4,9 +4,11 @@ using UnityEngine;
 
 namespace RPG.Core.Item {
     public class ItemData : MonoBehaviour {
-        private Item _item;
+        private Item _itemInThisSlot;
         private int _amount;
-        public int Amount { get { return _amount; } set { _amount = value; } }
+
+        public Item ItemInThisSlot { get => _itemInThisSlot; set => _itemInThisSlot = value; }
+        public int Amount { get => _amount; set => _amount = value; }
 
         private void Awake() {
             _amount = 0;
