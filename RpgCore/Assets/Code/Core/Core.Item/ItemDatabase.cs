@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Core {
+namespace RPG.Core.Item {
     public class ItemDatabase : MonoBehaviour {
         [SerializeField]
         private List<Item> _database = new List<Item>();

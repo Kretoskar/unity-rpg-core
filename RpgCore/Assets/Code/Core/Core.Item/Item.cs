@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Core {
+namespace RPG.Core.Item {
     public abstract class Item : ScriptableObject {
         public abstract string ID { get;}
         public abstract string Name { get; }
