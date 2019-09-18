@@ -30,6 +30,9 @@ namespace RPG.Combat {
         private string _description = "This is a weapon.";
 
         [SerializeField]
+        private RarityLevel _rarity = RarityLevel.Common;
+
+        [SerializeField]
         [Range(0,9999)]
         private float _damage = 5f;
 
@@ -40,9 +43,6 @@ namespace RPG.Combat {
         [SerializeField]
         [Range(0, 9999)]
         private int _value = 100;
-
-        [SerializeField]
-        private int _rarity = 1;
 
         [SerializeField]
         private bool _isRightHanded = true;
@@ -114,7 +114,7 @@ namespace RPG.Combat {
         /// Get weapon's rarity
         /// </summary>
         /// <returns>Weapon's rarity</returns>
-        public override int Rarity {
+        public override RarityLevel Rarity {
             get {
                 return _rarity;
             }

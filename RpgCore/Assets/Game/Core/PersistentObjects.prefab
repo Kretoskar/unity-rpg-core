@@ -225,7 +225,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tooltipTextGo: {fileID: 4728560588206373024}
-  _nameColor: {r: 0.047169805, g: 0.047169805, b: 0.047169805, a: 0}
+  _commonItemNameColor: {r: 0, g: 0, b: 0, a: 0}
+  _uncommonItemNameColor: {r: 0, g: 0.6037736, b: 0.127858, a: 0}
+  _rareItemNameColor: {r: 0, g: 0.23184752, b: 1, a: 0}
+  _legendaryItemNameColor: {r: 1, g: 0.47070253, b: 0, a: 0}
   _descriptionColor: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 0}
 --- !u!1 &400984539853482563
 GameObject:
@@ -6819,6 +6822,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3591356011227110404}
     m_Modifications:
+    - target: {fileID: 8135886326569738825, guid: 56fae09712773584fb63896d473a98ee,
+        type: 3}
+      propertyPath: m_Name
+      value: Dynamic Joystick
+      objectReference: {fileID: 0}
     - target: {fileID: 8135886326569738822, guid: 56fae09712773584fb63896d473a98ee,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6924,11 +6932,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8135886326569738825, guid: 56fae09712773584fb63896d473a98ee,
-        type: 3}
-      propertyPath: m_Name
-      value: Dynamic Joystick
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56fae09712773584fb63896d473a98ee, type: 3}
 --- !u!224 &1636670426116350478 stripped
@@ -6944,6 +6947,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9173215650095573538}
     m_Modifications:
+    - target: {fileID: 7890462805900083494, guid: 4415114cb238df243af5a97ed6c2ab4e,
+        type: 3}
+      propertyPath: m_Name
+      value: SavingSystem
+      objectReference: {fileID: 0}
     - target: {fileID: 8658182055278443264, guid: 4415114cb238df243af5a97ed6c2ab4e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6998,11 +7006,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7890462805900083494, guid: 4415114cb238df243af5a97ed6c2ab4e,
-        type: 3}
-      propertyPath: m_Name
-      value: SavingSystem
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4415114cb238df243af5a97ed6c2ab4e, type: 3}

@@ -8,7 +8,13 @@ namespace RPG.Items {
         [SerializeField]
         private Text _tooltipTextGo;
         [SerializeField]
-        private Color _nameColor;
+        private Color _commonItemNameColor;
+        [SerializeField]
+        private Color _uncommonItemNameColor;
+        [SerializeField]
+        private Color _rareItemNameColor;
+        [SerializeField]
+        private Color _legendaryItemNameColor;
         [SerializeField]
         private Color _descriptionColor;
 
@@ -42,8 +48,27 @@ namespace RPG.Items {
         }
 
         private void ConstructDataString() {
-            _data = "<color=#" + ColorUtility.ToHtmlStringRGB(_nameColor) + "><b>" + _currentItem.Name + "</b></color>\n\n" +
-                "<color=#" + ColorUtility.ToHtmlStringRGB(_descriptionColor) + ">" + _currentItem.Description + "</color>";
+            switch (_currentItem.Rarity) {
+                case RarityLevel.Common:
+                    _data = "<color=#" + ColorUtility.ToHtmlStringRGB(_commonItemNameColor) + "><b>" + _currentItem.Name + "</b></color>\n\n" +
+                        "<color=#" + ColorUtility.ToHtmlStringRGB(_descriptionColor) + ">" + _currentItem.Description + "</color>";
+                    break;
+
+                case RarityLevel.Uncommon:
+                    _data = "<color=#" + ColorUtility.ToHtmlStringRGB(_uncommonItemNameColor) + "><b>" + _currentItem.Name + "</b></color>\n\n" +
+                        "<color=#" + ColorUtility.ToHtmlStringRGB(_descriptionColor) + ">" + _currentItem.Description + "</color>";
+                    break;
+
+                case RarityLevel.Rare:
+                    _data = "<color=#" + ColorUtility.ToHtmlStringRGB(_rareItemNameColor) + "><b>" + _currentItem.Name + "</b></color>\n\n" +
+                        "<color=#" + ColorUtility.ToHtmlStringRGB(_descriptionColor) + ">" + _currentItem.Description + "</color>";
+                    break;
+
+                case RarityLevel.Legendary:
+                    _data = "<color=#" + ColorUtility.ToHtmlStringRGB(_legendaryItemNameColor) + "><b>" + _currentItem.Name + "</b></color>\n\n" +
+                        "<color=#" + ColorUtility.ToHtmlStringRGB(_descriptionColor) + ">" + _currentItem.Description + "</color>";
+                    break;
+            }
             _tooltipTextGo.text = _data;
         }
     }

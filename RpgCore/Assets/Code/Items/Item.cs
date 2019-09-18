@@ -9,8 +9,10 @@ namespace RPG.Items {
         public abstract string Slug { get; }
         public abstract string Description { get; }
         public abstract int Value { get; }
-        public abstract int Rarity { get; }
+        public abstract RarityLevel Rarity { get; }
         public abstract bool Stackable { get; }
         public abstract Sprite Icon { get; }
     }
+
+    public enum RarityLevel { Common, Uncommon, Rare, Legendary};
 }
