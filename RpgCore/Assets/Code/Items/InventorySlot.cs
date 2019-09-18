@@ -21,7 +21,7 @@ namespace RPG.Items {
                 _inventory.Items[droppedItem.SlotIndex] = null;
                 _inventory.Items[ID] = droppedItem.ItemInThisSlot;
                 droppedItem.SlotIndex = ID;
-            } else {
+            } else if(droppedItem.SlotIndex != ID) {
                 //Swap items
                 Transform item = transform.GetChild(0);
                 item.GetComponent<ItemData>().SlotIndex = droppedItem.SlotIndex;

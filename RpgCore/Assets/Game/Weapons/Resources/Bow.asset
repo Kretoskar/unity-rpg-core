@@ -19,7 +19,10 @@ MonoBehaviour:
     type: 3}
   _name: Bow
   _slug: weapon
-  _description: This is a weapon.
+  _description: 'Just a random bow.
+
+
+    Damage: 5'
   _damage: 5
   _range: 4
   _value: 100

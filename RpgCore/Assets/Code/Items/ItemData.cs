@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace RPG.Items {
-    public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler {
+    public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerUpHandler {
         private Item _itemInThisSlot;
         private int _amount;
         private int _slotIndex;
 
         private Vector2 _dragOffset;
         private Inventory _inventory;
+        private Tooltip _tooltip;
 
         public Item ItemInThisSlot { get => _itemInThisSlot; set => _itemInThisSlot = value; }
         public int Amount { get => _amount; set => _amount = value; }
@@ -22,6 +23,7 @@ namespace RPG.Items {
 
         private void Start() {
             _inventory = Inventory.Instance;
+            _tooltip = Tooltip.Instance;
         }
 
         public void OnPointerDown(PointerEventData eventData) {
@@ -29,6 +31,7 @@ namespace RPG.Items {
                 _dragOffset = eventData.position - new Vector2(transform.position.x, transform.position.y);
                 transform.position = eventData.position - _dragOffset;
                 GetComponent<CanvasGroup>().blocksRaycasts = false;
+                _tooltip.SetItem(ItemInThisSlot);
             }
         }
 
@@ -47,6 +50,10 @@ namespace RPG.Items {
         public void OnEndDrag(PointerEventData eventData) {
             transform.SetParent(_inventory.Slots[SlotIndex].transform);
             transform.position = _inventory.Slots[SlotIndex].transform.position;
+            GetComponent<CanvasGroup>().blocksRaycasts = true;
+        }
+
+        public void OnPointerUp(PointerEventData eventData) {
             GetComponent<CanvasGroup>().blocksRaycasts = true;
         }
     }
