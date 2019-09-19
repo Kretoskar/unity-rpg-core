@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using RPG.UI;
 
 namespace RPG.Items {
     public class Inventory : MonoBehaviour {
@@ -60,6 +61,8 @@ namespace RPG.Items {
             AddItem("d66d1e01-8433-4bcb-9d1a-a130031586a5");
             AddItem("d66d1e01-8433-4bcb-9d1a-a130031586a5");
             AddItem("d66d1e01-8433-4bcb-9d1a-a130031586a5");
+
+            UIController.Instance.HideOrShowInventoryUI();
         }
 
         public void AddItem(string id) {
