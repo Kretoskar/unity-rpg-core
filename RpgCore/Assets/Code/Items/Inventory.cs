@@ -57,11 +57,6 @@ namespace RPG.Items {
                 Slots[i].transform.SetParent(_slotPanel.transform);
             }
 
-            AddItem("c2ba4b92-212d-4335-9f65-89ce3ce6b26f");
-            AddItem("d66d1e01-8433-4bcb-9d1a-a130031586a5");
-            AddItem("d66d1e01-8433-4bcb-9d1a-a130031586a5");
-            AddItem("d66d1e01-8433-4bcb-9d1a-a130031586a5");
-
             UIController.Instance.HideOrShowInventoryUI();
         }
 
