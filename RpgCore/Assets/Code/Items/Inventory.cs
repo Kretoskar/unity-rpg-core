@@ -44,6 +44,10 @@ namespace RPG.Items {
 
         #endregion
 
+        private void OnEnable() {
+            print("e");
+        }
+
         private void Awake() {
             SetupSingleton();
         }
@@ -56,7 +60,6 @@ namespace RPG.Items {
                 Slots[i].GetComponent<InventorySlot>().ID = i;
                 Slots[i].transform.SetParent(_slotPanel.transform);
             }
-
             UIController.Instance.HideOrShowInventoryUI();
         }
 
@@ -81,12 +84,13 @@ namespace RPG.Items {
                         //Set sprite to item's sprite
                         itemObject.GetComponent<Image>().sprite = itemToAdd.Icon;
                         //Center it in slot
-                        itemObject.transform.position = Vector2.zero;
+                        itemObject.transform.localPosition = Vector2.zero;
                         //Set gameobject name to item name
                         itemObject.name = itemToAdd.Name;
                         //For stackable items
                         ItemData data = Slots[i].transform.GetChild(0).GetComponent<ItemData>();
                         data.Amount = 1;
+                        print(itemObject.transform.position);
                         break;
                     }
                 }
