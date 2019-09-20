@@ -5,12 +5,13 @@ using UnityEngine.EventSystems;
 
 namespace RPG.Items {
     public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerUpHandler {
+        public Inventory Inventory { get; set; }
+
         private Item _itemInThisSlot;
         private int _amount;
         private int _slotIndex;
 
         private Vector2 _dragOffset;
-        private Inventory _inventory;
         private Tooltip _tooltip;
 
         public Item ItemInThisSlot { get => _itemInThisSlot; set => _itemInThisSlot = value; }
@@ -22,7 +23,6 @@ namespace RPG.Items {
         }
 
         private void Start() {
-            _inventory = Inventory.Instance;
             _tooltip = Tooltip.Instance;
         }
 
@@ -48,8 +48,8 @@ namespace RPG.Items {
         }
 
         public void OnEndDrag(PointerEventData eventData) {
-            transform.SetParent(_inventory.Slots[SlotIndex].transform);
-            transform.position = _inventory.Slots[SlotIndex].transform.position;
+            transform.SetParent(Inventory.Slots[SlotIndex].transform);
+            transform.position = Inventory.Slots[SlotIndex].transform.position;
             GetComponent<CanvasGroup>().blocksRaycasts = true;
         }
 

@@ -7,10 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4168405092975803881}
     m_Modifications:
-    - target: {fileID: 181534, guid: 13af847dfa6dbe844ba4b7c902f98f67, type: 3}
-      propertyPath: m_Name
-      value: SM_Wep_Sword_01
-      objectReference: {fileID: 0}
     - target: {fileID: 489998, guid: 13af847dfa6dbe844ba4b7c902f98f67, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -66,6 +62,10 @@ PrefabInstance:
     - target: {fileID: 489998, guid: 13af847dfa6dbe844ba4b7c902f98f67, type: 3}
       propertyPath: m_LocalScale.z
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 181534, guid: 13af847dfa6dbe844ba4b7c902f98f67, type: 3}
+      propertyPath: m_Name
+      value: SM_Wep_Sword_01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13af847dfa6dbe844ba4b7c902f98f67, type: 3}
@@ -139,6 +139,12 @@ PrefabInstance:
     - target: {fileID: 455118424010634743, guid: bae1c0e9c4412d745807aea78eeaefcb,
         type: 3}
       propertyPath: weapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 0fe71eb7e7b40344f832c91d0600d666,
+        type: 2}
+    - target: {fileID: 455118424010634743, guid: bae1c0e9c4412d745807aea78eeaefcb,
+        type: 3}
+      propertyPath: _weapon
       value: 
       objectReference: {fileID: 11400000, guid: 0fe71eb7e7b40344f832c91d0600d666,
         type: 2}

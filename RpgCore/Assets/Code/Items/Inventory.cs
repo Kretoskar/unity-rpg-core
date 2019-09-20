@@ -8,49 +8,25 @@ using RPG.UI;
 namespace RPG.Items {
     public class Inventory : MonoBehaviour {
         [SerializeField]
-        private GameObject _inventoryPanel;
+        protected GameObject _inventoryPanel;
 
         [SerializeField]
-        private GameObject _slotPanel = null;
+        protected GameObject _slotPanel = null;
 
         [SerializeField]
-        private GameObject _inventorySlot = null;
+        protected GameObject _inventorySlot = null;
 
         [SerializeField]
-        private GameObject _inventoryItem = null;
+        protected GameObject _inventoryItem = null;
 
         [SerializeField]
-        private int _slotAmount = 24;
+        protected int _slotAmount = 24;
 
-        private int _currentlyCheckedItemIndex;
-        private ItemDatabase _itemDatabase;
+        protected int _currentlyCheckedItemIndex;
+        protected ItemDatabase _itemDatabase;
 
         public List<Item> Items = new List<Item>();
         public List<GameObject> Slots = new List<GameObject>();
-
-        #region Singleton
-
-        private static Inventory _instance;
-        public static Inventory Instance { get => _instance; set => _instance = value; }
-
-        private void SetupSingleton() {
-            if (_instance != null && _instance != this) {
-                Destroy(gameObject);
-            }
-            else {
-                _instance = this;
-            }
-        }
-
-        #endregion
-
-        private void OnEnable() {
-            print("e");
-        }
-
-        private void Awake() {
-            SetupSingleton();
-        }
 
         private void Start() {
             _itemDatabase = ItemDatabase.Instance;
@@ -58,7 +34,9 @@ namespace RPG.Items {
                 Items.Add(_itemDatabase.EmptyItem());
                 Slots.Add(Instantiate(_inventorySlot));
                 Slots[i].GetComponent<InventorySlot>().ID = i;
+                Slots[i].GetComponent<InventorySlot>().Inventory = this;
                 Slots[i].transform.SetParent(_slotPanel.transform);
+                //print(Slots[i].GetComponent<InventorySlot>().Inventory);
             }
             UIController.Instance.HideOrShowInventoryUI();
         }
@@ -67,6 +45,7 @@ namespace RPG.Items {
             Item itemToAdd = _itemDatabase.FetchItemByID(id);
             if(itemToAdd.Stackable && IsInInventory(itemToAdd)) {
                 ItemData data = Slots[_currentlyCheckedItemIndex].transform.GetChild(0).GetComponent<ItemData>();
+                data.Inventory = this;
                 data.Amount++;
                 data.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = data.Amount.ToString();
             } else {
@@ -89,6 +68,7 @@ namespace RPG.Items {
                         itemObject.name = itemToAdd.Name;
                         //For stackable items
                         ItemData data = Slots[i].transform.GetChild(0).GetComponent<ItemData>();
+                        data.Inventory = this;
                         data.Amount = 1;
                         print(itemObject.transform.position);
                         break;
@@ -102,7 +82,7 @@ namespace RPG.Items {
         /// </summary>
         /// <param name="item">item to check</param>
         /// <returns>true if item is in inventry</returns>
-        private bool IsInInventory(Item item) {
+        public bool IsInInventory(Item item) {
             for(int i = 0; i < Items.Count; i++) {
                 if (Items[i] == null)
                     continue;

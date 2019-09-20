@@ -3970,8 +3970,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4336684528950941004}
-  - component: {fileID: 7913692871103657550}
   - component: {fileID: 7134363387087095467}
+  - component: {fileID: 2336063928782352226}
   m_Layer: 0
   m_Name: InventoryController
   m_TagString: Untagged
@@ -3993,27 +3993,6 @@ Transform:
   m_Father: {fileID: 9173215650095573538}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7913692871103657550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5270417683280285552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a8851c697f1ac34b8983abebac10ee0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inventoryPanel: {fileID: 4187410545606074685}
-  _slotPanel: {fileID: 6639608002125885803}
-  _inventorySlot: {fileID: 8285027339988715377, guid: 21d0dc07913c56742bd0ef0d37e7757f,
-    type: 3}
-  _inventoryItem: {fileID: 6652108569741631352, guid: d60f7ca0d45202847a996266e5c81941,
-    type: 3}
-  _slotAmount: 24
-  Items: []
-  Slots: []
 --- !u!114 &7134363387087095467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4032,6 +4011,27 @@ MonoBehaviour:
   _rareItemNameColor: {r: 0, g: 0.23184752, b: 1, a: 0}
   _legendaryItemNameColor: {r: 1, g: 0.47070253, b: 0, a: 0}
   _descriptionColor: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 0}
+--- !u!114 &2336063928782352226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5270417683280285552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b213f0c741527aa43801f8e39a1dbcd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inventoryPanel: {fileID: 4187410545606074685}
+  _slotPanel: {fileID: 6639608002125885803}
+  _inventorySlot: {fileID: 8285027339988715377, guid: 21d0dc07913c56742bd0ef0d37e7757f,
+    type: 3}
+  _inventoryItem: {fileID: 6652108569741631352, guid: d60f7ca0d45202847a996266e5c81941,
+    type: 3}
+  _slotAmount: 24
+  Items: []
+  Slots: []
 --- !u!1 &5306305215715420070
 GameObject:
   m_ObjectHideFlags: 0

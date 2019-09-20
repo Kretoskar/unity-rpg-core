@@ -17,7 +17,7 @@ namespace RPG.Combat {
         /// </summary>
         private void OnTriggerEnter(Collider other) {
             if(other.gameObject.tag == "Player") {
-                Inventory.Instance.AddItem(_weapon.ID);
+                PlayerInventory.Instance.AddItem(_weapon.ID);
                 Destroy(gameObject);
             }
         }
