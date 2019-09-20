@@ -48,9 +48,16 @@ namespace RPG.Items {
         }
 
         public void OnEndDrag(PointerEventData eventData) {
-            transform.SetParent(Inventory.Slots[SlotIndex].transform);
-            transform.position = Inventory.Slots[SlotIndex].transform.position;
-            GetComponent<CanvasGroup>().blocksRaycasts = true;
+            if (SlotIndex >= 100) {
+                transform.SetParent(Inventory.EquipSlots[SlotIndex - 100].transform);
+                transform.position = Inventory.EquipSlots[SlotIndex - 100].transform.position;
+                GetComponent<CanvasGroup>().blocksRaycasts = true;
+            }
+            else {
+                transform.SetParent(Inventory.Slots[SlotIndex].transform);
+                transform.position = Inventory.Slots[SlotIndex].transform.position;
+                GetComponent<CanvasGroup>().blocksRaycasts = true;
+            }
         }
 
         public void OnPointerUp(PointerEventData eventData) {

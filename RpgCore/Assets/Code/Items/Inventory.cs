@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using RPG.UI;
+using System;
 
 namespace RPG.Items {
     public class Inventory : MonoBehaviour {
@@ -26,7 +27,9 @@ namespace RPG.Items {
         protected ItemDatabase _itemDatabase;
 
         public List<Item> Items = new List<Item>();
+        public List<Item> EquipItems = new List<Item>();
         public List<GameObject> Slots = new List<GameObject>();
+        public List<GameObject> EquipSlots = new List<GameObject>();
 
         private void Start() {
             _itemDatabase = ItemDatabase.Instance;
@@ -39,6 +42,7 @@ namespace RPG.Items {
                 //print(Slots[i].GetComponent<InventorySlot>().Inventory);
             }
             UIController.Instance.HideOrShowInventoryUI();
+            ExtrasInStart();
         }
 
         public void AddItem(string id) {
@@ -92,6 +96,10 @@ namespace RPG.Items {
                 }
             }
             return false;
+        }
+
+        protected virtual void ExtrasInStart() {
+            return;
         }
     }
 }
