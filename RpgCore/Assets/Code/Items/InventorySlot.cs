@@ -11,7 +11,7 @@ namespace RPG.Items {
         public void OnDrop(PointerEventData eventData) {
             ItemData droppedItem = eventData.pointerDrag.GetComponent<ItemData>();
             print(Inventory);
-            if(Inventory.Items[ID] == null || Inventory.Items[ID].ID == null) {
+            if(Inventory.Items[ID] == null) {
                 Inventory.Items[droppedItem.SlotIndex] = null;
                 Inventory.Items[ID] = droppedItem.ItemInThisSlot;
                 droppedItem.SlotIndex = ID;

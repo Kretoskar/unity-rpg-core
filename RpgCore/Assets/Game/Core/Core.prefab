@@ -581,12 +581,6 @@ PrefabInstance:
       propertyPath: _forwardProjectileTarget
       value: 
       objectReference: {fileID: 4769591270443818833}
-    - target: {fileID: 5006507974840359094, guid: f17a61a4c746213408ebb508b2d6fd88,
-        type: 3}
-      propertyPath: _defaultWeapon
-      value: 
-      objectReference: {fileID: 11400000, guid: 0fe71eb7e7b40344f832c91d0600d666,
-        type: 2}
     - target: {fileID: 6254501119305642573, guid: f17a61a4c746213408ebb508b2d6fd88,
         type: 3}
       propertyPath: _startinHealthPoints

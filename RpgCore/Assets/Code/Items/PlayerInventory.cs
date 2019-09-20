@@ -1,27 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace RPG.Items {
     public class PlayerInventory : Inventory {
-
         [SerializeField]
-        private GameObject _weaponSlot = null;
+        private List<Image> _equipSlotsReferenceImgs = new List<Image>();
 
-        [SerializeField]
-        private GameObject _secondaryWeaponSlot = null;
+        private const int _weaponEquipSlotIndex = 23;
+        public int WeaponEquipSlotIndex { get; private set; }
 
-        [SerializeField]
-        private GameObject _helmetSlot = null;
-
-        [SerializeField]
-        private GameObject _armorSlot = null;
-
-        [SerializeField]
-        private GameObject _gloveSlot = null;
-
-        [SerializeField]
-        private GameObject _bootsSlot = null;
+        private int _equipSlotAmount = 4;
+        public int EquipSlotAmount { get => _equipSlotAmount; set => _equipSlotAmount = value; }
 
         #region Singleton
 
@@ -41,23 +33,16 @@ namespace RPG.Items {
 
         private void Awake() {
             SetupSingleton();
+            WeaponEquipSlotIndex = _weaponEquipSlotIndex;
         }
 
         protected override void ExtrasInStart() {
-            _itemDatabase = ItemDatabase.Instance;
-            EquipSlots.Add(_weaponSlot);
-            EquipSlots.Add(_secondaryWeaponSlot);
-            EquipSlots.Add(_helmetSlot);
-            EquipSlots.Add(_armorSlot);
-            EquipSlots.Add(_gloveSlot);
-            EquipSlots.Add(_bootsSlot);
-            for(int i = 0; i < 100; i++) {
-                EquipItems.Add(ItemDatabase.Instance.EmptyItem());
-            }
-            for(int i = 0; i < EquipSlots.Count; i ++) {
-                EquipItems.Add(_itemDatabase.EmptyItem());
-                EquipSlots[i].GetComponent<EquipSlot>().ID = i + 100;
-                EquipSlots[i].GetComponent<EquipSlot>().Inventory = this;
+            SetupEquipSlots();
+        }
+
+        private void SetupEquipSlots() {
+            for(int i = 0; i < _equipSlotAmount; i++) {
+                Instantiate(_equipSlotsReferenceImgs[i], Slots[_slotAmount - _equipSlotAmount + i].transform);
             }
         }
     }

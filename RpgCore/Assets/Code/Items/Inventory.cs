@@ -27,22 +27,23 @@ namespace RPG.Items {
         protected ItemDatabase _itemDatabase;
 
         public List<Item> Items = new List<Item>();
-        public List<Item> EquipItems = new List<Item>();
         public List<GameObject> Slots = new List<GameObject>();
-        public List<GameObject> EquipSlots = new List<GameObject>();
 
         private void Start() {
             _itemDatabase = ItemDatabase.Instance;
-            for(int i = 0; i < _slotAmount; i++) {
+            SpawnSlots();
+            UIController.Instance.HideOrShowInventoryUI();
+            ExtrasInStart();
+        }
+
+        private void SpawnSlots() {
+            for (int i = 0; i < _slotAmount; i++) {
                 Items.Add(_itemDatabase.EmptyItem());
                 Slots.Add(Instantiate(_inventorySlot));
                 Slots[i].GetComponent<InventorySlot>().ID = i;
                 Slots[i].GetComponent<InventorySlot>().Inventory = this;
                 Slots[i].transform.SetParent(_slotPanel.transform);
-                //print(Slots[i].GetComponent<InventorySlot>().Inventory);
             }
-            UIController.Instance.HideOrShowInventoryUI();
-            ExtrasInStart();
         }
 
         public void AddItem(string id) {

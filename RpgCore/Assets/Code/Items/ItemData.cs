@@ -1,11 +1,14 @@
-﻿using System.Collections;
+﻿using RPG.Combat;
+using RPG.Control;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace RPG.Items {
     public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerUpHandler {
-        public Inventory Inventory { get; set; }
+
+        private const int _equipItemsStartIndex = 20;
 
         private Item _itemInThisSlot;
         private int _amount;
@@ -14,6 +17,7 @@ namespace RPG.Items {
         private Vector2 _dragOffset;
         private Tooltip _tooltip;
 
+        public Inventory Inventory { get; set; }
         public Item ItemInThisSlot { get => _itemInThisSlot; set => _itemInThisSlot = value; }
         public int Amount { get => _amount; set => _amount = value; }
         public int SlotIndex { get => _slotIndex; set => _slotIndex = value; }
@@ -48,15 +52,13 @@ namespace RPG.Items {
         }
 
         public void OnEndDrag(PointerEventData eventData) {
-            if (SlotIndex >= 100) {
-                transform.SetParent(Inventory.EquipSlots[SlotIndex - 100].transform);
-                transform.position = Inventory.EquipSlots[SlotIndex - 100].transform.position;
-                GetComponent<CanvasGroup>().blocksRaycasts = true;
-            }
-            else {
-                transform.SetParent(Inventory.Slots[SlotIndex].transform);
-                transform.position = Inventory.Slots[SlotIndex].transform.position;
-                GetComponent<CanvasGroup>().blocksRaycasts = true;
+            transform.SetParent(Inventory.Slots[SlotIndex].transform);
+            transform.position = Inventory.Slots[SlotIndex].transform.position;
+            GetComponent<CanvasGroup>().blocksRaycasts = true;
+            if (SlotIndex >= _equipItemsStartIndex) {
+                if (SlotIndex == PlayerInventory.Instance.WeaponEquipSlotIndex) {
+                    PlayerController.Instance.GetComponent<Fighter>().EquipWeapon((Weapon)ItemInThisSlot);
+                }
             }
         }
 
