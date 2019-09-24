@@ -36,6 +36,9 @@ namespace RPG.Items {
                 transform.position = eventData.position - _dragOffset;
                 GetComponent<CanvasGroup>().blocksRaycasts = false;
                 _tooltip.SetItem(ItemInThisSlot);
+                if (SlotIndex >= _equipItemsStartIndex) {
+                    Inventory.Slots[SlotIndex].GetComponent<EquipSlot>().IsEquiped = true;
+                }
             }
         }
 
@@ -56,6 +59,7 @@ namespace RPG.Items {
             transform.position = Inventory.Slots[SlotIndex].transform.position;
             GetComponent<CanvasGroup>().blocksRaycasts = true;
             if (SlotIndex >= _equipItemsStartIndex) {
+                Inventory.Slots[SlotIndex].GetComponent<EquipSlot>().IsEquiped = true;
                 if (SlotIndex == PlayerInventory.Instance.WeaponEquipSlotIndex) {
                     PlayerController.Instance.GetComponent<Fighter>().EquipWeapon((Weapon)ItemInThisSlot);
                 }

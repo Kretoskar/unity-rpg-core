@@ -18,6 +18,7 @@ namespace RPG.Items {
             } else if(droppedItem.SlotIndex != ID) {
                 //Swap items
                 Transform item = transform.GetChild(0);
+                print(item.GetComponent<ItemData>());
                 item.GetComponent<ItemData>().SlotIndex = droppedItem.SlotIndex;
                 item.transform.SetParent(Inventory.Slots[droppedItem.SlotIndex].transform);
                 item.transform.position = Inventory.Slots[droppedItem.SlotIndex].transform.position;

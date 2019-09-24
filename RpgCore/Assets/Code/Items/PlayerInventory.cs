@@ -43,6 +43,7 @@ namespace RPG.Items {
         private void SetupEquipSlots() {
             for(int i = 0; i < _equipSlotAmount; i++) {
                 Instantiate(_equipSlotsReferenceImgs[i], Slots[_slotAmount - _equipSlotAmount + i].transform);
+                Slots[_slotAmount - _equipSlotAmount + i].AddComponent<EquipSlot>();
             }
         }
     }
