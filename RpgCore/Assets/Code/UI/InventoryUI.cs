@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using RPG.Stats;
 using RPG.Combat;
 using RPG.Control;
+using RPG.Items;
 
 namespace RPG.UI {
     public class InventoryUI : MonoBehaviour {
@@ -26,6 +27,11 @@ namespace RPG.UI {
             _playerStats.DurabilityChanged += UpdateUI;
             _playerStats.StrengthChanged += UpdateUI;
             _playerStats.PowerChanged += UpdateUI;
+
+            foreach(ItemData itemData in ItemData.ItemDatas) {
+                print(itemData);
+                itemData.WeaponEquiped += UpdateUI;
+            }
         }
 
         private void UpdateUI() {

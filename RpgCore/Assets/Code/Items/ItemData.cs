@@ -1,5 +1,6 @@
 ﻿using RPG.Combat;
 using RPG.Control;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,13 +18,17 @@ namespace RPG.Items {
         private Vector2 _dragOffset;
         private Tooltip _tooltip;
 
+        public event Action WeaponEquiped; 
+
         public Inventory Inventory { get; set; }
         public Item ItemInThisSlot { get => _itemInThisSlot; set => _itemInThisSlot = value; }
         public int Amount { get => _amount; set => _amount = value; }
         public int SlotIndex { get => _slotIndex; set => _slotIndex = value; }
+        public static List<ItemData> ItemDatas = new List<ItemData>();
 
         private void Awake() {
             _amount = 0;
+            ItemDatas.Add(this);
         }
 
         private void Start() {
@@ -62,6 +67,7 @@ namespace RPG.Items {
                 Inventory.Slots[SlotIndex].GetComponent<EquipSlot>().IsEquiped = true;
                 if (SlotIndex == PlayerInventory.Instance.WeaponEquipSlotIndex) {
                     PlayerController.Instance.GetComponent<Fighter>().EquipWeapon((Weapon)ItemInThisSlot);
+                    WeaponEquiped?.Invoke();
                 }
             }
         }

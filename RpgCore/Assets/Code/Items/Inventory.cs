@@ -75,7 +75,6 @@ namespace RPG.Items {
                         ItemData data = Slots[i].transform.GetChild(0).GetComponent<ItemData>();
                         data.Inventory = this;
                         data.Amount = 1;
-                        print(itemObject.transform.position);
                         break;
                     }
                 }
