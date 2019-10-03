@@ -45,6 +45,7 @@ namespace RPG.Combat {
         public bool IsAttacking { get; private set; }
         public float TimeSinceLastAttack { get => _timeSinceLastAttack; }
         public float TimeBetweenAttacks { get => _timeBetweenAttacks; }
+        public Weapon CurrentWeapon { get => _currentWeapon; }
 
         #region MonoBehaviour Methods
 
